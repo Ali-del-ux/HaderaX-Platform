@@ -42,3 +42,5 @@ brand_audit_report.txt
 Thumbs.db
 .vscode/
 .idea/
+
+.vercel
