@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>حاضراكس | HaderaX — جامعة الحاضرة</title>
+
+    <link rel="icon" type="image/svg+xml" href="assets/branding/favicon.svg">
+    <link rel="alternate icon" href="assets/branding/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/branding/apple-touch-icon.png">
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="assets/js/tailwind-config.js"></script>
+
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800;900&family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Outfit:wght@600;800;900&family=JetBrains+Mono:wght@400&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="text-on-surface antialiased min-h-screen flex flex-col relative bg-surface">
+
+    <header class="bg-surface-container-lowest shadow-sm sticky top-0 z-40 border-b border-border-subtle">
+        <div
+            class="relative flex items-center justify-between w-full px-4 md:px-margin-desktop max-w-max-width mx-auto h-20">
+
+            <div class="flex items-center gap-3">
+                <!-- زر القائمة الجانبية للملف الشخصي (مخفي افتراضياً ويظهر فقط عند وجود جلسة نشطة) -->
+                <button id="menu-btn"
+                    class="hidden p-2 text-on-surface hover:bg-surface-alt rounded-lg transition-colors flex items-center gap-2 group">
+                    <span
+                        class="material-symbols-outlined text-[28px] text-secondary group-hover:text-primary-container transition-colors">menu</span>
+                </button>
+
+                <!-- زر تسجيل الدخول للزوار العاديين (مخفي افتراضياً ويظهر عند عدم وجود جلسة نشطة) -->
+                <a id="login-btn" href="login.html"
+                    class="hidden flex items-center gap-2 px-4 py-2 bg-primary-container text-white rounded-full font-bold text-xs sm:text-sm hover:bg-primary transition-all duration-300 shadow-sm border border-primary-container/20 group animate-scale-in">
+                    <span class="material-symbols-outlined text-[18px]">login</span>
+                    <span data-i18n="login_btn_text">تسجيل الدخول</span>
+                </a>
+
+                <!-- زر لوحة التحكم للمشرفين (مخفي افتراضياً ويتم إظهاره برمجياً للمصرح لهم فقط) -->
+                <a id="admin-portal-btn" href="admin_portal.html"
+                    class="hidden flex items-center gap-2 px-4 py-2 bg-primary-container text-white rounded-full font-bold text-xs sm:text-sm hover:bg-primary transition-all duration-300 shadow-sm border border-primary-container/20 group animate-scale-in">
+                    <span class="material-symbols-outlined text-[18px] group-hover:rotate-45 transition-transform">dashboard</span>
+                    <span data-i18n="admin_portal_btn_text">لوحة الإشراف</span>
+                </a>
+            </div>
+
+            <nav class="hidden md:flex gap-8 absolute left-1/2 transform -translate-x-1/2 h-full items-center">
+                <a class="relative text-primary-container font-bold text-[16px] transition-colors h-full flex items-center after:absolute after:bottom-0 after:left-0 after:w-full after:h-1 after:bg-primary-container after:rounded-t-md"
+                    href="#" data-i18n="nav_home">الرئيسية</a>
+
+                <a class="relative text-secondary hover:text-primary-container font-semibold text-[16px] transition-colors h-full flex items-center after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-1 after:bg-primary-container after:transition-all hover:after:w-full hover:after:left-0 after:rounded-t-md"
+                    href="#courses" data-i18n="nav_courses">الدورات</a>
+                <a class="relative text-secondary hover:text-primary-container font-semibold text-[16px] transition-colors h-full flex items-center after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-1 after:bg-primary-container after:transition-all hover:after:w-full hover:after:left-0 after:rounded-t-md"
+                    href="#about" data-i18n="nav_about">عن المنصة</a>
+                <a class="relative text-secondary hover:text-primary-container font-semibold text-[16px] transition-colors h-full flex items-center after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-1 after:bg-primary-container after:transition-all hover:after:w-full hover:after:left-0 after:rounded-t-md"
+                    href="#contact" data-i18n="nav_contact">تواصل معنا</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <span class="text-[22px] font-extrabold text-on-surface hidden sm:block tracking-tight" data-i18n="brand">حاضر<span class="text-secondary">إكس</span></span>
+                <img alt="شعار حاضراكس" class="w-11 h-11 object-contain transition-transform hover:scale-105"
+                    src="assets/branding/haderax-icon.svg">
+            </div>
+
+        </div>
+    </header>
+
+    <main class="flex-grow">
+
+        <section class="py-20 md:py-28 px-4 md:px-margin-desktop max-w-max-width mx-auto text-center">
+            <div
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-crimson-muted text-primary-container font-bold text-sm mb-6 border border-primary-container/20">
+                <span class="material-symbols-outlined text-[18px]">code</span>
+                <span data-i18n="hero_tag">جامعة الحاضرة</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold text-on-surface mb-6 leading-tight" data-i18n="hero_welcome">مرحباً بك في منصة حاضراكس</h1>
+            <p class="text-lg text-secondary max-w-2xl mx-auto leading-relaxed" data-i18n="hero_desc">نصنع المستقبل ونقود الابتكار الرقمي من خلال تمكين الطلاب بأحدث
+                التقنيات ومهارات البرمجة المتقدمة في بيئة أكاديمية محفزة وتطبيق عملي مستمر.</p>
+        </section>
+
+        <section class="py-16 bg-surface-alt border-y border-border-subtle">
+            <div class="max-w-max-width mx-auto px-4 md:px-margin-desktop">
+
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-2xl font-bold text-on-surface flex items-center gap-2"><span
+                            class="material-symbols-outlined text-primary-container">campaign</span> <span data-i18n="latest_news">أخر الأخبار</span></h2>
+                    <div class="flex gap-2">
+                        <button
+                            class="w-10 h-10 rounded-full bg-white border border-border-subtle flex items-center justify-center text-secondary hover:border-primary-container hover:text-primary-container transition-colors shadow-sm">
+                            <span class="material-symbols-outlined">chevron_right</span>
+                        </button>
+                        <button
+                            class="w-10 h-10 rounded-full bg-white border border-border-subtle flex items-center justify-center text-secondary hover:border-primary-container hover:text-primary-container transition-colors shadow-sm">
+                            <span class="material-symbols-outlined">chevron_left</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="news-carousel-container" class="flex gap-6 overflow-x-auto pb-6 pt-2 carousel-container">
+                    <!-- الأخبار الحية المحدثة يتم حقنها تلقائياً بالكامل هنا عبر home.js -->
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 relative overflow-hidden" id="about">
+            <div class="max-w-max-width mx-auto px-4 md:px-margin-desktop">
+                <h2 class="text-3xl font-bold text-on-surface text-center mb-16" data-i18n="about_title">رؤية حاضراكس ورسالتها</h2>
+
+                <div
+                    class="bg-white rounded-[40px] soft-shadow border border-border-subtle p-8 md:p-12 relative max-w-4xl mx-auto flex flex-col md:flex-row gap-8 items-start">
+
+                    <div class="flex-1 text-center md:text-right md:border-l border-border-subtle md:pl-8 flex flex-col gap-6 w-full">
+                        <div>
+                            <h3 class="text-xl font-bold text-primary-container mb-3 flex items-center gap-2 justify-center md:justify-start">
+                                <span class="material-symbols-outlined text-[22px]">visibility</span>
+                                <span data-i18n="vision_title">الرؤية</span>
+                            </h3>
+                            <p class="text-secondary leading-relaxed text-[15px]" data-i18n="vision_desc">
+                                أن تكون منصة وفريق <strong class="text-on-surface font-extrabold font-inter">HaderaX Devs</strong> الصرح الطلابي الرائد في مجال البرمجة التنافسية وتطوير البرمجيات على مستوى ليبيا والمنطقة، وأن نضع جامعة الحاضرة في صدارة التميز التقني.
+                            </p>
+                        </div>
+                        <div class="border-t border-slate-100 pt-5">
+                            <h3 class="text-xl font-bold text-primary-container mb-3 flex items-center gap-2 justify-center md:justify-start">
+                                <span class="material-symbols-outlined text-[22px]">track_changes</span>
+                                <span data-i18n="mission_title">الرسالة والهدف الأساسي</span>
+                            </h3>
+                            <p class="text-secondary leading-relaxed text-[15px]" data-i18n="mission_desc">
+                                بناء وتدريب فرق برمجية وتقنية على أعلى مستوى لتمثيل جامعة الحاضرة تحت راية <strong class="text-on-surface font-extrabold font-inter">HaderaX</strong>، وتحقيق الفوز في المسابقة الليبية للبرمجة (LCPC) والمنافسات الإقليمية والدولية وتطوير حلول حقيقية تخدم الوطن.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex-1 text-center md:text-right w-full">
+                        <h3 class="text-xl font-bold text-primary-container mb-4 flex items-center gap-2 justify-center md:justify-start">
+                            <span class="material-symbols-outlined text-[22px]">military_tech</span>
+                            <span data-i18n="goals_title">الأهداف الاستراتيجية</span>
+                        </h3>
+                        <ul class="space-y-3.5 text-secondary text-[15px] leading-relaxed text-right">
+                            <li class="flex items-start gap-2.5 justify-start">
+                                <span class="material-symbols-outlined text-primary-container text-[18px] mt-1 flex-shrink-0">task_alt</span>
+                                <span data-i18n="goal_1">خلق مجتمع برمجي حيوي وتعاوني لصقل مهارات الطلاب.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5 justify-start">
+                                <span class="material-symbols-outlined text-primary-container text-[18px] mt-1 flex-shrink-0">task_alt</span>
+                                <span data-i18n="goal_2">تطوير مهارات حل المشكلات والتفكير الخوارزمي لجميع الأعضاء.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5 justify-start">
+                                <span class="material-symbols-outlined text-primary-container text-[18px] mt-1 flex-shrink-0">task_alt</span>
+                                <span data-i18n="goal_3">تنفيذ مشاريع برمجية جماعية تخدم الجامعة والمجتمع.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5 justify-start">
+                                <span class="material-symbols-outlined text-primary-container text-[18px] mt-1 flex-shrink-0">task_alt</span>
+                                <span data-i18n="goal_4">توفير مسارات تعليمية تطبيقية في مجالات الويب وتطبيقات الهاتف والتقنيات الناشئة.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-surface-alt" id="courses">
+            <div class="max-w-max-width mx-auto px-4 md:px-margin-desktop">
+                <h2 class="text-3xl font-bold text-on-surface text-center mb-12 flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-primary-container text-3xl">menu_book</span>
+                    <span data-i18n="courses_title">الدورات والمسارات التدريبية المتاحة في حاضراكس</span>
+                </h2>
+
+                <div id="courses-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- يتم استيراد الكورسات من قاعدة البيانات وتصييرها حياً هنا عبر home.js -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-inverse-surface pt-16 pb-8 border-t-4 border-primary-container" id="contact">
+        <div class="max-w-max-width mx-auto px-4 md:px-margin-desktop">
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-right mb-12">
+
+                <div class="flex flex-col items-center md:items-start">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img alt="حاضراكس" class="w-12 h-12 object-contain rounded-xl p-1 bg-white/5 border border-white/10"
+                            src="assets/branding/haderax-logo-transparent.svg">
+                        <span class="text-2xl font-bold text-white tracking-tight" data-i18n="brand">حاضر<span class="text-secondary">إكس</span></span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed max-w-xs" data-i18n="brand_footer">
+                        المنصة التقنية الرائدة لطلاب جامعة الحاضرة لتطوير المهارات البرمجية وبناء حلول رقمية متقدمة ومشاريع ريادية تخدم المجتمع.
+                    </p>
+                </div>
+
+                <div class="flex flex-col items-center md:items-start">
+                    <h3 class="text-lg font-bold text-white mb-6" data-i18n="quick_links">روابط سريعة</h3>
+                    <ul class="space-y-3 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-primary-fixed-dim transition-colors" data-i18n="nav_home">الرئيسية</a></li>
+                        <li><a href="#courses" class="hover:text-primary-fixed-dim transition-colors" data-i18n="nav_courses">الدورات
+                                المتاحة</a></li>
+                    </ul>
+                </div>
+
+                <div class="flex flex-col items-center md:items-start">
+                    <h3 class="text-lg font-bold text-white mb-6" data-i18n="contact_info">بيانات التواصل</h3>
+                    <ul class="space-y-4 text-gray-400">
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary-container">mail</span>
+                            <a class="hover:text-white transition-colors font-inter text-sm" dir="ltr"
+                                href="mailto:contact@haderax.edu.ly">contact@haderax.edu.ly</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary-container">call</span>
+                            <a class="hover:text-white transition-colors font-inter text-sm" dir="ltr"
+                                href="tel:+218910000000">+218 91 000 0000</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary-container">location_on</span>
+                            <span class="text-sm" data-i18n="university_location">جامعة الحاضرة، طرابلس</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-gray-500" data-i18n="copyright">
+                    © 2026 منصة حاضراكس — جامعة الحاضرة. جميع الحقوق محفوظة.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#"
+                        class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-primary-container hover:text-white transition-all"><span
+                            class="material-symbols-outlined text-[18px]">share</span></a>
+                    <a href="#"
+                        class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-primary-container hover:text-white transition-all"><span
+                            class="material-symbols-outlined text-[18px]">language</span></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="drawer-backdrop" aria-hidden="true"
+        class="fixed inset-0 bg-inverse-surface/40 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300">
+    </div>
+
+    <aside id="side-drawer"
+        class="fixed top-0 bottom-0 right-0 w-full sm:w-[400px] max-w-[90vw] bg-surface-container-lowest shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col border-l border-border-subtle">
+
+        <header class="p-6 border-b border-border-subtle bg-surface-alt animate-scale-in">
+            <div class="flex justify-between items-start mb-6">
+                <button id="close-drawer" aria-label="Close profile"
+                    class="text-secondary hover:text-primary-container transition-colors p-2 rounded-full hover:bg-gray-200">
+                    <span class="material-symbols-outlined text-[28px]">close</span>
+                </button>
+                <div class="flex flex-col items-end gap-3">
+                    <!-- معرف فريد id="drawer-user-role" لتحديث المسمى الوظيفي للمستخدم حياً بوقاية الـ XSS -->
+                    <span id="drawer-user-role" data-i18n="loading_role"
+                        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-primary-container text-white shadow-sm">
+                        تحميل الرتبة...
+                    </span>
+                </div>
+            </div>
+            <div class="text-right mt-2">
+                <!-- معرف فريد id="drawer-user-name" لتحديث الاسم حياً -->
+                <h2 id="drawer-user-name" class="text-2xl font-bold text-on-surface mb-1" data-i18n="loading_name">جاري التحميل...</h2>
+                <!-- معرف فريد id="drawer-user-id" لتحديث رقم القيد حياً -->
+                <p id="drawer-user-id" class="text-sm text-secondary font-code-snippet" dir="ltr" data-i18n="student_id_prefix">ID: ------</p>
+            </div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto drawer-scroll p-6 flex flex-col gap-8 bg-white">
+
+            <section>
+                <h3 class="text-sm text-secondary mb-4 uppercase tracking-wider font-bold" data-i18n="quick_actions">إجراءات سريعة</h3>
+                <ul class="space-y-3">
+                    <li>
+                        <button id="change-lang-btn"
+                            class="w-full flex items-center gap-3 p-4 rounded-xl border border-border-subtle text-right text-on-surface hover:border-primary-container hover:text-primary-container transition-all group">
+                            <span
+                                class="material-symbols-outlined text-secondary group-hover:text-primary-container transition-colors">translate</span>
+                            <span class="font-semibold flex-1" data-i18n="change_lang">تغيير لغة العرض</span>
+                            <span class="material-symbols-outlined text-sm text-border-subtle">chevron_left</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button id="toggle-password-btn"
+                            class="w-full flex items-center gap-3 p-4 rounded-xl border border-border-subtle text-right text-on-surface hover:border-primary-container hover:text-primary-container transition-all group">
+                            <span id="lock-icon"
+                                class="material-symbols-outlined text-secondary group-hover:text-primary-container transition-colors">lock_reset</span>
+                            <span class="font-semibold flex-1" data-i18n="change_password">تغيير كلمة المرور</span>
+                            <span id="password-chevron"
+                                class="material-symbols-outlined text-sm text-border-subtle transition-transform duration-300">expand_more</span>
+                        </button>
+                    </li>
+                    <!-- زر تسجيل الخروج القرمزي الفخم (Logout Button Integration) -->
+                    <li>
+                        <button id="drawer-logout-btn"
+                            class="w-full flex items-center gap-3 p-4 rounded-xl border border-red-200 bg-red-50 hover:bg-red-105 text-right text-red-600 hover:text-red-750 transition-all group">
+                            <span
+                                class="material-symbols-outlined text-red-500 group-hover:text-red-600 transition-colors">logout</span>
+                            <span class="font-bold flex-grow" data-i18n="logout">تسجيل الخروج من الحساب</span>
+                            <span class="material-symbols-outlined text-sm text-red-300">chevron_left</span>
+                        </button>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="password-form-section"
+                class="hidden bg-surface-alt rounded-2xl border border-border-subtle p-6 transition-all duration-300">
+                <form id="drawer-change-password-form" class="flex flex-col gap-5">
+
+                    <div class="flex flex-col gap-2 text-right">
+                        <label class="text-sm font-semibold text-secondary" for="old_password" data-i18n="old_password_label">كلمة المرور القديمة</label>
+                        <div class="relative">
+                            <input
+                                class="w-full bg-white border border-border-subtle rounded-lg px-4 py-3 text-on-surface font-code-snippet focus:outline-none focus:ring-2 focus:ring-primary-container/30 focus:border-primary-container transition-all text-left"
+                                dir="ltr" id="old_password" type="password" placeholder="••••••••" data-i18n-placeholder="old_password_placeholder" required>
+                            <!-- أيقونة كشف العين الأولى -->
+                            <span
+                                class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-lg cursor-pointer hover:text-on-surface visibility-toggle-btn"
+                                data-target="old_password" title="إظهار كلمة المرور">visibility_off</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-2 text-right">
+                        <label class="text-sm font-semibold text-secondary" for="new_password" data-i18n="new_password_label">كلمة المرور الجديدة</label>
+                        <div class="relative">
+                            <input
+                                class="w-full bg-white border border-border-subtle rounded-lg px-4 py-3 text-on-surface font-code-snippet focus:outline-none focus:ring-2 focus:ring-primary-container/30 focus:border-primary-container transition-all text-left"
+                                dir="ltr" id="new_password" type="password" placeholder="••••••••" data-i18n-placeholder="new_password_placeholder" required>
+                            <!-- أيقونة كشف العين الثانية -->
+                            <span
+                                class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-lg cursor-pointer hover:text-on-surface visibility-toggle-btn"
+                                data-target="new_password">visibility_off</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-2 text-right">
+                        <label class="text-sm font-semibold text-secondary" for="confirm_password" data-i18n="confirm_password_label">تأكيد كلمة المرور</label>
+                        <div class="relative">
+                            <input
+                                class="w-full bg-white border border-border-subtle rounded-lg px-4 py-3 text-on-surface font-code-snippet focus:outline-none focus:ring-2 focus:ring-primary-container/30 focus:border-primary-container transition-all text-left"
+                                dir="ltr" id="confirm_password" type="password" placeholder="••••••••" data-i18n-placeholder="confirm_password_placeholder" required>
+                            <!-- أيقونة كشف العين الثالثة -->
+                            <span
+                                class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-lg cursor-pointer hover:text-on-surface visibility-toggle-btn"
+                                data-target="confirm_password">visibility_off</span>
+                        </div>
+                    </div>
+
+                    <!-- حاوية الرسائل والحالة التفاعلية التابعة لتعديل كلمة المرور -->
+                    <div id="drawer-password-message" class="hidden text-xs text-right font-bold p-3 rounded-lg border animate-scale-in"></div>
+
+                    <button
+                        class="mt-2 w-full bg-primary-container text-white py-3.5 px-6 rounded-lg font-bold text-[16px] hover:bg-primary transition-colors shadow-md active:translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-container"
+                        type="submit" data-i18n="update_password_btn">
+                        تحديث كلمة المرور
+                    </button>
+                </form>
+            </section>
+        </div>
+
+        <footer class="p-6 border-t border-border-subtle bg-surface-alt text-center">
+            <p class="text-sm text-secondary mb-2 font-medium">ملاحظة: واجهت مشكلة؟ تواصل مع الدعم الفني لحاضراكس</p>
+            <a class="text-[15px] font-bold text-primary-container hover:text-primary transition-colors font-inter flex items-center justify-center gap-2"
+                dir="ltr" href="mailto:support@haderax.edu.ly">
+                <span class="material-symbols-outlined text-[18px]">support_agent</span>
+                support@haderax.edu.ly
+            </a>
+        </footer>
+    </aside>
+
+    <script src="assets/js/translations.js"></script>
+    <script src="assets/js/main.js" defer></script>
+    <script src="assets/js/home.js" defer></script>
+</body>
+
+</html>

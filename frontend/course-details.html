@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>تفاصيل الكورس — حاضراكس | HaderaX</title>
+    
+    <link rel="icon" type="image/svg+xml" href="assets/branding/favicon.svg">
+    <link rel="alternate icon" href="assets/branding/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/branding/apple-touch-icon.png">
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="assets/js/tailwind-config.js"></script>
+    
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800;900&family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Outfit:wght@600;800;900&family=JetBrains+Mono:wght@400&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="text-on-surface antialiased min-h-screen flex flex-col bg-surface-alt">
+
+    <header class="bg-surface-container-lowest border-b border-border-subtle sticky top-0 z-50 shadow-sm">
+        <div class="flex items-center justify-between w-full px-4 md:px-16 py-4 max-w-[1280px] mx-auto">
+            <div class="flex items-center gap-3">
+                <img src="assets/branding/haderax-icon.svg" alt="HaderaX" class="w-9 h-9 object-contain">
+                <h1 class="text-xl md:text-2xl font-bold text-on-surface">تفاصيل الكورس — حاضراكس</h1>
+            </div>
+            
+            <a href="index.html" class="flex items-center gap-2 text-primary-container hover:text-primary transition-colors font-bold bg-white border border-border-subtle px-5 py-2 rounded-full hover:border-primary-container shadow-sm">
+                <span class="hidden sm:inline">الرجوع للرئيسية</span>
+                <span class="material-symbols-outlined text-[20px] transform rotate-180">arrow_back</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-[1280px] mx-auto px-4 md:px-16 py-8 md:py-12 w-full flex flex-col gap-10">
+        
+        <div class="flex items-center justify-between pb-2">
+            <h2 id="course-title-header" class="text-3xl font-bold text-on-surface">جاري جلب الكورس...</h2>
+        </div>
+
+        <section class="bg-surface-container-lowest rounded-2xl border border-border-subtle card-shadow overflow-hidden relative">
+            <div class="p-6 md:p-8 relative z-10">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="material-symbols-outlined text-primary-container text-3xl">info</span>
+                    <h3 class="text-2xl font-bold text-primary-container">وصف وتفاصيل الدورة</h3>
+                </div>
+                <p id="course-desc-paragraph" class="text-lg text-secondary mb-2 leading-relaxed max-w-4xl">
+                    جاري تحميل بيانات وتفاصيل الدورة التدريبية من الخادم...
+                </p>
+            </div>
+        </section>
+
+        <div id="course-sections-grid" class="flex flex-col gap-12">
+            <!-- الفصول التعليمية والمواد والمحاضرات يتم حقنها ديناميكياً هنا عبر course_details.js -->
+        </div>
+    </main>
+
+    <script src="assets/js/course_details.js" defer></script>
+</body>
+</html>

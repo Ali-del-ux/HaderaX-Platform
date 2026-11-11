@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="fav_bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="50%" stop-color="#080D1A"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+
+    <linearGradient id="fav_border" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.8"/>
+      <stop offset="50%" stop-color="#F59E0B" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#1E293B" stop-opacity="0.3"/>
+    </linearGradient>
+
+    <radialGradient id="fav_aura" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#0EA5E9" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#080D1A" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="fav_skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="50%" stop-color="#0EA5E9"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+
+    <linearGradient id="fav_leftWall" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="30%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+
+    <linearGradient id="fav_rightWall" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="60%" stop-color="#B45309"/>
+      <stop offset="100%" stop-color="#78350F"/>
+    </linearGradient>
+
+    <linearGradient id="fav_prow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FEF08A"/>
+      <stop offset="50%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Squircle rounded background -->
+  <rect x="8" y="8" width="496" height="496" rx="112" ry="112" fill="url(#fav_bg)" stroke="url(#fav_border)" stroke-width="4"/>
+  <rect x="8" y="8" width="496" height="496" rx="112" ry="112" fill="url(#fav_aura)"/>
+
+  <!-- Centered Citadel Mark -->
+  <g transform="translate(256, 290)">
+    <!-- Segmented Dome Fan -->
+    <path d="M -160 0 A 160 160 0 0 1 -115 -112 L -72 -70 A 100 100 0 0 0 -100 0 Z" fill="#0284C7" opacity="0.85"/>
+    <path d="M -105 -121 A 160 160 0 0 1 0 -160 L 0 -100 A 100 100 0 0 0 -66 -76 Z" fill="url(#fav_skyGrad)"/>
+    <path d="M 0 -160 A 160 160 0 0 1 105 -121 L 66 -76 A 100 100 0 0 0 0 -100 Z" fill="url(#fav_skyGrad)"/>
+    <path d="M 115 -112 A 160 160 0 0 1 160 0 L 100 0 A 100 100 0 0 0 72 -70 Z" fill="#0284C7" opacity="0.85"/>
+
+    <!-- Orbital Gold Ray -->
+    <path d="M -168 0 A 168 168 0 0 1 168 0" fill="none" stroke="#FBBF24" stroke-width="2.5" stroke-dasharray="6 8" opacity="0.85"/>
+
+    <!-- Dynamic Base Ribbon -->
+    <path d="M -140 18 Q 0 50 140 18 Q 0 38 -140 18 Z" fill="#F59E0B"/>
+    <path d="M -140 18 Q 0 50 140 18" fill="none" stroke="#FEF08A" stroke-width="2"/>
+
+    <!-- Left Fortress Face with Battlements -->
+    <path d="M 0 -138 
+             L -18 -134 L -18 -122 L -38 -118 L -38 -106 L -58 -102 L -58 -90 L -78 -86 L -78 -74 L -100 -70 L -115 -66
+             L -125 -64 L -125 0 L 0 26 Z" 
+          fill="url(#fav_leftWall)"/>
+
+    <!-- Right Fortress Face with Battlements -->
+    <path d="M 0 -138 
+             L 18 -134 L 18 -122 L 38 -118 L 38 -106 L 58 -102 L 58 -90 L 78 -86 L 78 -74 L 100 -70 L 115 -66
+             L 125 -64 L 125 0 L 0 26 Z" 
+          fill="url(#fav_rightWall)"/>
+
+    <!-- Central Ridge -->
+    <line x1="0" y1="-140" x2="0" y2="26" stroke="url(#fav_prow)" stroke-width="3"/>
+
+    <!-- Arches -->
+    <g transform="translate(-80, -48) skewY(12)">
+      <rect x="0" y="0" width="20" height="44" rx="10" fill="#080D1A"/>
+      <ellipse cx="10" cy="11" rx="6" ry="7" fill="#38BDF8"/>
+    </g>
+    <g transform="translate(-40, -56) skewY(12)">
+      <rect x="0" y="0" width="24" height="54" rx="12" fill="#080D1A"/>
+      <ellipse cx="12" cy="13" rx="8" ry="9" fill="#38BDF8"/>
+      <line x1="4" y1="18" x2="20" y2="18" stroke="#FFFFFF" stroke-width="1.5" opacity="0.6"/>
+    </g>
+
+    <g transform="translate(16, -56) skewY(-12)">
+      <rect x="0" y="0" width="24" height="54" rx="12" fill="#080D1A"/>
+      <ellipse cx="12" cy="13" rx="8" ry="9" fill="#0EA5E9"/>
+      <line x1="4" y1="18" x2="20" y2="18" stroke="#FFFFFF" stroke-width="1.5" opacity="0.5"/>
+    </g>
+    <g transform="translate(60, -48) skewY(-12)">
+      <rect x="0" y="0" width="20" height="44" rx="10" fill="#080D1A"/>
+      <ellipse cx="10" cy="11" rx="6" ry="7" fill="#0EA5E9"/>
+    </g>
+
+    <!-- Top Star Spark -->
+    <circle cx="0" cy="-150" r="3" fill="#FFFFFF"/>
+    <polygon points="0,-160 2,-152 10,-150 2,-148 0,-140 -2,-148 -10,-150 -2,-152" fill="#FDE047"/>
+  </g>
+
+  <!-- Subtitle Text -->
+  <text x="256" y="445" text-anchor="middle" font-family="'Outfit', 'Montserrat', sans-serif" font-size="32" font-weight="900" fill="#FFFFFF" letter-spacing="8">
+    HADERA <tspan fill="#38BDF8">X</tspan>
+  </text>
+</svg>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>تسجيل الدخول — حاضراكس | HaderaX</title>
+
+    <link rel="icon" type="image/svg+xml" href="assets/branding/favicon.svg">
+    <link rel="alternate icon" href="assets/branding/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/branding/apple-touch-icon.png">
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="assets/js/tailwind-config.js"></script>
+
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800;900&family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Outfit:wght@600;800;900&family=JetBrains+Mono:wght@400&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="bg-surface-container-lowest h-screen w-full flex flex-col md:flex-row overflow-hidden text-on-surface">
+
+    <!-- Right Column (Login Form) -->
+    <div
+        class="w-full md:w-1/2 h-full flex items-center justify-center bg-surface-container-lowest p-8 lg:p-24 overflow-y-auto">
+        <div class="w-full max-w-md space-y-8">
+            <div class="text-center md:text-right">
+                <h1 class="font-headline-lg text-headline-lg text-on-background mb-2">مرحباً بك مجدداً 👋</h1>
+                <p class="font-body-md text-body-md text-secondary">يرجى تسجيل الدخول للوصول إلى حسابك في منصة حاضراكس
+                </p>
+            </div>
+            <form class="space-y-6 mt-8">
+                <!-- ID Input -->
+                <div>
+                    <label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="student_id">رقم
+                        القيد</label>
+                    <div class="relative">
+                        <div
+                            class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-secondary">
+                            <span class="material-symbols-outlined">badge</span>
+                        </div>
+                        <input
+                            class="w-full pl-3 pr-10 py-3 bg-surface-bright border border-border-subtle rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 font-body-md text-body-md placeholder:text-secondary-fixed-dim text-on-surface"
+                            id="student_id" name="student_id" placeholder="أدخل رقم القيد الخاص بك" type="text">
+                    </div>
+                </div>
+                <!-- Password Input -->
+                <div>
+                    <label class="block font-label-md text-label-md text-on-surface-variant mb-2" for="password">كلمة
+                        المرور</label>
+                    <div class="relative">
+                        <div
+                            class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-secondary">
+                            <span class="material-symbols-outlined">lock</span>
+                        </div>
+                        <input
+                            class="w-full pl-10 pr-10 py-3 bg-surface-bright border border-border-subtle rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 font-body-md text-body-md placeholder:text-secondary-fixed-dim text-on-surface"
+                            id="password" name="password" placeholder="••••••••" type="password">
+                        <button
+                            class="absolute inset-y-0 left-0 pl-3 flex items-center text-secondary hover:text-primary transition-colors cursor-pointer focus:outline-none"
+                            type="button">
+                            <span class="material-symbols-outlined">visibility</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Remember & Forgot -->
+                <div class="flex items-center justify-between mt-4">
+                    <div class="flex items-center">
+                        <input
+                            class="h-4 w-4 text-primary focus:ring-primary border-border-subtle rounded cursor-pointer accent-primary"
+                            id="remember-me" name="remember-me" type="checkbox">
+                        <label class="mr-2 block font-label-md text-label-md text-secondary cursor-pointer"
+                            for="remember-me">
+                            تذكرني
+                        </label>
+                    </div>
+                    <div class="text-sm">
+                        <!-- متطلب تصميمي وأمني: توجيه المستخدم لصفحة استرداد الحساب الذاتيةforgot-password.html بدلاً من التوجيه اليدوي للمشرف -->
+                        <a class="font-label-md text-label-md text-primary hover:text-primary-fixed-dim transition-colors hover:underline"
+                            href="forgot-password.html">
+                            نسيت كلمة المرور؟ استعادة عبر البريد الجامعي الأكاديمي</a>
+                    </div>
+                </div>
+                <!-- Submit Button -->
+                <button
+                    class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm font-label-md text-label-md text-on-primary bg-primary-container hover:bg-surface-tint focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-300"
+                    type="submit">
+                    تسجيل الدخول
+                </button>
+            </form>
+            <!-- Mobile Fallback Branding (Only visible on small screens) -->
+            <div class="mt-12 text-center md:hidden border-t border-border-subtle pt-6 flex flex-col items-center gap-2">
+                <img src="assets/branding/haderax-logo-transparent.svg" alt="HaderaX" class="w-10 h-10 object-contain">
+                <p class="font-label-md text-label-md text-secondary">منصة حاضراكس — جامعة الحاضرة</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Left Column (Branding - Hidden on Mobile) -->
+    <div
+        class="hidden md:flex md:w-1/2 h-full bg-gradient-to-br from-primary-container via-primary to-gold-deep relative flex-col items-center justify-center p-12 overflow-hidden">
+        <!-- Mesh/Geometric Overlay -->
+        <div class="absolute inset-0 bg-mesh-pattern opacity-30 mix-blend-overlay pointer-events-none"></div>
+        <!-- Subtle Glow Effect -->
+        <div class="absolute top-1/4 left-1/4 w-72 h-72 bg-gold-light opacity-20 rounded-full blur-3xl pointer-events-none">
+        </div>
+        <div class="relative z-10 flex flex-col items-center text-center text-on-primary space-y-6 max-w-lg">
+            <div class="w-36 h-36 flex items-center justify-center mb-2 filter drop-shadow-2xl transition-transform hover:scale-105">
+                <img src="assets/branding/haderax-icon.svg" alt="HaderaX Brandmark" class="w-full h-full object-contain">
+            </div>
+            <div class="space-y-2">
+                <h2 class="font-headline-xl text-headline-xl text-white tracking-tight">حاضر<span class="text-gold-light">إكس</span></h2>
+                <h3 class="font-headline-md text-headline-md text-white/90">جامعة الحاضرة • University of Alhadera</h3>
+            </div>
+            <div class="w-16 h-1 bg-white/50 rounded-full my-6"></div>
+            <p class="font-body-lg text-body-lg text-white/90 leading-relaxed font-light">
+                بوابتك الذكية نحو الإبداع التقني وهندسة البرمجيات المتقدمة
+            </p>
+        </div>
+    </div>
+
+    <!-- ============================================================================== -->
+    <!-- كود الجافاسكريبت لربط واجهة تسجيل الدخول بالخادم (Backend Integration) -->
+    <!-- ============================================================================== -->
+    <script>
+        // دالة عرض التنبيهات العصرية والأنيقة (Dynamic Modern Glassmorphic Toast)
+        function showToast(message, type = 'error') {
+            let container = document.getElementById('toast-container');
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'toast-container';
+                // موضع عائم في أعلى اليمين للغات RTL مع تباعد مناسب
+                container.className = 'fixed top-6 right-6 z-50 flex flex-col gap-3 max-w-sm w-[calc(100%-3rem)] sm:w-80 pointer-events-none';
+                document.body.appendChild(container);
+            }
+
+            const toast = document.createElement('div');
+            const isError = type === 'error';
+            const bgClass = isError
+                ? 'bg-red-50/95 border-red-200/60 text-red-900 shadow-red-100/40'
+                : 'bg-emerald-50/95 border-emerald-200/60 text-emerald-950 shadow-emerald-100/40';
+            const icon = isError ? 'error' : 'check_circle';
+
+            // تصميم عصري متكامل مع شظية زجاجية وانزلاق ناعم
+            toast.className = `p-4 rounded-xl border backdrop-blur-md shadow-xl flex items-start gap-3 pointer-events-auto transform translate-x-[120%] opacity-0 transition-all duration-500 ease-out ${bgClass}`;
+
+            toast.innerHTML = `
+                <span class="material-symbols-outlined text-[22px] flex-shrink-0 mt-0.5">${icon}</span>
+                <div class="flex-grow text-right">
+                    <p class="text-sm font-bold leading-relaxed font-sans">${message}</p>
+                </div>
+                <button class="text-slate-400 hover:text-slate-700 transition-colors p-0.5 rounded-full hover:bg-black/5 flex-shrink-0" onclick="this.parentElement.remove()">
+                    <span class="material-symbols-outlined text-[16px]">close</span>
+                </button>
+            `;
+
+            container.appendChild(toast);
+
+            // إجبار المتصفح على معالجة التدفق لتفعيل الانتقال البصري
+            toast.offsetHeight;
+
+            // بدء الحركة (Slide in)
+            toast.classList.remove('translate-x-[120%]', 'opacity-0');
+            toast.classList.add('translate-x-0', 'opacity-100');
+
+            // التلاشي والإزالة التلقائية بعد 4.5 ثانية
+            setTimeout(() => {
+                toast.classList.remove('translate-x-0', 'opacity-100');
+                toast.classList.add('translate-x-[120%]', 'opacity-0');
+                setTimeout(() => {
+                    toast.remove();
+                }, 500);
+            }, 4500);
+        }
+
+        // تفعيل أيقونة كشف وإخفاء كلمة المرور
+        const togglePasswordBtn = document.querySelector('form button[type="button"]');
+        const passwordInput = document.getElementById('password');
+        if (togglePasswordBtn && passwordInput) {
+            togglePasswordBtn.addEventListener('click', () => {
+                const isPassword = passwordInput.getAttribute('type') === 'password';
+                passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+                const iconSpan = togglePasswordBtn.querySelector('.material-symbols-outlined');
+                if (iconSpan) {
+                    iconSpan.textContent = isPassword ? 'visibility_off' : 'visibility';
+                }
+            });
+        }
+
+        // تحديد النموذج (Form) للاستماع لعملية الإرسال (Submit)
+        const loginForm = document.querySelector('form');
+
+        loginForm.addEventListener('submit', async (e) => {
+            // 1. منع السلوك الافتراضي (Prevent Default):
+            // نمنع المتصفح من تحديث الصفحة فوراً، لكي نتمكن من إرسال البيانات
+            // برمجياً في الخلفية باستخدام تقنية الـ (Fetch) دون قطع تجربة المستخدم.
+            e.preventDefault();
+
+            // استخراج القيم التي أدخلها المستخدم من حقول الإدخال
+            const student_id = document.getElementById('student_id').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                // ==============================================================================
+                // [متطلب أكاديمي: Development Environment Strategy]
+                // الاستراتيجية الديناميكية للتطوير المحلي (Dynamic Hostname Strategy):
+                // نستخدم (window.location.hostname) بدلاً من كتابة الرابط بشكل ثابت (Hardcoded).
+                // هذا يحل بذكاء مشاكل القيود الأمنية للـ (CORS و SameSite) أثناء التطوير المحلي 
+                // إذا اختلف مسار الواجهة (مثلاً 127.0.0.1) عن مسار السيرفر (localhost).
+                // ==============================================================================
+                const hostname = window.location.hostname || 'localhost';
+                const backendUrl = `http://${hostname}:3000/api/auth/login`;
+                const response = await fetch(backendUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json' // إخبار السيرفر أننا نرسل البيانات بصيغة JSON
+                    },
+                    body: JSON.stringify({ student_id, password }),
+
+                    // ==============================================================================
+                    // [متطلب أكاديمي هام] - العلاقة التكاملية لأمان الـ CORS والـ Cookies:
+                    // 
+                    // لماذا نستخدم "credentials: 'include'" هنا؟
+                    // عندما تكون الواجهة الأمامية (Frontend) والسيرفر (Backend) على منافذ مختلفة 
+                    // (مثلاً الواجهة على 5500 والسيرفر على 3000)، يعتبر المتصفح هذا الاتصال (Cross-Origin).
+                    // ==============================================================================
+                    credentials: 'include'
+                });
+
+                // معالجة ذكية وأكثر متانة لجميع أنواع الاستجابات (سواء نصوص عادية أو JSON) لمنع أخطاء المعالجة
+                const responseText = await response.text();
+                let data = {};
+                try {
+                    data = JSON.parse(responseText);
+                } catch (e) {
+                    data = { error: responseText };
+                }
+
+                // 3. معالجة رد الخادم
+                if (response.ok) {
+                    const isAdmin = ['Super_Admin', 'admin', 'Students_Admin', 'Curriculum_Admin'].includes(data.user.role);
+                    if (isAdmin) {
+                        showToast('🎉 تم تسجيل الدخول بنجاح! جاري الانتقال للوحة التحكم...', 'success');
+                        setTimeout(() => {
+                            window.location.href = 'admin_portal.html';
+                        }, 1200);
+                    } else {
+                        showToast('🎉 تم تسجيل الدخول بنجاح! جاري الانتقال للصفحة الرئيسية...', 'success');
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 1200);
+                    }
+                } else {
+                    // إذا فشل (بسبب الرقم أو كلمة المرور أو جدار الحماية)، نظهر رسالة الخطأ القادمة من السيرفر
+                    showToast(data.error || 'حدث خطأ في تسجيل الدخول', 'error');
+                }
+
+            } catch (error) {
+                // التقاط الأخطاء المتعلقة بانقطاع الاتصال بالسيرفر
+                console.error('Network Error:', error);
+                showToast('❌ لا يمكن الاتصال بالخادم، تأكد من تشغيل السيرفر المحلي.', 'error');
+            }
+        });
+    </script>
+</body>
+
+</html>

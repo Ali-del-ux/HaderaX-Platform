@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+backend/node_modules/
+package-lock.json
+backend/package-lock.json
+
+# Environment variables & Sensitive data
+.env
+backend/.env
+*.env
+*.log
+backend/logs/
+
+# Uploads & Media
+backend/uploads/*
+!backend/uploads/.gitkeep
+screenshots/
+videos/
+frontend/test_screenshots/
+frontend/test_screenshots_opt3/
+
+# Temporary / Scratch Python scripts & artifacts
+*.pyc
+__pycache__/
+test_*.py
+test_*.png
+generate_*.py
+build_*.py
+cleanup_*.py
+delete_*.py
+audit_*.py
+render_*.py
+capture_*.py
+setup_branding_assets.py
+verify_website_renders.py
+masterpiece_citadel.*
+backend_brand_audit.txt
+brand_audit_report.txt
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

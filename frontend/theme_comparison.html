@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مقارنة لوحة الألوان | حاضراكس HaderaX</title>
+    <link rel="icon" type="image/svg+xml" href="assets/branding/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols-Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Alexandria', sans-serif;
+            transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ==========================================================================
+           THEME 1: الكحلي الملكي التقني مع لمسات الذهب الأكاديمي (Royal Navy & Gold)
+           ========================================================================== */
+        body[data-theme="option1"] {
+            --bg-main: #060B14;
+            --bg-surface: #0E1726;
+            --bg-surface-elevated: #152238;
+            --border-subtle: #1E2E48;
+            --border-strong: #2D4367;
+            
+            --primary: #2563EB;             /* كحلي تقني ملكي ساطع ونظيف */
+            --primary-hover: #1D4ED8;
+            --primary-glow: rgba(37, 99, 235, 0.25);
+            --on-primary: #FFFFFF;
+
+            --gold-accent: #F59E0B;         /* لمسة الذهب الأكاديمي المطفأ */
+            --gold-glow: rgba(245, 158, 11, 0.20);
+            --gold-badge-bg: rgba(245, 158, 11, 0.12);
+            --gold-border: rgba(245, 158, 11, 0.35);
+
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --text-subtle: #64748B;
+            
+            --theme-name: "الخيار 1: الكحلي الملكي التقني + لمسات الذهب الأكاديمي";
+            --theme-desc: "يعتمد على الأزرق الملكي بنسبة 90% لكل العناصر التفاعلية والأزرار، مع حصر الذهب بنسبة 10% للأوسمة الشرفية والشعار فقط بدون أي تنافر بصري.";
+        }
+
+        /* ==========================================================================
+           THEME 3: النمط المونوكرومي المظلم مع التركيز النقي (Monochrome Obsidian)
+           ========================================================================== */
+        body[data-theme="option3"] {
+            --bg-main: #09090B;
+            --bg-surface: #121215;
+            --bg-surface-elevated: #18181C;
+            --border-subtle: #27272A;
+            --border-strong: #3F3F46;
+
+            --primary: #FFFFFF;             /* أزرار بيضاء ناصعة وعالية التباين */
+            --primary-hover: #E4E4E7;
+            --primary-glow: rgba(255, 255, 255, 0.18);
+            --on-primary: #09090B;
+
+            --gold-accent: #EAB308;         /* محصور فقط في الشعار والعلامة */
+            --gold-glow: rgba(234, 179, 8, 0.12);
+            --gold-badge-bg: rgba(255, 255, 255, 0.05);
+            --gold-border: rgba(255, 255, 255, 0.15);
+
+            --text-main: #FAFAFA;
+            --text-muted: #A1A1AA;
+            --text-subtle: #71717A;
+
+            --theme-name: "الخيار 3: النمط المونوكرومي المظلم الفاخر (Minimal Dark)";
+            --theme-desc: "مستوحى من واجهات Vercel و Linear الحديثة. يزيل التنافس اللوني نهائياً عبر تباين الأسود والأبيض المريح، مع بقاء ألوان الشعار كعلامة فارقة وحيدة.";
+        }
+
+        /* Top Navigation Bar */
+        .theme-selector-bar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10, 15, 26, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .bar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bar-brand img {
+            height: 38px;
+            width: auto;
+        }
+
+        .bar-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        .bar-subtitle {
+            font-size: 12px;
+            color: #94A3B8;
+        }
+
+        .controls-group {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            gap: 4px;
+        }
+
+        .theme-btn {
+            background: transparent;
+            border: none;
+            color: #94A3B8;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .theme-btn:hover {
+            color: #FFFFFF;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .theme-btn.active {
+            background: #2563EB;
+            color: #FFFFFF;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+        }
+
+        body[data-theme="option3"] .theme-btn.active {
+            background: #FFFFFF;
+            color: #09090B;
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.25);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Rationale Banner */
+        .rationale-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 24px 32px;
+            margin-bottom: 36px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rationale-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            background: var(--gold-badge-bg);
+            border: 1px solid var(--gold-border);
+            color: var(--gold-accent);
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .rationale-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .rationale-text {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            max-width: 900px;
+        }
+
+        /* Hero Preview Section */
+        .hero-preview {
+            background: radial-gradient(circle at top center, var(--primary-glow) 0%, transparent 60%), var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            padding: 60px 40px;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border-strong);
+            padding: 6px 16px;
+            border-radius: 9999px;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .hero-chip .indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gold-accent);
+            box-shadow: 0 0 10px var(--gold-accent);
+        }
+
+        .hero-headline {
+            font-size: 44px;
+            font-weight: 800;
+            line-height: 1.25;
+            color: var(--text-main);
+            margin-bottom: 18px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subhead {
+            font-size: 17px;
+            color: var(--text-muted);
+            max-width: 680px;
+            margin: 0 auto 32px auto;
+            line-height: 1.65;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--on-primary);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 6px 20px var(--primary-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--bg-surface-elevated);
+            color: var(--text-main);
+            border: 1px solid var(--border-strong);
+            padding: 14px 26px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-secondary:hover {
+            background: var(--border-subtle);
+        }
+
+        /* Metric Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 48px;
+            padding-top: 36px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-family: 'Outfit', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Feature Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .feature-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 18px;
+            padding: 28px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--border-strong);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+        }
+
+        .card-icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border-strong);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--gold-accent);
+        }
+
+        .card-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gold-accent);
+            background: var(--gold-badge-bg);
+            border: 1px solid var(--gold-border);
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .card-link {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Color Swatches Breakdown Section */
+        .swatches-section {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 32px;
+            margin-top: 40px;
+        }
+
+        .swatches-header {
+            margin-bottom: 24px;
+        }
+
+        .swatches-header h3 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .swatches-header p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .swatches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+        }
+
+        .swatch-item {
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .swatch-color {
+            height: 48px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .swatch-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .swatch-hex {
+            font-family: 'Outfit', monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Split View Mode */
+        .split-container {
+            display: none;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .split-mode .single-view {
+            display: none;
+        }
+
+        .split-mode .split-container {
+            display: grid;
+        }
+
+        .split-pane {
+            border-radius: 20px;
+            padding: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .pane-opt1 {
+            background: #060B14;
+            color: #F8FAFC;
+        }
+
+        .pane-opt3 {
+            background: #09090B;
+            color: #FAFAFA;
+        }
+
+        @media (max-width: 900px) {
+            .split-container {
+                grid-template-columns: 1fr;
+            }
+            .hero-headline {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body data-theme="option1">
+
+    <!-- Top Sticky Control Bar -->
+    <header class="theme-selector-bar">
+        <div class="bar-brand">
+            <img src="assets/branding/haderax-logo-dark.svg" alt="HaderaX Logo">
+            <div>
+                <div class="bar-title">حاضراكس | أداة المقارنة المباشرة للألوان</div>
+                <div class="bar-subtitle">اختبار التناغم البصري (Option 1 vs Option 3)</div>
+            </div>
+        </div>
+
+        <div class="controls-group">
+            <button class="theme-btn active" id="btn-opt1" onclick="setTheme('option1')">
+                <span class="material-symbols-outlined" style="font-size: 18px;">palette</span>
+                الخيار 1: الكحلي الملكي التقني + الذهب
+            </button>
+            <button class="theme-btn" id="btn-opt3" onclick="setTheme('option3')">
+                <span class="material-symbols-outlined" style="font-size: 18px;">dark_mode</span>
+                الخيار 3: المونوكرومي المظلم الفاخر
+            </button>
+            <button class="theme-btn" id="btn-split" onclick="toggleSplit()">
+                <span class="material-symbols-outlined" style="font-size: 18px;">splitscreen</span>
+                مقارنة جنباً إلى جنب (Split)
+            </button>
+        </div>
+    </header>
+
+    <main class="container" id="main-content">
+
+        <!-- Theme Rationale Banner -->
+        <section class="rationale-card">
+            <div class="rationale-badge">
+                <span class="material-symbols-outlined" style="font-size: 14px;">verified</span>
+                تحليل معماري مباشر
+            </div>
+            <h1 class="rationale-title" id="dyn-title">الخيار 1: الكحلي الملكي التقني + لمسات الذهب الأكاديمي</h1>
+            <p class="rationale-text" id="dyn-desc">
+                يعتمد على الأزرق الملكي بنسبة 90% لكل العناصر التفاعلية والأزرار، مع حصر الذهب بنسبة 10% للأوسمة الشرفية والشعار فقط بدون أي تنافر بصري. تم حذف اللون السماوي الكهربائي تماماً.
+            </p>
+        </section>
+
+        <!-- Single View Component Showcase -->
+        <div class="single-view">
+            <!-- Hero Preview -->
+            <section class="hero-preview">
+                <div class="hero-chip">
+                    <span class="indicator"></span>
+                    <span>جامعة الحاضرة • نادي البرمجة والابتكار التقني</span>
+                </div>
+
+                <h2 class="hero-headline">
+                    المستقبل يُبرمج هنا.<br>
+                    منصة تقنية متكاملة للمطورين.
+                </h2>
+
+                <p class="hero-subhead">
+                    بيئة تطويرية أكاديمية متقدمة لطلاب جامعة الحاضرة تجمع بين التدريب الميداني المتقدم، الحضور الذكي بالـ QR، وإدارة المشاريع الهندسية.
+                </p>
+
+                <div class="hero-actions">
+                    <button class="btn-primary">
+                        <span class="material-symbols-outlined">rocket_launch</span>
+                        ابدأ مسارك البرمجي
+                    </button>
+                    <button class="btn-secondary">
+                        <span class="material-symbols-outlined">terminal</span>
+                        استكشف المناهج
+                    </button>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-num">+45</div>
+                        <div class="stat-label">طالب مبرمج نشط</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">100%</div>
+                        <div class="stat-label">تطبيق عملي ومشاريع</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">08</div>
+                        <div class="stat-label">مسارات برمجية معتمدة</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">24/7</div>
+                        <div class="stat-label">بيئة تدريبية ومجتمع نشط</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cards Grid -->
+            <section class="cards-grid">
+                <div class="feature-card">
+                    <div class="card-icon-box">
+                        <span class="material-symbols-outlined">code_blocks</span>
+                    </div>
+                    <span class="card-tag">مسار احترافي</span>
+                    <h3 class="card-title">هندسة الويب المتكاملة (Full-Stack)</h3>
+                    <p class="card-text">
+                        تعلم بناء المنصات السحابية وقواعد البيانات الآمنة باستخدام Node.js، معماريات MVC، ونماذج الحماية المتقدمة.
+                    </p>
+                    <a href="#" class="card-link">
+                        <span>استعراض المحتوى والدروس</span>
+                        <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+                    </a>
+                </div>
+
+                <div class="feature-card">
+                    <div class="card-icon-box">
+                        <span class="material-symbols-outlined">qr_code_scanner</span>
+                    </div>
+                    <span class="card-tag">نظام ذكي</span>
+                    <h3 class="card-title">تسجيل الحضور الآمن (QR Verification)</h3>
+                    <p class="card-text">
+                        جلسات حضور مشفرة ديناميكياً تتجدد تلقائياً لمنع التلاعب وتتيح توثيقاً لحظياً للمحاضرات والورش.
+                    </p>
+                    <a href="#" class="card-link">
+                        <span>تفاصيل نظام الحضور</span>
+                        <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+                    </a>
+                </div>
+
+                <div class="feature-card">
+                    <div class="card-icon-box">
+                        <span class="material-symbols-outlined">workspace_premium</span>
+                    </div>
+                    <span class="card-tag">اعتماد رسمي</span>
+                    <h3 class="card-title">شهادات التميز والمشاريع التطبيقية</h3>
+                    <p class="card-text">
+                        تقييم أكاديمي دقيق وشارات إنجاز تمنح للطلاب المتميزين بإشراف لجنة المناهج في جامعة الحاضرة.
+                    </p>
+                    <a href="#" class="card-link">
+                        <span>معايير التقييم والاعتماد</span>
+                        <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Color Palette Tokens Breakdown -->
+            <section class="swatches-section">
+                <div class="swatches-header">
+                    <h3>لوحة التدرجات والألوان المعمارية الحالية:</h3>
+                    <p>تفاصيل الرموز وكود الألوان المستخدم لتحقيق الراحة البصرية وتجنب الصراع اللوني</p>
+                </div>
+
+                <div class="swatches-grid" id="swatches-container">
+                    <!-- Dynamic swatches inserted via JavaScript -->
+                </div>
+            </section>
+        </div>
+
+        <!-- Split View Container -->
+        <div class="split-container">
+            <!-- Pane 1: Royal Blue -->
+            <div class="split-pane pane-opt1">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+                    <span style="background: rgba(37,99,235,0.2); border: 1px solid #2563EB; color: #60A5FA; padding: 4px 12px; border-radius: 9999px; font-size: 12px; font-weight: 700;">الخيار 1: كحلي ملكي تقني</span>
+                    <span style="font-size: 12px; color: #94A3B8;">Royal Blue + Muted Gold</span>
+                </div>
+                
+                <h3 style="font-size: 24px; font-weight: 800; margin-bottom: 12px; color: #FFFFFF;">حاضراكس | جامعة الحاضرة</h3>
+                <p style="font-size: 14px; color: #94A3B8; margin-bottom: 24px; line-height: 1.6;">
+                    الأزرق هو المحرك الأساسي بنسبة 90%، والذهب محصور في أوسمة الشرف بنسبة 10%. راحة تامة للعين وتدرجات متزنة.
+                </p>
+
+                <div style="display: flex; gap: 12px; margin-bottom: 24px;">
+                    <button style="background: #2563EB; color: #FFFFFF; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 700; font-size: 14px;">تسجيل الدخول</button>
+                    <button style="background: #152238; color: #F8FAFC; border: 1px solid #2D4367; padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 14px;">استعراض المنصة</button>
+                </div>
+
+                <div style="background: #0E1726; border: 1px solid #1E2E48; border-radius: 12px; padding: 16px;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                        <span style="color: #F59E0B; font-size: 18px;" class="material-symbols-outlined">stars</span>
+                        <span style="font-size: 13px; font-weight: 700; color: #F59E0B;">وسام التميز البرمجي</span>
+                    </div>
+                    <p style="font-size: 12px; color: #94A3B8;">يظهر الذهب فقط كلمسة إنجاز هادئة بدون تشتيت.</p>
+                </div>
+            </div>
+
+            <!-- Pane 3: Monochrome Dark Minimal -->
+            <div class="split-pane pane-opt3">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+                    <span style="background: rgba(255,255,255,0.08); border: 1px solid #3F3F46; color: #FAFAFA; padding: 4px 12px; border-radius: 9999px; font-size: 12px; font-weight: 700;">الخيار 3: مونوكرومي نقي</span>
+                    <span style="font-size: 12px; color: #A1A1AA;">Minimal Obsidian & White</span>
+                </div>
+
+                <h3 style="font-size: 24px; font-weight: 800; margin-bottom: 12px; color: #FFFFFF;">حاضراكس | جامعة الحاضرة</h3>
+                <p style="font-size: 14px; color: #A1A1AA; margin-bottom: 24px; line-height: 1.6;">
+                    إزالة الصراع اللوني نهائياً. تباين عالٍ ونقي مستوحى من Linear و Vercel، بدون أي ألوان ثانوية متضاربة.
+                </p>
+
+                <div style="display: flex; gap: 12px; margin-bottom: 24px;">
+                    <button style="background: #FFFFFF; color: #09090B; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 700; font-size: 14px;">تسجيل الدخول</button>
+                    <button style="background: #18181C; color: #FAFAFA; border: 1px solid #27272A; padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 14px;">استعراض المنصة</button>
+                </div>
+
+                <div style="background: #121215; border: 1px solid #27272A; border-radius: 12px; padding: 16px;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                        <span style="color: #EAB308; font-size: 18px;" class="material-symbols-outlined">stars</span>
+                        <span style="font-size: 13px; font-weight: 700; color: #EAB308;">وسام التميز البرمجي</span>
+                    </div>
+                    <p style="font-size: 12px; color: #A1A1AA;">رمز الشعار والوسام فقط يحافظ على الذهب الأصلي.</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        const swatchesData = {
+            option1: [
+                { title: 'الخلفية الملكية', hex: '#060B14', desc: 'Midnight Obsidian' },
+                { title: 'أسطح البطاقات', hex: '#0E1726', desc: 'Deep Navy Surface' },
+                { title: 'الزر والتحكم (Hero 90%)', hex: '#2563EB', desc: 'Tech Royal Blue' },
+                { title: 'الذهب الأكاديمي (10%)', hex: '#F59E0B', desc: 'Hadera Muted Gold' },
+                { title: 'نصوص العناوين', hex: '#F8FAFC', desc: 'Pure Crisp White' },
+                { title: 'النصوص الفرعية', hex: '#94A3B8', desc: 'Slate Muted Text' }
+            ],
+            option3: [
+                { title: 'الخلفية المونوكرومية', hex: '#09090B', desc: 'Zinc 950 Pure Obsidian' },
+                { title: 'أسطح البطاقات', hex: '#121215', desc: 'Minimal Dark Glass' },
+                { title: 'الزر والتحكم (Hero 100%)', hex: '#FFFFFF', desc: 'High-Contrast White' },
+                { title: 'شعار القلعة فقط', hex: '#EAB308', desc: 'Hadera Brand Accent' },
+                { title: 'نصوص العناوين', hex: '#FAFAFA', desc: 'Crisp Off-White' },
+                { title: 'النصوص الفرعية', hex: '#A1A1AA', desc: 'Muted Zinc Text' }
+            ]
+        };
+
+        function updateSwatches(theme) {
+            const container = document.getElementById('swatches-container');
+            if (!container) return;
+            const items = swatchesData[theme] || swatchesData.option1;
+            container.innerHTML = items.map(item => `
+                <div class="swatch-item">
+                    <div class="swatch-color" style="background-color: ${item.hex};"></div>
+                    <div class="swatch-title">${item.title}</div>
+                    <div class="swatch-hex">${item.hex} • ${item.desc}</div>
+                </div>
+            `).join('');
+        }
+
+        function setTheme(theme) {
+            document.body.className = '';
+            document.body.setAttribute('data-theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            if (theme === 'option1') document.getElementById('btn-opt1').classList.add('active');
+            if (theme === 'option3') document.getElementById('btn-opt3').classList.add('active');
+
+            const title = document.getElementById('dyn-title');
+            const desc = document.getElementById('dyn-desc');
+            if (theme === 'option1') {
+                title.textContent = 'الخيار 1: الكحلي الملكي التقني + لمسات الذهب الأكاديمي';
+                desc.textContent = 'يعتمد على الأزرق الملكي بنسبة 90% لكل العناصر التفاعلية والأزرار، مع حصر الذهب بنسبة 10% للأوسمة الشرفية والشعار فقط بدون أي تنافر بصري. تم حذف السماوي الكهربائي تماماً.';
+            } else {
+                title.textContent = 'الخيار 3: النمط المونوكرومي المظلم الفاخر (Minimal Dark)';
+                desc.textContent = 'مستوحى من واجهات Vercel و Linear الحديثة. يزيل التنافس اللوني نهائياً عبر تباين الأسود والأبيض المريح، مع بقاء ألوان الشعار كعلامة فارقة وحيدة.';
+            }
+
+            updateSwatches(theme);
+        }
+
+        function toggleSplit() {
+            document.body.classList.toggle('split-mode');
+            const isSplit = document.body.classList.contains('split-mode');
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            if (isSplit) {
+                document.getElementById('btn-split').classList.add('active');
+            } else {
+                const currentTheme = document.body.getAttribute('data-theme') || 'option1';
+                setTheme(currentTheme);
+            }
+        }
+
+        // Initialize swatches
+        updateSwatches('option1');
+    </script>
+</body>
+</html>
