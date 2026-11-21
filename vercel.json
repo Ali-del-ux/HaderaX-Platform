@@ -1,9 +1,8 @@
 {
   "version": 2,
-  "public": true,
-  "cleanUrls": false,
-  "trailingSlash": false,
   "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index.js" },
+    { "source": "/uploads/(.*)", "destination": "/backend/uploads/$1" },
     { "source": "/", "destination": "/frontend/index.html" },
     { "source": "/(.*)", "destination": "/frontend/$1" }
   ]

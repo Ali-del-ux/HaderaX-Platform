@@ -45,14 +45,17 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 app.use(cors({
     origin: function (origin, callback) {
-        // السماح بالطلبات المحلية والتطوير وعبر الشبكة المحلية اللاسلكية (Wi-Fi Local Network IPs)
+        // السماح بالطلبات المحلية والتطوير وعبر الشبكة المحلية اللاسلكية (Wi-Fi Local Network IPs) ونطاقات Vercel السحابية
         if (!origin || 
             (!isProduction && (origin === 'null' || origin.startsWith('file://'))) ||
             origin.startsWith('http://localhost') || 
             origin.startsWith('http://127.0.0.1') ||
-            /^http:\/\/192\.168\.\d{1,3}\.\d{1,3}(:\d+)?$/.test(origin) ||
-            /^http:\/\/10\.\d{1,3}\.\d{1,3}\.\d{1,3}(:\d+)?$/.test(origin) ||
-            /^http:\/\/172\.(1[6-9]|2\d|3[0-1])\.\d{1,3}\.\d{1,3}(:\d+)?$/.test(origin)) {
+            origin.endsWith('.vercel.app') ||
+            (process.env.CLIENT_URL && origin === process.env.CLIENT_URL) ||
+            origin.startsWith('https://') ||
+            /^https?:\/\/192\.168\.\d{1,3}\.\d{1,3}(:\d+)?$/.test(origin) ||
+            /^https?:\/\/10\.\d{1,3}\.\d{1,3}\.\d{1,3}(:\d+)?$/.test(origin) ||
+            /^https?:\/\/172\.(1[6-9]|2\d|3[0-1])\.\d{1,3}\.\d{1,3}(:\d+)?$/.test(origin)) {
             callback(null, true);
         } else {
             console.error(`🛑 CORS Blocked Origin: ${origin}`);
@@ -136,8 +139,12 @@ app.get('/', (req, res) => {
 // ==============================================================================
 // 3. تشغيل الخادم (Starting the Server)
 // ==============================================================================
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-    console.log(`🚀 Server running securely on port ${PORT}`);
-});
+if (require.main === module || !process.env.VERCEL) {
+    app.listen(PORT, () => {
+        console.log(`🚀 Server running securely on port ${PORT}`);
+    });
+}
+
+module.exports = app;

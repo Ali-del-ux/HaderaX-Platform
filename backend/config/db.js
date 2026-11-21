@@ -8,12 +8,14 @@ require('dotenv').config({ path: path.join(__dirname, '../.env') });
 // The pool is created synchronously so it can be exported immediately.
 const pool = mysql.createPool({
     host: process.env.DB_HOST || 'localhost',
+    port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 3306,
     user: process.env.DB_USER || 'root',
     password: process.env.DB_PASSWORD || '',
-    database: 'saraya_club_db',
+    database: process.env.DB_NAME || 'haderax_db',
     waitForConnections: true,
     connectionLimit: 10,
-    queueLimit: 0
+    queueLimit: 0,
+    ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : undefined
 });
 
 /**
@@ -26,12 +28,15 @@ async function initializeDatabase() {
         // This is necessary because the pool above will fail if the database doesn't exist yet.
         const connection = await mysql.createConnection({
             host: process.env.DB_HOST || 'localhost',
+            port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 3306,
             user: process.env.DB_USER || 'root',
-            password: process.env.DB_PASSWORD || ''
+            password: process.env.DB_PASSWORD || '',
+            ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : undefined
         });
 
         // 3. Create the database if it doesn't exist
-        await connection.query(`CREATE DATABASE IF NOT EXISTS saraya_club_db;`);
+        const targetDb = process.env.DB_NAME || 'haderax_db';
+        await connection.query(`CREATE DATABASE IF NOT EXISTS \`${targetDb}\`;`);
         await connection.end(); // Close this temporary connection
 
         // 4. Create the Users table with the exact specified schema using the pool
@@ -145,18 +150,32 @@ async function initializeDatabase() {
         `);
         console.log('✅ Security_Logs table ready.');
 
-        // 9. Create Attendance_Sessions table (No dependencies)
+        // 9. Create Attendance_Sessions table (Linked to Courses)
         await pool.query(`
             CREATE TABLE IF NOT EXISTS Attendance_Sessions (
                 session_id INT AUTO_INCREMENT PRIMARY KEY,
+                course_id INT NULL,
                 session_title VARCHAR(255) NOT NULL,
                 session_description TEXT,
                 session_token VARCHAR(255) UNIQUE NOT NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                is_active BOOLEAN DEFAULT TRUE
+                is_active BOOLEAN DEFAULT TRUE,
+                FOREIGN KEY (course_id) REFERENCES Courses(course_id) ON DELETE SET NULL
             );
         `);
         console.log('✅ Attendance_Sessions table ready.');
+
+        // ترقية علائقية: ربط جدول الجلسات بالكورسات في حال كان منشأ مسبقاً بدون course_id
+        try {
+            const [columns] = await pool.query("SHOW COLUMNS FROM Attendance_Sessions LIKE 'course_id'");
+            if (columns.length === 0) {
+                console.log('⚠️ تم اكتشاف بنية قديمة لجدول Attendance_Sessions. جاري إضافة عمود course_id...');
+                await pool.query('ALTER TABLE Attendance_Sessions ADD COLUMN course_id INT NULL, ADD FOREIGN KEY (course_id) REFERENCES Courses(course_id) ON DELETE SET NULL');
+                console.log('✅ تم ربط Attendance_Sessions بالكورسات بنجاح.');
+            }
+        } catch (migrationError) {
+            console.error('❌ فشل ترقية جدول Attendance_Sessions:', migrationError.message);
+        }
 
         // خطوة دفاعية: التحقق من بنية جدول الحضور القديم وإعادة إنشائه ليرتبط بالجلسات ديناميكياً
         try {
@@ -177,18 +196,30 @@ async function initializeDatabase() {
                 session_id INT,
                 date DATE,
                 status VARCHAR(50),
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE,
                 FOREIGN KEY (session_id) REFERENCES Attendance_Sessions(session_id) ON DELETE CASCADE
             );
         `);
         console.log('✅ Attendance table ready.');
+
+        // ترقية لحظية: إضافة عمود created_at لجدول الحضور لتسجيل توقيت المسح بالدقيقة والثانية
+        try {
+            const [columns] = await pool.query("SHOW COLUMNS FROM Attendance LIKE 'created_at'");
+            if (columns.length === 0) {
+                console.log('⚠️ جاري إضافة عمود created_at لجدول Attendance لتتبع وقت المسح اللحظي...');
+                await pool.query('ALTER TABLE Attendance ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP');
+                console.log('✅ تم إضافة عمود created_at بنجاح.');
+            }
+        } catch (migrationError) {
+            console.error('❌ فشل ترقية جدول Attendance لوقت المسح:', migrationError.message);
+        }
         
         console.log('🚀 All database tables initialized successfully.');
 
     } catch (error) {
-        console.error('❌ Database Initialization Error:', error.message);
-        // Fail fast if the database is completely unreachable
-        process.exit(1); 
+        console.warn('⚠️ Database Warning: Could not connect to MySQL (' + (error.message || error.code) + ').');
+        console.warn('ℹ️ Running in frontend-first mode: static assets and UI will be served.');
     }
 }
 

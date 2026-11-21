@@ -27,11 +27,18 @@
     <!-- Right Column (Login Form) -->
     <div
         class="w-full md:w-1/2 h-full flex items-center justify-center bg-surface-container-lowest p-8 lg:p-24 overflow-y-auto">
-        <div class="w-full max-w-md space-y-8">
+        <div class="w-full max-w-md space-y-6">
+            <a href="index.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-primary-container transition-colors">
+                <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                <span>الرجوع للرئيسية</span>
+            </a>
             <div class="text-center md:text-right">
-                <h1 class="font-headline-lg text-headline-lg text-on-background mb-2">مرحباً بك مجدداً 👋</h1>
-                <p class="font-body-md text-body-md text-secondary">يرجى تسجيل الدخول للوصول إلى حسابك في منصة حاضراكس
-                </p>
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-sky-50 text-sky-800 border border-sky-200 mb-3">
+                    <span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+                    بوابة الدخول الموحدة
+                </div>
+                <h1 class="text-2xl font-black text-slate-900 mb-1.5">تسجيل الدخول</h1>
+                <p class="text-sm text-slate-500">أدخل رقم القيد وكلمة المرور للوصول إلى حسابك الأكاديمي في حاضراكس</p>
             </div>
             <form class="space-y-6 mt-8">
                 <!-- ID Input -->
@@ -68,21 +75,21 @@
                     </div>
                 </div>
                 <!-- Remember & Forgot -->
-                <div class="flex items-center justify-between mt-4">
-                    <div class="flex items-center">
+                <div class="flex items-center justify-between gap-4 mt-4 pt-1 text-xs">
+                    <div class="flex items-center gap-2">
                         <input
-                            class="h-4 w-4 text-primary focus:ring-primary border-border-subtle rounded cursor-pointer accent-primary"
+                            class="h-4 w-4 text-primary focus:ring-primary border-slate-300 rounded cursor-pointer accent-primary"
                             id="remember-me" name="remember-me" type="checkbox">
-                        <label class="mr-2 block font-label-md text-label-md text-secondary cursor-pointer"
+                        <label class="block font-medium text-slate-600 cursor-pointer select-none"
                             for="remember-me">
                             تذكرني
                         </label>
                     </div>
-                    <div class="text-sm">
-                        <!-- متطلب تصميمي وأمني: توجيه المستخدم لصفحة استرداد الحساب الذاتيةforgot-password.html بدلاً من التوجيه اليدوي للمشرف -->
-                        <a class="font-label-md text-label-md text-primary hover:text-primary-fixed-dim transition-colors hover:underline"
+                    <div>
+                        <!-- متطلب تصميمي وأمني: توجيه المستخدم لصفحة استرداد الحساب الذاتية -->
+                        <a class="font-bold text-primary hover:text-primary-dark transition-colors hover:underline"
                             href="forgot-password.html">
-                            نسيت كلمة المرور؟ استعادة عبر البريد الجامعي الأكاديمي</a>
+                            نسيت كلمة المرور؟</a>
                     </div>
                 </div>
                 <!-- Submit Button -->
@@ -102,22 +109,20 @@
 
     <!-- Left Column (Branding - Hidden on Mobile) -->
     <div
-        class="hidden md:flex md:w-1/2 h-full bg-gradient-to-br from-primary-container via-primary to-gold-deep relative flex-col items-center justify-center p-12 overflow-hidden">
-        <!-- Mesh/Geometric Overlay -->
-        <div class="absolute inset-0 bg-mesh-pattern opacity-30 mix-blend-overlay pointer-events-none"></div>
-        <!-- Subtle Glow Effect -->
-        <div class="absolute top-1/4 left-1/4 w-72 h-72 bg-gold-light opacity-20 rounded-full blur-3xl pointer-events-none">
-        </div>
-        <div class="relative z-10 flex flex-col items-center text-center text-on-primary space-y-6 max-w-lg">
-            <div class="w-36 h-36 flex items-center justify-center mb-2 filter drop-shadow-2xl transition-transform hover:scale-105">
+        class="hidden md:flex md:w-1/2 h-full bg-obsidian-dark relative flex-col items-center justify-center p-12 overflow-hidden border-r border-obsidian-border">
+        <!-- Subtle Architectural Dot Grid -->
+        <div class="absolute inset-0 bg-mesh-pattern opacity-15 pointer-events-none"></div>
+        
+        <div class="relative z-10 flex flex-col items-center text-center text-white space-y-6 max-w-lg">
+            <div class="w-28 h-28 flex items-center justify-center p-4 rounded-2xl bg-white/5 border border-white/10 shadow-sm">
                 <img src="assets/branding/haderax-icon.svg" alt="HaderaX Brandmark" class="w-full h-full object-contain">
             </div>
             <div class="space-y-2">
-                <h2 class="font-headline-xl text-headline-xl text-white tracking-tight">حاضر<span class="text-gold-light">إكس</span></h2>
-                <h3 class="font-headline-md text-headline-md text-white/90">جامعة الحاضرة • University of Alhadera</h3>
+                <h2 class="font-headline-xl text-headline-xl text-white tracking-tight">حاضر<span class="text-brand-sky font-black">إكس</span></h2>
+                <h3 class="font-headline-md text-headline-md text-white/80">جامعة الحاضرة • University of Alhadera</h3>
             </div>
-            <div class="w-16 h-1 bg-white/50 rounded-full my-6"></div>
-            <p class="font-body-lg text-body-lg text-white/90 leading-relaxed font-light">
+            <div class="w-12 h-px bg-white/20 my-4"></div>
+            <p class="font-body-md text-body-md text-white/70 leading-relaxed font-light">
                 بوابتك الذكية نحو الإبداع التقني وهندسة البرمجيات المتقدمة
             </p>
         </div>
@@ -141,12 +146,12 @@
             const toast = document.createElement('div');
             const isError = type === 'error';
             const bgClass = isError
-                ? 'bg-red-50/95 border-red-200/60 text-red-900 shadow-red-100/40'
-                : 'bg-emerald-50/95 border-emerald-200/60 text-emerald-950 shadow-emerald-100/40';
+                ? 'bg-red-50 border-red-200 text-red-950 shadow-sm'
+                : 'bg-emerald-50 border-emerald-200 text-emerald-950 shadow-sm';
             const icon = isError ? 'error' : 'check_circle';
 
-            // تصميم عصري متكامل مع شظية زجاجية وانزلاق ناعم
-            toast.className = `p-4 rounded-xl border backdrop-blur-md shadow-xl flex items-start gap-3 pointer-events-auto transform translate-x-[120%] opacity-0 transition-all duration-500 ease-out ${bgClass}`;
+            // تصميم عصري متناسق مع حواف واضحة وظلال رصينة
+            toast.className = `p-4 rounded-xl border shadow-md flex items-start gap-3 pointer-events-auto transform translate-x-[120%] opacity-0 transition-all duration-300 ease-out ${bgClass}`;
 
             toast.innerHTML = `
                 <span class="material-symbols-outlined text-[22px] flex-shrink-0 mt-0.5">${icon}</span>
@@ -212,8 +217,10 @@
                 // هذا يحل بذكاء مشاكل القيود الأمنية للـ (CORS و SameSite) أثناء التطوير المحلي 
                 // إذا اختلف مسار الواجهة (مثلاً 127.0.0.1) عن مسار السيرفر (localhost).
                 // ==============================================================================
-                const hostname = window.location.hostname || 'localhost';
-                const backendUrl = `http://${hostname}:3000/api/auth/login`;
+                const apiBase = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && window.location.port !== '3000'
+                    ? `http://${window.location.hostname}:3000`
+                    : '';
+                const backendUrl = `${apiBase}/api/auth/login`;
                 const response = await fetch(backendUrl, {
                     method: 'POST',
                     headers: {

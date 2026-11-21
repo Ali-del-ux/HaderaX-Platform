@@ -18,7 +18,7 @@
     
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body class="text-on-surface antialiased min-h-screen flex flex-col bg-[#F4F5F7]">
+<body class="text-on-surface antialiased min-h-screen flex flex-col bg-surface-alt">
 
     <header class="bg-surface-container-lowest text-primary font-bold border-b border-border-subtle shadow-sm fixed top-0 w-full z-40 flex justify-between items-center px-6 h-16">
         <div class="flex items-center gap-4">
@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="flex items-center gap-3">
-            <span class="mr-2 text-xl font-extrabold text-on-surface tracking-tight hidden sm:inline">حاضر<span class="text-primary-container">إكس</span></span>
+            <span class="mr-2 text-xl font-extrabold text-on-surface tracking-tight hidden sm:inline">حاضر<span class="text-brand-sky font-black">إكس</span></span>
             <img src="assets/branding/haderax-icon.svg" alt="HaderaX" class="w-9 h-9 object-contain">
         </div>
     </header>
@@ -99,12 +99,12 @@
                                 <td class="py-4 px-6 font-bold">أحمد محمود</td>
                                 <td class="py-4 px-6 font-code-snippet text-secondary">2023010</td>
                                 <td class="py-4 px-6 text-secondary">2004</td>
-                                <td class="py-4 px-6"><span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-tertiary-container text-white">ممتاز (94%)</span></td>
+                                <td class="py-4 px-6"><span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">ممتاز (94%)</span></td>
                                 <td class="py-4 px-6 text-center">
                                     <div class="flex items-center justify-center gap-2">
-                                        <button class="w-8 h-8 rounded border border-border-subtle text-secondary hover:bg-gray-100" title="مفتاح السري"><span class="material-symbols-outlined text-[18px]">key</span></button>
-                                        <button class="w-8 h-8 rounded border border-border-subtle text-secondary hover:bg-gray-100" title="تعديل"><span class="material-symbols-outlined text-[18px]">edit</span></button>
-                                        <button class="w-8 h-8 rounded bg-primary-container text-white hover:bg-primary" title="حذف"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+                                        <button class="w-8 h-8 rounded-lg border border-border-subtle text-secondary hover:text-primary-container hover:bg-surface-alt transition-colors" title="مفتاح السري"><span class="material-symbols-outlined text-[18px]">key</span></button>
+                                        <button class="w-8 h-8 rounded-lg border border-border-subtle text-secondary hover:text-primary-container hover:bg-surface-alt transition-colors" title="تعديل"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+                                        <button class="w-8 h-8 rounded-lg bg-primary-container text-white hover:bg-primary transition-colors" title="حذف"><span class="material-symbols-outlined text-[18px]">delete</span></button>
                                     </div>
                                 </td>
                             </tr>
@@ -137,15 +137,23 @@
                             </div>
                         </div>
                         
-                        <!-- شريط إجراءات الكورس المختار (تعديل وحذف) -->
-                        <div id="course-actions-bar" class="hidden items-center gap-3 mt-3 animate-scale-in">
-                            <button id="edit-course-btn" type="button" class="flex items-center gap-2 px-4 py-2 border border-primary-container text-primary-container rounded-lg font-bold hover:bg-crimson-muted transition-all text-sm shadow-sm">
+                        <!-- شريط إجراءات الكورس المختار (تعديل وحذف وحضور وبث) -->
+                        <div id="course-actions-bar" class="hidden items-center flex-wrap gap-2.5 mt-3 animate-scale-in">
+                            <button id="view-course-attendance-btn" type="button" class="flex items-center gap-1.5 px-3.5 py-2 bg-sky-50 text-sky-700 border border-sky-200 hover:bg-sky-100 rounded-lg font-bold transition-all text-xs shadow-xs">
+                                <span class="material-symbols-outlined text-[18px]">how_to_reg</span>
+                                سجل حضور الورشة
+                            </button>
+                            <button id="start-course-qr-btn" type="button" class="flex items-center gap-1.5 px-3.5 py-2 bg-primary-container hover:bg-primary text-white rounded-lg font-bold transition-all text-xs shadow-xs">
+                                <span class="material-symbols-outlined text-[18px]">qr_code_2</span>
+                                بدء جلسة QR
+                            </button>
+                            <button id="edit-course-btn" type="button" class="flex items-center gap-1.5 px-3.5 py-2 border border-border-subtle text-slate-700 hover:bg-slate-100 rounded-lg font-bold transition-all text-xs shadow-xs">
                                 <span class="material-symbols-outlined text-[18px]">edit</span>
                                 تعديل بيانات الكورس
                             </button>
-                            <button id="delete-course-btn" type="button" class="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-750 text-white rounded-lg font-bold transition-all text-sm shadow-sm hover:bg-red-700">
+                            <button id="delete-course-btn" type="button" class="flex items-center gap-1.5 px-3.5 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold transition-all text-xs shadow-xs">
                                 <span class="material-symbols-outlined text-[18px]">delete_forever</span>
-                                حذف الكورس بالكامل
+                                حذف الكورس
                             </button>
                         </div>
                         
@@ -250,8 +258,8 @@
 
     <div id="add-student-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div id="modal-backdrop-student" class="absolute inset-0 bg-[#0f172a]/60 backdrop-blur-sm transition-opacity"></div>
-        <form id="add-student-form" aria-labelledby="modal-title" aria-modal="true" class="bg-white w-full max-w-[500px] rounded-[24px] shadow-2xl flex flex-col relative z-10 animate-scale-in" role="dialog">
-            <div class="flex items-center justify-between px-6 py-5 border-b border-border-subtle bg-surface-alt/50 rounded-t-[24px]">
+        <form id="add-student-form" aria-labelledby="modal-title" aria-modal="true" class="bg-white w-full max-w-[500px] rounded-xl shadow-lg flex flex-col relative z-10 animate-scale-in border border-border-subtle" role="dialog">
+            <div class="flex items-center justify-between px-6 py-5 border-b border-border-subtle bg-surface-alt rounded-t-2xl">
                 <h2 class="font-bold text-xl text-primary-container flex items-center gap-2">
                     <span class="material-symbols-outlined">person_add</span> إضافة طالب جديد
                 </h2>
@@ -326,59 +334,162 @@
     <div id="qr-attendance-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div id="qr-backdrop" class="absolute inset-0 bg-[#0f172a]/60 backdrop-blur-sm transition-opacity"></div>
         
-        <div class="bg-white w-full max-w-[420px] rounded-[24px] shadow-2xl flex flex-col relative z-10 animate-scale-in overflow-hidden" role="dialog">
+        <div class="bg-white w-full max-w-[480px] rounded-xl shadow-lg border border-border-subtle flex flex-col relative z-10 animate-scale-in overflow-hidden max-h-[92vh]" role="dialog">
             
             <div class="flex items-center justify-between px-6 py-4 border-b border-border-subtle bg-surface-alt/50">
                 <h2 class="font-bold text-lg text-primary-container flex items-center gap-2">
                     <span class="material-symbols-outlined">qr_code_2</span>
-                    بدء جلسة الحضور
+                    بدء جلسة الحضور بالـ QR
                 </h2>
                 <button id="close-qr-icon" class="text-secondary hover:text-primary-container p-2 rounded-full hover:bg-gray-200 transition-colors">
                     <span class="material-symbols-outlined">close</span>
                 </button>
             </div>
             
-            <div class="p-6 flex flex-col gap-4">
+            <div class="p-6 flex flex-col gap-4 overflow-y-auto">
                 
                 <div>
-                    <label class="block font-bold text-sm text-secondary mb-2">اسم الكورس / الجلسة</label>
-                    <input id="qr-session-title" class="w-full bg-slate-50 border border-border-subtle rounded-lg px-4 py-2.5 text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all" placeholder="مثال: كورس بايثون - المحاضرة 3" type="text" required />
+                    <label class="block font-bold text-sm text-secondary mb-1.5">اختر الكورس أو الورشة</label>
+                    <select id="qr-course-select" class="w-full bg-slate-50 border border-border-subtle rounded-lg px-3.5 py-2.5 text-on-surface font-semibold text-sm focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all">
+                        <option value="" disabled selected>اختر الكورس لفتح الجلسة...</option>
+                        <option value="general">جلسة عامة (غير مرتبطة بكورس محدد)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-sm text-secondary mb-1.5">عنوان وموضوع الجلسة</label>
+                    <input id="qr-session-title" class="w-full bg-slate-50 border border-border-subtle rounded-lg px-3.5 py-2.5 text-on-surface text-sm focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all" placeholder="مثال: ورشة بايثون - المحاضرة 3" type="text" required />
                 </div>
                 
-                <div class="mt-1">
-                    <label class="block font-bold text-sm text-secondary mb-2">تفاصيل وموضوع الجلسة</label>
-                    <textarea id="qr-session-details" rows="2" class="w-full bg-slate-50 border border-border-subtle rounded-lg px-4 py-2.5 text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all" placeholder="اكتب موضوع الدرس أو تفاصيل الجلسة هنا..." required></textarea>
+                <div>
+                    <label class="block font-bold text-sm text-secondary mb-1.5">تفاصيل إضافية (اختياري)</label>
+                    <textarea id="qr-session-details" rows="2" class="w-full bg-slate-50 border border-border-subtle rounded-lg px-3.5 py-2 text-on-surface text-sm focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all" placeholder="اكتب تفاصيل إضافية عن الجلسة..."></textarea>
                 </div>
                 
-                <button id="generate-qr-action-btn" class="w-full py-2.5 mt-2 bg-primary hover:bg-primary-container text-white font-bold rounded-xl transition-colors flex items-center justify-center gap-2 shadow-sm">
+                <button id="generate-qr-action-btn" class="w-full py-2.5 mt-1 bg-primary hover:bg-primary-container text-white font-bold rounded-xl transition-colors flex items-center justify-center gap-2 shadow-sm text-sm">
                     <span class="material-symbols-outlined text-[20px]">sensors</span>
                     بدء الجلسة وعرض الكود
                 </button>
 
-                <div id="qr-preview-zone" class="hidden flex-col items-center gap-3 p-5 mt-2 bg-surface-bright rounded-xl border border-border-subtle animate-scale-in">
+                <div id="qr-preview-zone" class="hidden flex-col items-center gap-3 p-4 bg-surface-bright rounded-xl border border-border-subtle animate-scale-in">
                     
-                    <div class="w-full flex justify-between items-center bg-tertiary-container/10 border border-tertiary-container/30 px-4 py-2 rounded-lg mb-2">
-                        <span class="text-tertiary-container font-bold text-sm flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[16px] animate-pulse">radio_button_checked</span>
+                    <div class="w-full flex justify-between items-center bg-sky-50 border border-sky-200 px-4 py-2 rounded-lg">
+                        <span class="text-sky-700 font-bold text-xs flex items-center gap-1.5">
+                            <span class="relative flex h-2 w-2">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
+                            </span>
                             بث مباشر
                         </span>
-                        <div class="text-on-surface font-bold text-sm">
-                            حضور: <span id="live-attendance-count" class="text-primary-container text-lg ml-1 font-code-snippet">0</span>
+                        <div class="text-slate-700 font-bold text-xs flex items-center gap-1">
+                            حضور مسجل: <span id="live-attendance-count" class="text-sky-700 text-base font-black font-code-snippet">0</span>
                         </div>
                     </div>
 
-                    <div class="w-36 h-36 bg-white p-2 rounded-lg border border-border-subtle flex items-center justify-center shadow-inner relative">
-                        <div id="qr-loading-spinner" class="absolute inset-0 flex items-center justify-center bg-white/80 z-10">
-                            <span class="material-symbols-outlined animate-spin text-primary-container">progress_activity</span>
+                    <div class="w-36 h-36 bg-white p-2 rounded-xl border border-border-subtle flex items-center justify-center shadow-xs relative">
+                        <div id="qr-loading-spinner" class="absolute inset-0 flex items-center justify-center bg-white/80 z-10 rounded-xl">
+                            <span class="material-symbols-outlined animate-spin text-primary-container text-2xl">progress_activity</span>
                         </div>
                         <img id="qr-image-placeholder" alt="QR Code" class="w-full h-full object-contain hidden" src="">
                     </div>
-                    <p class="text-xs text-secondary font-medium text-center">أخبر الطلاب بمسح الكود باستخدام كاميرا الهاتف لتسجيل حضورهم تلقائياً في النظام.</p>
+                    <p class="text-[11px] text-secondary font-medium text-center">أخبر الطلاب بمسح الكود بكاميرا الهاتف لتسجيل حضورهم فوراً.</p>
+
+                    <!-- كشف الحضور اللحظي التفاعلي -->
+                    <div class="w-full border-t border-slate-100 pt-3 mt-1">
+                        <div class="flex items-center justify-between mb-2 px-1">
+                            <span class="text-[11px] font-bold text-slate-600 flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[15px] text-emerald-600">groups</span>
+                                الطلاب الحاضرون لحظياً
+                            </span>
+                            <span id="qr-feed-counter" class="text-[10px] font-mono font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">0 طالب</span>
+                        </div>
+                        <div id="qr-attendees-feed" class="max-h-36 overflow-y-auto space-y-1.5 pr-1 scrollbar-thin">
+                            <div id="qr-empty-attendees" class="text-center py-3 text-xs text-slate-400 bg-slate-50 rounded-lg border border-dashed border-slate-200">في انتظار أول طالب يمسح الكود...</div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
             <div class="px-6 py-3 border-t border-border-subtle bg-surface-alt flex justify-center">
-                <button id="cancel-qr-btn" class="px-6 py-2 border border-border-subtle text-secondary rounded-full font-bold hover:bg-gray-100 bg-white text-sm" type="button">إنهاء الجلسة وإغلاق</button>
+                <button id="cancel-qr-btn" class="px-6 py-2 border border-border-subtle text-secondary rounded-lg font-bold hover:bg-gray-100 bg-white text-sm shadow-xs" type="button">إنهاء الجلسة وإغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- مودال كشف حضور الكورس / الورشة (Course Attendance History Modal) -->
+    <div id="course-attendance-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div id="modal-backdrop-course-attendance" class="absolute inset-0 bg-[#0f172a]/60 backdrop-blur-sm transition-opacity"></div>
+        <div class="bg-white w-full max-w-3xl rounded-xl shadow-lg border border-border-subtle flex flex-col relative z-10 max-h-[90vh] animate-scale-in overflow-hidden" role="dialog">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-border-subtle bg-surface-alt/50">
+                <div class="flex items-center gap-2.5">
+                    <span class="material-symbols-outlined text-sky-600 text-2xl">how_to_reg</span>
+                    <div>
+                        <h2 class="font-bold text-base text-on-surface" id="attendance-modal-course-title">سجل حضور الكورس</h2>
+                        <p class="text-[11px] text-secondary" id="attendance-modal-course-subtitle">كشف تفصيلي بأسماء الطلاب وحضورهم في ورشات وجلسات هذا الكورس</p>
+                    </div>
+                </div>
+                <button id="close-course-attendance-icon" aria-label="إغلاق" class="text-secondary hover:text-primary-container transition-colors rounded-full p-2 hover:bg-gray-200">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+
+            <!-- بطاقات الإحصائيات الأكاديمية -->
+            <div class="grid grid-cols-3 gap-3 p-5 pb-3 border-b border-slate-100 bg-slate-50/50">
+                <div class="bg-white p-3 rounded-xl border border-border-subtle shadow-xs">
+                    <div class="text-[11px] text-secondary font-medium mb-1">إجمالي الجلسات</div>
+                    <div id="stat-course-sessions-count" class="text-lg font-black text-slate-800 font-code-snippet">0</div>
+                </div>
+                <div class="bg-white p-3 rounded-xl border border-border-subtle shadow-xs">
+                    <div class="text-[11px] text-secondary font-medium mb-1">الطلاب الفريدين</div>
+                    <div id="stat-course-unique-students" class="text-lg font-black text-sky-600 font-code-snippet">0</div>
+                </div>
+                <div class="bg-white p-3 rounded-xl border border-border-subtle shadow-xs">
+                    <div class="text-[11px] text-secondary font-medium mb-1">إجمالي الحضور</div>
+                    <div id="stat-course-total-scans" class="text-lg font-black text-emerald-600 font-code-snippet">0</div>
+                </div>
+            </div>
+
+            <!-- شريط البحث والفلترة والتصدير -->
+            <div class="px-5 py-3 border-b border-border-subtle flex flex-wrap items-center justify-between gap-3 bg-white">
+                <div class="relative flex-1 min-w-[200px]">
+                    <span class="material-symbols-outlined absolute right-3 top-2.5 text-secondary text-base">search</span>
+                    <input id="attendance-search-input" type="text" placeholder="بحث باسم الطالب أو رقمه الجامعي..." class="w-full pr-8 pl-3 py-1.5 text-xs border border-border-subtle rounded-lg bg-surface-alt focus:bg-white focus:outline-none focus:border-sky-500 transition-colors" />
+                </div>
+                <div class="flex items-center gap-2">
+                    <select id="attendance-session-filter" class="text-xs border border-border-subtle rounded-lg px-2.5 py-1.5 bg-surface-alt font-medium focus:outline-none">
+                        <option value="all">كل الجلسات</option>
+                    </select>
+                    <button id="export-attendance-csv-btn" class="flex items-center gap-1 px-3 py-1.5 bg-white border border-border-subtle hover:bg-slate-50 text-slate-700 rounded-lg text-xs font-bold transition-colors shadow-xs">
+                        <span class="material-symbols-outlined text-[15px] text-emerald-600">download</span>
+                        تصدير كشف Excel/CSV
+                    </button>
+                </div>
+            </div>
+
+            <!-- جدول الحضور -->
+            <div class="p-5 pt-3 flex-grow overflow-y-auto">
+                <div class="border border-border-subtle rounded-xl overflow-hidden shadow-xs">
+                    <table class="w-full text-right text-xs">
+                        <thead class="bg-surface-alt border-b border-border-subtle text-secondary font-bold">
+                            <tr>
+                                <th class="p-2.5">اسم الطالب</th>
+                                <th class="p-2.5">الرقم الجامعي</th>
+                                <th class="p-2.5">الجلسة / الورشة</th>
+                                <th class="p-2.5">التاريخ والوقت</th>
+                                <th class="p-2.5 text-center">الحالة</th>
+                            </tr>
+                        </thead>
+                        <tbody id="course-attendance-table-body" class="divide-y divide-border-subtle bg-white">
+                            <tr>
+                                <td colspan="5" class="p-8 text-center text-slate-400">جاري تحميل بيانات الحضور...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="px-5 py-3 border-t border-border-subtle bg-surface-alt flex justify-end">
+                <button id="close-course-attendance-btn" class="px-4 py-1.5 bg-white border border-border-subtle text-slate-700 hover:bg-slate-50 rounded-lg font-bold text-xs shadow-xs" type="button">إغلاق</button>
             </div>
         </div>
     </div>
@@ -386,8 +497,8 @@
     <!-- مودال تعديل الكورس (Edit Course Modal) -->
     <div id="edit-course-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div id="modal-backdrop-edit-course" class="absolute inset-0 bg-[#0f172a]/60 backdrop-blur-sm transition-opacity"></div>
-        <div class="bg-white w-full max-w-[500px] rounded-[24px] shadow-2xl flex flex-col relative z-10 animate-scale-in" role="dialog">
-            <div class="flex items-center justify-between px-6 py-5 border-b border-border-subtle bg-surface-alt/50 rounded-t-[24px]">
+        <div class="bg-white w-full max-w-[500px] rounded-xl shadow-lg border border-border-subtle flex flex-col relative z-10 animate-scale-in" role="dialog">
+            <div class="flex items-center justify-between px-6 py-5 border-b border-border-subtle bg-surface-alt/50 rounded-t-xl">
                 <h2 class="font-bold text-xl text-primary-container flex items-center gap-2">
                     <span class="material-symbols-outlined">edit_note</span> تعديل بيانات الكورس
                 </h2>
@@ -406,7 +517,7 @@
                         <textarea id="edit-course-description" rows="4" class="w-full bg-white border border-border-subtle rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all" placeholder="اكتب وصفاً تفصيلياً للكورس..." required></textarea>
                     </div>
                 </div>
-                <div class="px-6 py-4 border-t border-border-subtle bg-surface-alt flex justify-end gap-3 rounded-b-[24px]">
+                <div class="px-6 py-4 border-t border-border-subtle bg-surface-alt flex justify-end gap-3 rounded-b-xl">
                     <button id="cancel-edit-course-btn" class="px-6 py-2.5 border border-border-subtle text-secondary rounded-lg font-bold hover:bg-gray-100 bg-white" type="button">إلغاء</button>
                     <button class="px-8 py-2.5 bg-primary-container text-white rounded-lg font-bold hover:bg-primary shadow-md" type="submit">تحديث البيانات</button>
                 </div>
@@ -420,7 +531,7 @@
     <!-- مودال التأكيد المخصص (Custom Elegant Confirm Modal) -->
     <div id="custom-confirm-modal" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-4">
         <div id="confirm-modal-backdrop" class="absolute inset-0 bg-[#0f172a]/60 backdrop-blur-sm transition-opacity"></div>
-        <div class="bg-white w-full max-w-[440px] rounded-[24px] shadow-2xl flex flex-col relative z-10 animate-scale-in" role="dialog">
+        <div class="bg-white w-full max-w-[440px] rounded-xl shadow-lg border border-border-subtle flex flex-col relative z-10 animate-scale-in" role="dialog">
             <div class="p-6 flex flex-col gap-4">
                 <div class="flex items-center gap-3 text-red-600">
                     <span class="material-symbols-outlined text-3xl">warning</span>
@@ -430,7 +541,7 @@
             </div>
             <div class="px-6 py-4 border-t border-border-subtle bg-surface-alt flex justify-end gap-3 rounded-b-[24px]">
                 <button id="confirm-modal-cancel-btn" class="px-5 py-2.5 border border-border-subtle text-secondary rounded-lg font-bold hover:bg-gray-100 bg-white" type="button">إلغاء</button>
-                <button id="confirm-modal-confirm-btn" class="px-6 py-2.5 bg-red-600 hover:bg-red-750 text-white rounded-lg font-bold shadow-md hover:bg-red-700" type="button">حذف نهائي</button>
+                <button id="confirm-modal-confirm-btn" class="px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold shadow-sm transition-colors" type="button">حذف نهائي</button>
             </div>
         </div>
     </div>
@@ -438,8 +549,8 @@
     <!-- مودال الإدخال المخصص (Custom Elegant Prompt Modal) -->
     <div id="custom-prompt-modal" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-4">
         <div id="prompt-modal-backdrop" class="absolute inset-0 bg-[#0f172a]/60 backdrop-blur-sm transition-opacity"></div>
-        <div class="bg-white w-full max-w-[440px] rounded-[24px] shadow-2xl flex flex-col relative z-10 animate-scale-in" role="dialog">
-            <div class="flex items-center justify-between px-6 py-5 border-b border-border-subtle bg-surface-alt/50 rounded-t-[24px]">
+        <div class="bg-white w-full max-w-[440px] rounded-xl shadow-lg border border-border-subtle flex flex-col relative z-10 animate-scale-in" role="dialog">
+            <div class="flex items-center justify-between px-6 py-5 border-b border-border-subtle bg-surface-alt/50 rounded-t-xl">
                 <h3 id="prompt-modal-title" class="font-bold text-lg text-primary-container flex items-center gap-2">
                     <span class="material-symbols-outlined">edit</span> تعديل الاسم
                 </h3>
@@ -451,26 +562,18 @@
                 <label id="prompt-modal-label" class="block text-sm font-bold text-secondary">الاسم الجديد للقسم:</label>
                 <input id="prompt-modal-input" class="w-full bg-white border border-border-subtle rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all font-bold" type="text" />
             </div>
-            <div class="px-6 py-4 border-t border-border-subtle bg-surface-alt flex justify-end gap-3 rounded-b-[24px]">
+            <div class="px-6 py-4 border-t border-border-subtle bg-surface-alt flex justify-end gap-3 rounded-b-xl">
                 <button id="prompt-modal-cancel-btn" class="px-5 py-2.5 border border-border-subtle text-secondary rounded-lg font-bold hover:bg-gray-100 bg-white" type="button">إلغاء</button>
                 <button id="prompt-modal-submit-btn" class="px-6 py-2.5 bg-primary-container hover:bg-primary text-white rounded-lg font-bold shadow-md" type="button">حفظ التعديل</button>
             </div>
         </div>
     </div>
 
-    <!-- ============================================================================== -->
-    <!-- مودال الاختيار من قائمة منسدلة المخصص (Custom Elegant Dropdown Prompt Modal) -->
-    <!-- متطلب أكاديمي وتصميمي راقٍ: يوفر واجهة مستخدم فائقة الجودة والأمان تمنع الأخطاء -->
-    <!-- الإملائية وتضمن دقة إسناد رتب المشرفين عبر الاختيار المسبق للقيم. -->
-    <!-- ============================================================================== -->
+    <!-- مودال الاختيار من قائمة منسدلة المخصص -->
     <div id="custom-dropdown-prompt-modal" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-4">
-        <!-- الخلفية المظلمة والضبابية لتركيز اهتمام المستخدم ومنع التشتيت -->
         <div id="dropdown-prompt-modal-backdrop" class="absolute inset-0 bg-[#0f172a]/60 backdrop-blur-sm transition-opacity"></div>
-        
-        <!-- هيكل لوحة الحوار المنبثقة مع حركة تقريب سلسة (Scale In) -->
-        <div class="bg-white w-full max-w-[440px] rounded-[24px] shadow-2xl flex flex-col relative z-10 animate-scale-in" role="dialog">
-            <!-- ترويسة المودال الفاخرة مع زر الإغلاق السريع -->
-            <div class="flex items-center justify-between px-6 py-5 border-b border-border-subtle bg-surface-alt/50 rounded-t-[24px]">
+        <div class="bg-white w-full max-w-[440px] rounded-xl shadow-lg border border-border-subtle flex flex-col relative z-10 animate-scale-in" role="dialog">
+            <div class="flex items-center justify-between px-6 py-5 border-b border-border-subtle bg-surface-alt/50 rounded-t-xl">
                 <h3 id="dropdown-prompt-modal-title" class="font-bold text-lg text-primary-container flex items-center gap-2">
                     <span class="material-symbols-outlined">edit</span> تعديل الرتبة
                 </h3>
@@ -479,35 +582,24 @@
                 </button>
             </div>
             
-            <!-- محتوى المدخلات: حقل الاختيار المنسدل المخصص بنمط الماتيريال 3 -->
             <div class="p-6 flex flex-col gap-4">
                 <label id="dropdown-prompt-modal-label" class="block text-sm font-bold text-secondary">اختر الرتبة الجديدة:</label>
                 <select id="dropdown-prompt-modal-select" class="w-full bg-white border border-border-subtle rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all font-bold">
-                    <!-- سيتم حقن الخيارات ديناميكياً عبر الجافاسكربت لمنع التثبيت اليدوي وتسهيل التوسيع مستقبلاً -->
                 </select>
             </div>
             
-            <!-- تذييل المودال ويحتوي على أزرار التفاعل المباشر -->
-            <div class="px-6 py-4 border-t border-border-subtle bg-surface-alt flex justify-end gap-3 rounded-b-[24px]">
+            <div class="px-6 py-4 border-t border-border-subtle bg-surface-alt flex justify-end gap-3 rounded-b-xl">
                 <button id="dropdown-prompt-modal-cancel-btn" class="px-5 py-2.5 border border-border-subtle text-secondary rounded-lg font-bold hover:bg-gray-100 bg-white" type="button">إلغاء</button>
                 <button id="dropdown-prompt-modal-submit-btn" class="px-6 py-2.5 bg-primary-container hover:bg-primary text-white rounded-lg font-bold shadow-md" type="button">حفظ التعديل</button>
             </div>
         </div>
     </div>
 
-    <!-- ============================================================================== -->
-    <!-- مودال تغيير كلمة المرور المخصص (Custom Elegant Change Password Modal) -->
-    <!-- متطلب أمني وتصميمي راقٍ: يوفر نموذجاً تفاعلياً لتعديل كلمات المرور بخصوصية عالية -->
-    <!-- مع التحقق المتزامن وإغلاق الجلسة الآمن فور نجاح العملية. -->
-    <!-- ============================================================================== -->
+    <!-- مودال تغيير كلمة المرور المخصص -->
     <div id="change-password-modal" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-4">
-        <!-- الخلفية المظلمة والضبابية لتركيز اهتمام المستخدم ومنع التشتيت -->
         <div id="change-password-modal-backdrop" class="absolute inset-0 bg-[#0f172a]/60 backdrop-blur-sm transition-opacity"></div>
-        
-        <!-- هيكل لوحة الحوار المنبثقة مع حركة تقريب سلسة (Scale In) -->
-        <div class="bg-white w-full max-w-[460px] rounded-[24px] shadow-2xl flex flex-col relative z-10 animate-scale-in" role="dialog">
-            <!-- ترويسة المودال الفاخرة مع زر الإغلاق السريع -->
-            <div class="flex items-center justify-between px-6 py-5 border-b border-border-subtle bg-surface-alt/50 rounded-t-[24px]">
+        <div class="bg-white w-full max-w-[460px] rounded-xl shadow-lg border border-border-subtle flex flex-col relative z-10 animate-scale-in" role="dialog">
+            <div class="flex items-center justify-between px-6 py-5 border-b border-border-subtle bg-surface-alt/50 rounded-t-xl">
                 <h3 class="font-bold text-lg text-primary-container flex items-center gap-2">
                     <span class="material-symbols-outlined">lock_open</span> تغيير كلمة المرور
                 </h3>
@@ -543,7 +635,7 @@
                 </div>
                 
                 <!-- أزرار التحكم بالتأكيد والإرسال -->
-                <div class="px-6 py-4 border-t border-border-subtle bg-surface-alt flex justify-end gap-3 rounded-b-[24px]">
+                <div class="px-6 py-4 border-t border-border-subtle bg-surface-alt flex justify-end gap-3 rounded-b-xl">
                     <button id="change-password-modal-cancel-btn" class="px-5 py-2.5 border border-border-subtle text-secondary rounded-lg font-bold hover:bg-gray-100 bg-white" type="button">إلغاء</button>
                     <button type="submit" class="px-6 py-2.5 bg-primary-container hover:bg-primary text-white rounded-lg font-bold shadow-md">تحديث كلمة المرور</button>
                 </div>

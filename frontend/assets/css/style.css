@@ -1,6 +1,6 @@
 /* =================================================================
    HaderaX Platform — Unified Stylesheet
-   Consolidated from: Public Dashboard, Course Details, Login, Admin Portal
+   Crafted for Human-Grade UI (No-Slop & UI/UX Pro Max Standards)
    ================================================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800;900&family=Cairo:wght@400;600;700;800;900&family=Outfit:wght@400;600;700;800;900&display=swap');
@@ -8,6 +8,8 @@
 /* --- Base Typography --- */
 body {
     font-family: 'Alexandria', 'Cairo', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* --- Material Symbols Icon Settings --- */
@@ -29,25 +31,19 @@ body {
 .carousel-container::-webkit-scrollbar { display: none; }
 .carousel-item { scroll-snap-align: start; }
 
-/* --- Card Shadow Variants --- */
+/* --- Restrained Human-Grade Card Shadows --- */
 .soft-shadow {
-    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
 }
 .card-shadow {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-}
-.gold-glow {
-    box-shadow: 0 0 25px rgba(245, 158, 11, 0.25);
-}
-.sky-glow {
-    box-shadow: 0 0 25px rgba(14, 165, 233, 0.25);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
 }
 
-/* --- Interactive Card Hover (Hadera Gold highlight) --- */
+/* --- Interactive Card Hover (Restrained Hadera Gold highlight) --- */
 .interactive-card:hover {
     border-color: #F59E0B;
     transform: translateY(-2px);
-    transition: all 0.2s ease-in-out;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 /* --- Drawer Scrollbar --- */
@@ -55,17 +51,73 @@ body {
 .drawer-scroll::-webkit-scrollbar-track { background: transparent; }
 .drawer-scroll::-webkit-scrollbar-thumb { background-color: #CBD5E1; border-radius: 20px; }
 
-/* --- Login Page Decorative Mesh Pattern --- */
+/* --- Architectural Grid Patterns (Clean, low-contrast, engineered) --- */
+.hero-tech-atmosphere {
+    background-color: #F8FAFC;
+    background-image: 
+        radial-gradient(at 50% -10%, rgba(14, 165, 233, 0.18) 0px, transparent 65%),
+        radial-gradient(at 90% 10%, rgba(2, 132, 199, 0.08) 0px, transparent 45%),
+        radial-gradient(at 10% 20%, rgba(245, 158, 11, 0.06) 0px, transparent 40%),
+        linear-gradient(to right, rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+}
 .bg-mesh-pattern {
-    background-image: radial-gradient(rgba(245, 158, 11, 0.15) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
     background-size: 24px 24px;
+}
+.bg-grid-subtle {
+    background-image: linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+}
+.bg-dot-subtle {
+    background-image: radial-gradient(rgba(15, 23, 42, 0.07) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* --- Tabular & Monospace Data Alignments --- */
+.tabular-nums {
+    font-variant-numeric: tabular-nums;
+}
+
+/* --- Restrained Human-Grade Card --- */
+.haderax-card {
+    background-color: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.03), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.haderax-card:hover {
+    border-color: #CBD5E1;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
+}
+
+/* --- Active Live Status Pulse --- */
+.status-dot-pulse {
+    position: relative;
+}
+.status-dot-pulse::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 9999px;
+    background-color: #10B981;
+    opacity: 0.5;
+    animation: status-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes status-ping {
+    75%, 100% {
+        transform: scale(2);
+        opacity: 0;
+    }
 }
 
 /* --- Modal Scale-In Animation --- */
 @keyframes scale-in {
-    0% { transform: scale(0.95); opacity: 0; margin-top: -10px; }
-    100% { transform: scale(1); opacity: 1; margin-top: 0; }
+    0% { transform: scale(0.98); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
 }
 .animate-scale-in {
-    animation: scale-in 0.2s ease-out forwards;
+    animation: scale-in 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

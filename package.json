@@ -1,6 +1,25 @@
 {
+  "name": "haderax-platform",
+  "version": "1.0.0",
+  "description": "منصة التدريب التقني والتعليم المستمر - جامعة الحاضرة",
+  "main": "api/index.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node backend/server.js",
+    "build": "echo 'Build step complete'"
+  },
   "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.5.2",
+    "jsonwebtoken": "^9.0.3",
     "morgan": "^1.10.1",
+    "multer": "^2.1.1",
+    "mysql2": "^3.22.4",
+    "nodemailer": "^8.0.10",
     "winston": "^3.19.0"
   }
 }

@@ -6,6 +6,13 @@
  *   2. Fetch and render live news feed in #news-carousel-container with image aspect ratios and overlays.
  */
 
+// ==============================================================================
+// 1. Dynamic API Base Resolver (Supports Localhost, Wi-Fi Dev & Cloud Vercel)
+// ==============================================================================
+const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && window.location.port !== '3000'
+    ? `http://${window.location.hostname}:3000`
+    : '';
+
 document.addEventListener('DOMContentLoaded', () => {
     // تشغيل جلب البيانات حياً من السيرفر بمجرد تحميل الصفحة
     loadHomeCourses();
@@ -31,8 +38,7 @@ async function loadHomeCourses() {
             </div>
         `;
 
-        const hostname = window.location.hostname || 'localhost';
-        const response = await fetch(`http://${hostname}:3000/api/courses`);
+        const response = await fetch(`${API_BASE}/api/courses`);
         if (!response.ok) throw new Error('فشل جلب الدورات من السيرفر');
 
         const courses = await response.json();
@@ -51,32 +57,83 @@ async function loadHomeCourses() {
         // تفريغ الحاوية قبل البناء
         grid.innerHTML = '';
 
-        // تدرجات لونية مميزة وراقية للكورسات (Curated HSL Gradients)
-        const gradients = [
-            'from-primary-container/10 to-crimson-muted/40 border-primary-container/30',
-            'from-emerald-500/10 to-teal-500/10 border-emerald-500/20',
-            'from-blue-500/10 to-cyan-500/10 border-blue-500/20',
-            'from-amber-500/10 to-orange-500/10 border-amber-500/20'
-        ];
+        // عرض أحدث 4 دورات مميزة في الصفحة الرئيسية لمنع تراكم المحتوى
+        const featuredCourses = courses.slice(0, 4);
 
-        courses.forEach((course, index) => {
-            const gradClass = gradients[index % gradients.length];
+        featuredCourses.forEach((course) => {
+            let bannerGradient = 'bg-gradient-to-br from-slate-900 via-sky-950 to-blue-900';
+            let badgeText = 'مسار تدريبي معتمد';
+            let badgeClass = 'bg-white/95 text-slate-800';
+            let icon = 'terminal';
+            let watermarkIcon = 'terminal';
+
+            const lowerTitle = (course.course_title || '').toLowerCase();
+            if (lowerTitle.includes('ذكاء') || lowerTitle.includes('آلة')) {
+                bannerGradient = 'bg-gradient-to-br from-indigo-950 via-slate-900 to-sky-900';
+                badgeText = 'الذكاء الاصطناعي';
+                badgeClass = 'bg-sky-500 text-white';
+                icon = 'psychology';
+                watermarkIcon = 'smart_toy';
+            } else if (lowerTitle.includes('ويب') || lowerTitle.includes('full-stack')) {
+                bannerGradient = 'bg-gradient-to-br from-blue-950 via-slate-900 to-teal-950';
+                badgeText = 'تطوير الويب';
+                badgeClass = 'bg-emerald-500 text-white';
+                icon = 'language';
+                watermarkIcon = 'code_blocks';
+            } else if (lowerTitle.includes('بايثون')) {
+                bannerGradient = 'bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900';
+                badgeText = 'هندسة بايثون';
+                badgeClass = 'bg-amber-500 text-white';
+                icon = 'terminal';
+                watermarkIcon = 'data_object';
+            } else if (lowerTitle.includes('أمن')) {
+                bannerGradient = 'bg-gradient-to-br from-slate-950 via-rose-950 to-slate-900';
+                badgeText = 'أمن سيبراني';
+                badgeClass = 'bg-rose-500 text-white';
+                icon = 'security';
+                watermarkIcon = 'shield';
+            }
+
             const a = document.createElement('a');
             a.href = `course-details.html?id=${course.course_id}`;
-            a.className = `bg-white rounded-2xl p-6 border ${gradClass} hover:-translate-y-1.5 transition-all duration-300 group flex flex-col no-underline text-inherit shadow-sm hover:shadow-md cursor-pointer animate-scale-in`;
+            a.className = "bg-white rounded-2xl border border-slate-200/90 hover:border-primary-container/60 hover:shadow-xl transition-all duration-300 group flex flex-col no-underline text-inherit shadow-sm overflow-hidden cursor-pointer animate-scale-in";
 
             a.innerHTML = `
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-xl font-extrabold text-on-surface font-inter truncate flex-grow text-right" dir="auto">${course.course_title}</h3>
-                    <span class="material-symbols-outlined text-primary-container text-2xl group-hover:rotate-12 transition-transform">menu_book</span>
+                <!-- Visual Gradient Cover Banner (CourseBuilder Inspired) -->
+                <div class="h-32 w-full ${bannerGradient} relative flex items-center justify-center overflow-hidden border-b border-slate-100 flex-shrink-0">
+                    <div class="absolute top-3 right-3 z-10">
+                        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold ${badgeClass} shadow-xs">
+                            ${badgeText}
+                        </span>
+                    </div>
+                    <div class="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-xs border border-white/20 flex items-center justify-center text-white shadow-inner group-hover:scale-110 transition-transform duration-300">
+                        <span class="material-symbols-outlined text-[32px]">${icon}</span>
+                    </div>
+                    <span class="material-symbols-outlined absolute -bottom-4 -left-3 text-7xl text-white/5 pointer-events-none">${watermarkIcon}</span>
                 </div>
-                <p class="text-sm text-secondary mt-1 mb-6 flex-grow leading-relaxed line-clamp-3 text-right" dir="auto">
-                    ${course.description || 'لم يتم إضافة وصف كورس تفصيلي بعد.'}
-                </p>
-                
-                <div class="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
-                    <span class="text-xs font-bold text-primary-container group-hover:underline">عرض الفصول والمواد</span>
-                    <span class="material-symbols-outlined text-sm text-secondary group-hover:translate-x-[-4px] transition-transform">arrow_back</span>
+
+                <!-- Card Content Body -->
+                <div class="p-5 flex-grow flex flex-col">
+                    <h3 class="text-base sm:text-lg font-bold text-slate-900 group-hover:text-primary-container transition-colors mb-2 text-right line-clamp-1" dir="auto">${course.course_title}</h3>
+                    <p class="text-xs sm:text-sm text-slate-500 mb-5 flex-grow leading-relaxed line-clamp-2 text-right" dir="auto">
+                        ${course.description || 'مسار تدريبي تخصصي في جامعة الحاضرة لصقل مهارات الطلاب البرمجية وتأهيل الكوادر لسوق العمل.'}
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-2 py-3 border-t border-slate-100 text-xs text-slate-500 text-right">
+                        <div class="flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-[16px] text-emerald-600">qr_code_2</span>
+                            <span class="font-medium">حضور بـ QR</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-[16px] text-amber-600">verified</span>
+                            <span class="font-medium">شهادة معتمدة</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-auto pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-primary-container">
+                        <span>عرض تفاصيل ومقررات المسار</span>
+                        <span class="material-symbols-outlined text-[18px] group-hover:-translate-x-1 transition-transform">arrow_left_alt</span>
+                    </div>
                 </div>
             `;
             grid.appendChild(a);
@@ -113,8 +170,7 @@ async function loadHomeNews() {
             </div>
         `;
 
-        const hostname = window.location.hostname || 'localhost';
-        const response = await fetch(`http://${hostname}:3000/api/news`);
+        const response = await fetch(`${API_BASE}/api/news`);
         if (!response.ok) throw new Error('فشل جلب الأخبار');
 
         const news = await response.json();
@@ -133,23 +189,41 @@ async function loadHomeNews() {
 
         news.forEach(item => {
             const article = document.createElement('article');
-            // كرت عريض جداً وسينمائي (الصورة في الأعلى بكامل العرض متبوعة بكامل نص الخبر بالأسفل)
-            article.className = "min-w-[290px] md:min-w-[500px] max-w-[500px] bg-white rounded-xl shadow-sm border border-border-subtle hover:border-primary-container/40 transition-all duration-300 overflow-hidden group flex flex-col hover:-translate-y-1 animate-scale-in";
+            article.className = "min-w-[290px] md:min-w-[460px] max-w-[460px] bg-white rounded-xl shadow-xs border border-slate-200 hover:border-slate-300 transition-all duration-150 overflow-hidden group flex flex-col animate-scale-in flex-shrink-0";
 
-            const fullImgUrl = `http://${hostname}:3000${item.image_path}`;
+            const fullImgUrl = `${API_BASE}${item.image_path}`;
 
             article.innerHTML = `
-                <div class="w-full h-48 md:h-60 relative overflow-hidden flex items-center justify-center bg-slate-50 border-b border-slate-100 flex-shrink-0">
-                    <img src="${fullImgUrl}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="w-full h-48 md:h-52 relative overflow-hidden flex items-center justify-center bg-slate-100 border-b border-slate-200 flex-shrink-0">
+                    <img src="${fullImgUrl}" alt="${item.title}" class="w-full h-full object-cover transition-opacity duration-200 group-hover:opacity-95" onerror="this.onerror=null; this.src='assets/branding/haderax-icon.svg'; this.className='w-20 h-20 object-contain p-4 opacity-40';">
+                    <div class="absolute top-3 right-3">
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-white text-slate-800 shadow-xs border border-slate-200">
+                            <span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+                            إعلان رسمي
+                        </span>
+                    </div>
                 </div>
                 <div class="p-6 flex-grow flex flex-col gap-2 text-right">
-                    <h3 class="font-bold text-lg text-primary-container leading-snug" dir="auto">${item.title}</h3>
-                    <p class="text-sm text-secondary leading-relaxed mt-1 whitespace-pre-line" dir="auto">${item.content}</p>
+                    <h3 class="font-bold text-base md:text-lg text-slate-900 group-hover:text-primary-container transition-colors leading-snug" dir="auto">${item.title}</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mt-1 line-clamp-3 whitespace-pre-line" dir="auto">${item.content}</p>
+                    <div class="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                        <span class="font-medium">جامعة الحاضرة • الشؤون الأكاديمية</span>
+                        <span class="text-primary-container font-semibold">تفاصيل الإعلان</span>
+                    </div>
                 </div>
             `;
             container.appendChild(article);
         });
+
+        // ربط أزرار التمرير الأفقي للأخبار بسلاسة
+        const nextBtn = document.getElementById('news-scroll-right');
+        const prevBtn = document.getElementById('news-scroll-left');
+        if (nextBtn) {
+            nextBtn.onclick = () => container.scrollBy({ left: 380, behavior: 'smooth' });
+        }
+        if (prevBtn) {
+            prevBtn.onclick = () => container.scrollBy({ left: -380, behavior: 'smooth' });
+        }
 
     } catch (error) {
         console.error('Error loading news:', error);
@@ -185,8 +259,7 @@ async function checkAdminAccess() {
     const logoutBtn = document.getElementById('drawer-logout-btn');
 
     try {
-        const hostname = window.location.hostname || 'localhost';
-        const backendUrl = `http://${hostname}:3000/api/auth/me`;
+        const backendUrl = `${API_BASE}/api/auth/me`;
         const response = await fetch(backendUrl, {
             method: 'GET',
             credentials: 'include'
@@ -225,7 +298,7 @@ async function checkAdminAccess() {
                     roleBg = 'bg-slate-700';
                 } else if (user.role === 'Students_Admin') {
                     roleText = 'مشرف شؤون الطلاب';
-                    roleBg = 'bg-emerald-650';
+                    roleBg = 'bg-emerald-600';
                 } else if (user.role === 'Curriculum_Admin') {
                     roleText = 'مشرف المناهج الدراسية';
                     roleBg = 'bg-blue-600';
@@ -239,7 +312,7 @@ async function checkAdminAccess() {
             if (logoutBtn) {
                 logoutBtn.addEventListener('click', async () => {
                     try {
-                        const logoutUrl = `http://${hostname}:3000/api/auth/logout`;
+                        const logoutUrl = `${API_BASE}/api/auth/logout`;
                         const logoutRes = await fetch(logoutUrl, {
                             method: 'POST',
                             credentials: 'include'
@@ -289,7 +362,7 @@ async function checkAdminAccess() {
                     }
 
                     try {
-                        const pwdUrl = `http://${hostname}:3000/api/auth/change-password`;
+                        const pwdUrl = `${API_BASE}/api/auth/change-password`;
                         const pwdRes = await fetch(pwdUrl, {
                             method: 'PUT',
                             headers: {
@@ -338,4 +411,20 @@ async function checkAdminAccess() {
         if (adminBtn) adminBtn.classList.add('hidden');
     }
 }
+
+/**
+ * ==============================================================================
+ * 4. البحث الأكاديمي الفوري من شريط الهيرو (Hero Academic Search Handler)
+ * ==============================================================================
+ */
+function handleHeroSearch() {
+    const input = document.getElementById('hero-search-input');
+    const query = input ? input.value.trim() : '';
+    if (query) {
+        window.location.href = `courses.html?q=${encodeURIComponent(query)}`;
+    } else {
+        window.location.href = 'courses.html';
+    }
+}
+window.handleHeroSearch = handleHeroSearch;
 

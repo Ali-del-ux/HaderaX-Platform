@@ -24,8 +24,11 @@ router.post('/start', requireAuth, requireStudentsAdmin, attendanceController.st
 // إيقاف الجلسة النشطة (POST /api/attendance/stop/:sessionId)
 router.post('/stop/:sessionId', requireAuth, requireStudentsAdmin, attendanceController.stopSession);
 
-// جلب عدد الحضور المباشر للجلسة الحالية (GET /api/attendance/live-count/:sessionId)
+// جلب عدد وبث الحضور المباشر للجلسة الحالية (GET /api/attendance/live-count/:sessionId)
 router.get('/live-count/:sessionId', requireAuth, requireStudentsAdmin, attendanceController.getLiveCount);
+
+// جلب سجل حضور وتفاصيل جلسات كورس محدد (GET /api/attendance/course/:courseId)
+router.get('/course/:courseId', requireAuth, requireStudentsAdmin, attendanceController.getCourseAttendance);
 
 // مسح رمز الـ QR وتسجيل حضور الطالب (GET /api/attendance/scan?token=xxx)
 router.get('/scan', attendanceController.scanQR);

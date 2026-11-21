@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>دليل المسارات التدريبية والورش — حاضراكس | HaderaX</title>
+
+    <link rel="icon" type="image/svg+xml" href="assets/branding/favicon.svg">
+    <link rel="alternate icon" href="assets/branding/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/branding/apple-touch-icon.png">
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="assets/js/tailwind-config.js"></script>
+
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800;900&family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Outfit:wght@600;800;900&family=JetBrains+Mono:wght@400&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="text-on-surface antialiased min-h-screen flex flex-col bg-surface-alt">
+
+    <!-- Header Navigation -->
+    <header class="bg-white border-b border-border-subtle sticky top-0 z-50 shadow-xs">
+        <div class="flex items-center justify-between w-full px-4 md:px-16 py-3.5 max-w-[1280px] mx-auto">
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="flex items-center gap-2.5">
+                    <img src="assets/branding/haderax-icon.svg" alt="HaderaX" class="w-8 h-8 object-contain">
+                    <span class="text-lg font-black text-slate-900 hidden sm:inline">حاضر<span class="text-brand-sky">إكس</span></span>
+                </a>
+                <span class="text-slate-300 hidden md:inline">|</span>
+                <nav class="hidden md:flex items-center gap-2 text-xs font-medium text-slate-500">
+                    <a href="index.html" class="hover:text-primary-container transition-colors">الرئيسية</a>
+                    <span>/</span>
+                    <span class="text-slate-900 font-bold">دليل المسارات التدريبية</span>
+                </nav>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="flex items-center gap-2 text-slate-700 hover:text-primary-container transition-colors font-bold text-xs sm:text-sm bg-white border border-slate-200 px-3.5 py-1.5 rounded-lg hover:border-slate-300 shadow-xs">
+                    <span>العودة للرئيسية</span>
+                    <span class="material-symbols-outlined text-[18px]">home</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-[1280px] mx-auto px-4 md:px-16 py-8 md:py-12 w-full flex flex-col gap-8 flex-grow">
+
+        <!-- Page Header & Filter Section -->
+        <section class="bg-white rounded-xl border border-slate-200 p-6 md:p-8 shadow-xs">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <div>
+                    <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-sky-50 text-sky-800 border border-sky-200 mb-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+                        دليل البرامج الأكاديمية
+                    </div>
+                    <h1 class="text-2xl sm:text-3xl font-black text-slate-900 leading-tight">دليل المسارات التدريبية والورش المعملية</h1>
+                    <p class="text-sm text-slate-500 mt-1">استكشف كافة المقررات والورش المعتمدة في جامعة الحاضرة مع البحث الفوري والتصنيف التخصصي</p>
+                </div>
+                <div class="flex items-center gap-2 text-xs text-slate-500 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 self-start md:self-auto">
+                    <span class="material-symbols-outlined text-[18px] text-primary-container">database</span>
+                    <span>إجمالي البرامج:</span>
+                    <strong id="courses-count-badge" class="text-slate-900 font-inter font-bold tabular-nums">0 مسار</strong>
+                </div>
+            </div>
+
+            <!-- Instant Search Input & Categories -->
+            <div class="flex flex-col gap-4 pt-4 border-t border-slate-100">
+                <div class="relative w-full">
+                    <span class="material-symbols-outlined absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">search</span>
+                    <input id="catalog-search-input" type="text"
+                        placeholder="ابحث بالاسم، أو الكلمة المفتاحية، أو مجال التدريب..."
+                        class="w-full pl-10 pr-11 py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-container/20 focus:border-primary-container focus:bg-white text-sm text-slate-900 placeholder:text-slate-400 transition-all">
+                    <button id="clear-search-btn" class="hidden absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors">
+                        <span class="material-symbols-outlined text-[18px]">close</span>
+                    </button>
+                </div>
+
+                <!-- Category Pills (Filter Tabs) -->
+                <div class="flex items-center gap-2 overflow-x-auto pb-1" id="category-pills-container">
+                    <button data-cat="all" class="category-pill active px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-primary-container text-white shadow-xs">
+                        كافة المسارات
+                    </button>
+                    <button data-cat="ai" class="category-pill px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:text-slate-900">
+                        الذكاء الاصطناعي وتعلم الآلة
+                    </button>
+                    <button data-cat="web" class="category-pill px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:text-slate-900">
+                        تطوير البرمجيات والويب
+                    </button>
+                    <button data-cat="python" class="category-pill px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:text-slate-900">
+                        البرمجة بلغة بايثون
+                    </button>
+                    <button data-cat="security" class="category-pill px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:text-slate-900">
+                        الأمن السيبراني والشبكات
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Course Catalog Grid -->
+        <section>
+            <div id="all-courses-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- يتم جلب الدورات وتصييرها حياً هنا عبر courses.js -->
+                <div class="col-span-full py-16 flex flex-col items-center justify-center text-slate-400">
+                    <span class="material-symbols-outlined animate-spin text-primary-container text-4xl mb-3">progress_activity</span>
+                    <p class="font-bold text-sm text-slate-600">جاري تحميل دليل المسارات المعتمدة...</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-8 border-t border-slate-800 mt-auto">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-16 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+            <div class="flex items-center gap-2">
+                <img src="assets/branding/haderax-icon.svg" alt="HaderaX" class="w-6 h-6 object-contain">
+                <span>منصة حاضراكس للتعليم المستمر — جامعة الحاضرة</span>
+            </div>
+            <span>© 2026 جميع الحقوق محفوظة لجامعة الحاضرة.</span>
+        </div>
+    </footer>
+
+    <!-- Client Script for Catalog Filtering & Live Data -->
+    <script>
+        let allCourses = [];
+        let currentCategory = 'all';
+        let searchQuery = '';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // قراءة وسيط البحث من الـ URL إن وجد (مثال: courses.html?q=ذكاء)
+            const urlParams = new URLSearchParams(window.location.search);
+            const queryFromUrl = urlParams.get('q');
+            if (queryFromUrl) {
+                const searchInput = document.getElementById('catalog-search-input');
+                if (searchInput) searchInput.value = queryFromUrl;
+                searchQuery = queryFromUrl.trim().toLowerCase();
+            }
+
+            fetchCatalogCourses();
+            initCatalogListeners();
+        });
+
+        async function fetchCatalogCourses() {
+            const grid = document.getElementById('all-courses-grid');
+            const countBadge = document.getElementById('courses-count-badge');
+
+            try {
+                const apiBase = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && window.location.port !== '3000'
+                    ? `http://${window.location.hostname}:3000`
+                    : '';
+                const response = await fetch(`${apiBase}/api/courses`);
+                if (!response.ok) throw new Error('فشل جلب قائمة الدورات من الخادم');
+
+                allCourses = await response.json();
+                renderFilteredCourses();
+
+            } catch (error) {
+                console.error('Error fetching catalog:', error);
+                if (grid) {
+                    grid.innerHTML = `
+                        <div class="col-span-full py-12 flex flex-col items-center justify-center bg-red-50 border border-red-200 rounded-xl text-center text-red-600">
+                            <span class="material-symbols-outlined text-4xl mb-2">error</span>
+                            <h4 class="font-bold text-base">تعذر تحميل المسارات</h4>
+                            <p class="text-xs text-red-500 mt-1">${error.message}</p>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        function renderFilteredCourses() {
+            const grid = document.getElementById('all-courses-grid');
+            const countBadge = document.getElementById('courses-count-badge');
+            if (!grid) return;
+
+            let filtered = allCourses.filter(course => {
+                const title = (course.course_title || '').toLowerCase();
+                const desc = (course.description || '').toLowerCase();
+                const matchesSearch = !searchQuery || title.includes(searchQuery) || desc.includes(searchQuery);
+
+                let matchesCat = true;
+                if (currentCategory === 'ai') {
+                    matchesCat = title.includes('ذكاء') || title.includes('آلة') || desc.includes('ذكاء');
+                } else if (currentCategory === 'web') {
+                    matchesCat = title.includes('ويب') || title.includes('full-stack') || title.includes('تطبيقات') || desc.includes('ويب');
+                } else if (currentCategory === 'python') {
+                    matchesCat = title.includes('بايثون') || title.includes('python') || desc.includes('بايثون');
+                } else if (currentCategory === 'security') {
+                    matchesCat = title.includes('أمن') || title.includes('سيبراني') || desc.includes('أمن');
+                }
+
+                return matchesSearch && matchesCat;
+            });
+
+            if (countBadge) {
+                countBadge.textContent = `${filtered.length} مسار`;
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-16 flex flex-col items-center justify-center bg-white border border-slate-200 rounded-xl text-center p-8">
+                        <span class="material-symbols-outlined text-slate-300 text-5xl mb-3">search_off</span>
+                        <h4 class="font-bold text-lg text-slate-800 mb-1">لا توجد مسارات مطابقة لبحثك</h4>
+                        <p class="text-sm text-slate-500 max-w-md mb-4">جرّب البحث بكلمة أخرى أو اختر قسماً تدريبياً مختلفاً.</p>
+                        <button onclick="resetFilters()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition-colors">
+                            إعادة ضبط البحث
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = '';
+
+            filtered.forEach(course => {
+                let bannerGradient = 'bg-gradient-to-br from-slate-900 via-sky-950 to-blue-900';
+                let badgeText = 'مسار تدريبي معتمد';
+                let badgeClass = 'bg-white/95 text-slate-800';
+                let icon = 'terminal';
+                let watermarkIcon = 'terminal';
+
+                const lowerTitle = (course.course_title || '').toLowerCase();
+                if (lowerTitle.includes('ذكاء') || lowerTitle.includes('آلة')) {
+                    bannerGradient = 'bg-gradient-to-br from-indigo-950 via-slate-900 to-sky-900';
+                    badgeText = 'الذكاء الاصطناعي';
+                    badgeClass = 'bg-sky-500 text-white';
+                    icon = 'psychology';
+                    watermarkIcon = 'smart_toy';
+                } else if (lowerTitle.includes('ويب') || lowerTitle.includes('full-stack')) {
+                    bannerGradient = 'bg-gradient-to-br from-blue-950 via-slate-900 to-teal-950';
+                    badgeText = 'تطوير الويب';
+                    badgeClass = 'bg-emerald-500 text-white';
+                    icon = 'language';
+                    watermarkIcon = 'code_blocks';
+                } else if (lowerTitle.includes('بايثون')) {
+                    bannerGradient = 'bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900';
+                    badgeText = 'هندسة بايثون';
+                    badgeClass = 'bg-amber-500 text-white';
+                    icon = 'terminal';
+                    watermarkIcon = 'data_object';
+                } else if (lowerTitle.includes('أمن')) {
+                    bannerGradient = 'bg-gradient-to-br from-slate-950 via-rose-950 to-slate-900';
+                    badgeText = 'أمن سيبراني';
+                    badgeClass = 'bg-rose-500 text-white';
+                    icon = 'security';
+                    watermarkIcon = 'shield';
+                }
+
+                const card = document.createElement('a');
+                card.href = `course-details.html?id=${course.course_id}`;
+                card.className = "bg-white rounded-2xl border border-slate-200/90 hover:border-primary-container/60 hover:shadow-xl transition-all duration-300 group flex flex-col no-underline text-inherit shadow-sm overflow-hidden cursor-pointer animate-scale-in";
+
+                card.innerHTML = `
+                    <!-- Visual Gradient Cover Banner (CourseBuilder Inspired) -->
+                    <div class="h-32 w-full ${bannerGradient} relative flex items-center justify-center overflow-hidden border-b border-slate-100 flex-shrink-0">
+                        <div class="absolute top-3 right-3 z-10">
+                            <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold ${badgeClass} shadow-xs">
+                                ${badgeText}
+                            </span>
+                        </div>
+                        <div class="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-xs border border-white/20 flex items-center justify-center text-white shadow-inner group-hover:scale-110 transition-transform duration-300">
+                            <span class="material-symbols-outlined text-[32px]">${icon}</span>
+                        </div>
+                        <span class="material-symbols-outlined absolute -bottom-4 -left-3 text-7xl text-white/5 pointer-events-none">${watermarkIcon}</span>
+                    </div>
+
+                    <!-- Card Content Body -->
+                    <div class="p-5 flex-grow flex flex-col">
+                        <h3 class="text-base sm:text-lg font-bold text-slate-900 group-hover:text-primary-container transition-colors mb-2 text-right line-clamp-1" dir="auto">${course.course_title}</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 mb-5 flex-grow leading-relaxed line-clamp-2 text-right" dir="auto">
+                            ${course.description || 'مسار تدريبي تخصصي في جامعة الحاضرة لصقل مهارات الطلاب البرمجية وتأهيل الكوادر لسوق العمل.'}
+                        </p>
+
+                        <div class="grid grid-cols-2 gap-2 py-3 border-t border-slate-100 text-xs text-slate-500 text-right">
+                            <div class="flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-[16px] text-emerald-600">qr_code_2</span>
+                                <span class="font-medium">حضور بـ QR</span>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-[16px] text-amber-600">verified</span>
+                                <span class="font-medium">شهادة معتمدة</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-primary-container">
+                            <span>عرض تفاصيل ومقررات المسار</span>
+                            <span class="material-symbols-outlined text-[18px] group-hover:-translate-x-1 transition-transform">arrow_left_alt</span>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function initCatalogListeners() {
+            const searchInput = document.getElementById('catalog-search-input');
+            const clearBtn = document.getElementById('clear-search-btn');
+
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    searchQuery = e.target.value.trim().toLowerCase();
+                    if (clearBtn) {
+                        clearBtn.classList.toggle('hidden', searchQuery.length === 0);
+                    }
+                    renderFilteredCourses();
+                });
+            }
+
+            if (clearBtn && searchInput) {
+                clearBtn.addEventListener('click', () => {
+                    searchInput.value = '';
+                    searchQuery = '';
+                    clearBtn.classList.add('hidden');
+                    renderFilteredCourses();
+                });
+            }
+
+            const pills = document.querySelectorAll('.category-pill');
+            pills.forEach(pill => {
+                pill.addEventListener('click', () => {
+                    pills.forEach(p => {
+                        p.classList.remove('bg-primary-container', 'text-white', 'shadow-xs', 'active');
+                        p.classList.add('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+                    });
+
+                    pill.classList.remove('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+                    pill.classList.add('bg-primary-container', 'text-white', 'shadow-xs', 'active');
+
+                    currentCategory = pill.dataset.cat || 'all';
+                    renderFilteredCourses();
+                });
+            });
+        }
+
+        function resetFilters() {
+            const searchInput = document.getElementById('catalog-search-input');
+            const clearBtn = document.getElementById('clear-search-btn');
+            if (searchInput) searchInput.value = '';
+            if (clearBtn) clearBtn.classList.add('hidden');
+            searchQuery = '';
+            currentCategory = 'all';
+
+            const pills = document.querySelectorAll('.category-pill');
+            pills.forEach((p, idx) => {
+                if (idx === 0) {
+                    p.classList.remove('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+                    p.classList.add('bg-primary-container', 'text-white', 'shadow-xs', 'active');
+                } else {
+                    p.classList.remove('bg-primary-container', 'text-white', 'shadow-xs', 'active');
+                    p.classList.add('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+                }
+            });
+
+            renderFilteredCourses();
+        }
+        window.resetFilters = resetFilters;
+    </script>
+</body>
+
+</html>

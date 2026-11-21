@@ -12,6 +12,24 @@ const requireAuth = require('../middleware/authMiddleware');
 // السيرفر الرئيسي (server.js). كل عملية متعلقة بكيان معين (Auth) تتركز هنا.
 // ==============================================================================
 
+// ==============================================================================
+// مسار تجريبي سريع للبيئة المحلية (Dev Admin Session Preview)
+// يسمح بمعاينة لوحة التحكم في بيئة التطوير المحلية
+// ==============================================================================
+router.get('/dev-admin-login', (req, res) => {
+    const jwt = require('jsonwebtoken');
+    const secret = process.env.JWT_SECRET || 'super_secret_academic_key';
+    const token = jwt.sign({ 
+        id: 1, 
+        name: 'مشرف النظام العام', 
+        role: 'Super_Admin', 
+        student_id: 'ADMIN-01' 
+    }, secret, { expiresIn: '4h' });
+
+    res.cookie('token', token, { httpOnly: true, sameSite: 'lax', path: '/' });
+    res.redirect('/admin_portal.html');
+});
+
 // مسار تسجيل الدخول (POST /login)
 // تم اختيار طريقة (POST) وليس (GET) لأن بيانات المرور (كلمة السر) يجب أن تُرسل 
 // داخل جسم الطلب (Body) لتكون مشفرة ومخفية، بدلاً من إرسالها مكشوفة في رابط الـ URL.

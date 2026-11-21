@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>وثيقة التوصيف الفني والمعماري - منصة حاضراكس</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 18mm 16mm 18mm 16mm;
+            @bottom-center {
+                content: counter(page);
+                font-family: 'Cairo', sans-serif;
+                font-size: 8.5pt;
+                color: #64748b;
+            }
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            color: #0f172a;
+            background-color: #ffffff;
+            font-size: 9.5pt;
+            line-height: 1.6;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .page {
+            width: 100%;
+            page-break-after: always;
+            position: relative;
+        }
+
+        .page:last-child {
+            page-break-after: avoid;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #cbd5e1;
+            padding-bottom: 6px;
+            margin-bottom: 18px;
+            font-size: 8.5pt;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        .page-header .brand {
+            color: #0284c7;
+            font-weight: 700;
+        }
+
+        h1, h2, h3, h4 {
+            color: #0f172a;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        h2 {
+            font-size: 13pt;
+            border-right: 3px solid #0284c7;
+            padding-right: 8px;
+            margin-bottom: 12px;
+            margin-top: 8px;
+        }
+
+        h3 {
+            font-size: 10.5pt;
+            margin-top: 12px;
+            margin-bottom: 6px;
+            color: #1e293b;
+        }
+
+        p {
+            margin-bottom: 8px;
+            text-align: justify;
+            color: #334155;
+            font-size: 9.2pt;
+        }
+
+        .panel {
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            padding: 10px 12px;
+            margin-bottom: 10px;
+        }
+
+        .panel-muted {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            padding: 10px 12px;
+            margin-bottom: 10px;
+        }
+
+        .panel-focus {
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-right: 3px solid #0284c7;
+            border-radius: 4px;
+            padding: 10px 12px;
+            margin-bottom: 10px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 6px;
+            margin-bottom: 10px;
+            font-size: 8.5pt;
+        }
+
+        th, td {
+            padding: 6px 8px;
+            border: 1px solid #cbd5e1;
+            text-align: right;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: #0f172a;
+            font-weight: 700;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f8fafc;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 1px 6px;
+            border-radius: 3px;
+            font-size: 7.5pt;
+            font-weight: 600;
+            border: 1px solid #cbd5e1;
+            background-color: #f8fafc;
+            color: #334155;
+        }
+
+        .tag-primary {
+            background-color: #f0f9ff;
+            color: #0369a1;
+            border-color: #bae6fd;
+        }
+
+        .tag-success {
+            background-color: #f0fdf4;
+            color: #15803d;
+            border-color: #bbf7d0;
+        }
+
+        .code-inline {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: #f1f5f9;
+            color: #0f172a;
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-size: 7.8pt;
+            direction: ltr;
+            display: inline-block;
+            border: 1px solid #e2e8f0;
+        }
+
+        .cover-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 94%;
+            text-align: center;
+            padding: 24px 8px;
+        }
+
+        .cover-header {
+            border-bottom: 1px solid #94a3b8;
+            padding-bottom: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            text-align: right;
+            font-size: 9pt;
+            color: #1e293b;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .cover-body {
+            margin: 40px auto;
+            max-width: 580px;
+        }
+
+        .cover-title {
+            font-size: 26pt;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .cover-subtitle {
+            font-size: 13pt;
+            font-weight: 700;
+            color: #0284c7;
+            margin-bottom: 20px;
+        }
+
+        .cover-box {
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            padding: 14px 18px;
+            text-align: justify;
+            font-size: 9.5pt;
+            color: #334155;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .meta-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            text-align: right;
+            font-size: 8.5pt;
+        }
+
+        .meta-table td {
+            padding: 6px 10px;
+            border: 1px solid #cbd5e1;
+        }
+
+        .meta-table td.label {
+            width: 30%;
+            background-color: #f1f5f9;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .cover-footer {
+            border-top: 1px solid #cbd5e1;
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 8pt;
+            color: #64748b;
+        }
+
+        .process-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            padding: 8px;
+            margin: 8px 0;
+            gap: 6px;
+        }
+
+        .process-node {
+            flex: 1;
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 3px;
+            padding: 6px 4px;
+            text-align: center;
+            font-size: 7.5pt;
+        }
+
+        .process-node strong {
+            display: block;
+            font-size: 8pt;
+            color: #0284c7;
+            margin-bottom: 2px;
+        }
+
+        .process-separator {
+            font-size: 11pt;
+            color: #94a3b8;
+            font-weight: 700;
+        }
+
+        ul {
+            padding-right: 18px;
+            margin-bottom: 8px;
+            font-size: 8.8pt;
+            color: #334155;
+        }
+
+        li {
+            margin-bottom: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الصفحة 1: الغلاف الأكاديمي الرسمي -->
+    <div class="page">
+        <div class="cover-container">
+            <div class="cover-header">
+                <div>
+                    جامعة الحاضرة<br>
+                    كلية تقنية المعلومات<br>
+                    قسم هندسة البرمجيات
+                </div>
+                <div style="text-align: left;">
+                    مشروع تخرج أكاديمي<br>
+                    العام الجامعي: 2026 / 2027<br>
+                    الدرجة: بكالوريوس
+                </div>
+            </div>
+
+            <div class="cover-body">
+                <div class="cover-title">منصة حاضراكس (HaderaX)</div>
+                <div class="cover-subtitle">منصة الحاضرة للتعليم المستمر والتطوير التقني</div>
+                <div style="font-size: 9pt; color: #475569; margin-bottom: 16px; font-weight: 600;">
+                    Al-Hadhira Tech Academy Platform
+                </div>
+
+                <div class="cover-box">
+                    بيئة تدريب رقمية هجينة تابعة لجامعة الحاضرة تهدف إلى ردم الفجوة بين التعليم الأكاديمي ومتطلبات سوق العمل البرمجي، من خلال إدارة الدورات التدريبية التطبيقية، وتنظيم المحتوى العملي، وأتمتة كشوفات الحضور بنظام الرمز التفاعلي المربوط بالجلسات.
+                </div>
+
+                <table class="meta-table">
+                    <tr>
+                        <td class="label">نوع الوثيقة</td>
+                        <td>وثيقة التوصيف الفني والمعماري للنظام (Technical Specification)</td>
+                    </tr>
+                    <tr>
+                        <td class="label">طبيعة المنصة</td>
+                        <td>نظام إدارة تدريب تقني وورش عمل تطبيقية</td>
+                    </tr>
+                    <tr>
+                        <td class="label">النمط المعماري</td>
+                        <td>معمارية ثلاثية الطبقات مع واجهة برمجة تطبيقات مفصولة (Decoupled MVC API)</td>
+                    </tr>
+                    <tr>
+                        <td class="label">حالة المشروع</td>
+                        <td>مكتمل وموثق وجاهز للعرض والمناقشة الأكاديمية</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="cover-footer">
+                <div>جامعة الحاضرة - طرابلس</div>
+                <div>منصة حاضراكس - الإصدار 1.0</div>
+                <div>تاريخ الإصدار: نوفمبر 2026</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- الصفحة 2: نطاق المشروع والأطراف المعنية -->
+    <div class="page">
+        <div class="page-header">
+            <div class="brand">منصة حاضراكس (HaderaX)</div>
+            <div>الفصل الأول: نطاق المشروع والأطراف المعنية</div>
+        </div>
+
+        <h2>1. نطاق المشروع وأهدافه الأساسية</h2>
+
+        <div class="panel-focus">
+            <h3 style="margin-top:0;">الهدف العام</h3>
+            <p style="margin-bottom:0;">
+                تأسست منصة الحاضرة للتعليم المستمر والتطوير التقني لمعالجة التحدي القائم بين الجانب النظري في المناهج الجامعية والمتطلبات العملية في بيئات الإنتاج البرمجي. يركز المشروع على توفير منصة مخصصة لتدريب الطلاب عبر ورش عمل تطبيقية ومواد تقنية قابلة للتطبيق الفعلي.
+            </p>
+        </div>
+
+        <h3>1.1 الركائز الوظيفية للمنصة (Core Functional Capabilities)</h3>
+        <div class="grid-2">
+            <div class="panel">
+                <strong style="color: #0369a1; display:block; margin-bottom: 4px;">إدارة الورش والمحتوى التقني:</strong>
+                <ul>
+                    <li>إدارة وتصنيف الكورسات والورش البرمجية التخصصية ومحاورها.</li>
+                    <li>هيكلة المحتوى التدريبي في أقسام ومحاضرات عملية متسلسلة.</li>
+                    <li>رفع وإتاحة الأكواد والمشاريع البرمجية للطلاب مباشرة.</li>
+                    <li>تصفح وتفاعل فوري مع المحتوى بتقنية SPA دون إعادة تحميل.</li>
+                </ul>
+            </div>
+            <div class="panel">
+                <strong style="color: #0369a1; display:block; margin-bottom: 4px;">نظام الحضور الذكي والتقارير:</strong>
+                <ul>
+                    <li>توليد كود QR تفاعلي مشفر ومربوط بكل ورشة على حدة.</li>
+                    <li>تسجيل حضور الطلاب ذاتياً عبر الهواتف مع منع التكرار والانتحال.</li>
+                    <li>بث حي لحظي لقائمة الحاضرين في القاعة أثناء انعقاد الورشة.</li>
+                    <li>تصدير كشوفات الحضور الرسمية بصيغة CSV داعمة للعربية.</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3>1.2 مصفوفة الأطراف المعنية والصلاحيات (Stakeholders Matrix)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 22%;">الطرف / المستخدم</th>
+                    <th style="width: 26%;">رمز الدور البرمجي</th>
+                    <th>الوصف الوظيفي والمسؤوليات المحددة</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>الطلاب والمتدربون</strong></td>
+                    <td><span class="tag tag-success">student</span></td>
+                    <td>الوصول إلى المواد التعليمية، ومسح رمز الـ QR لتسجيل الحضور الذاتي.</td>
+                </tr>
+                <tr>
+                    <td><strong>مشرف شؤون الطلاب</strong></td>
+                    <td><span class="tag tag-primary">Students_Admin</span></td>
+                    <td>إدارة حسابات الطلاب، وتوليد جلسات الحضور بالـ QR، وتصدير الكشوفات.</td>
+                </tr>
+                <tr>
+                    <td><strong>مشرف المناهج</strong></td>
+                    <td><span class="tag">Curriculum_Admin</span></td>
+                    <td>إضافة وتعديل بيانات الكورسات والورش، وإنشاء الأقسام ورفع المواد البرمجية.</td>
+                </tr>
+                <tr>
+                    <td><strong>المشرف العام</strong></td>
+                    <td><span class="tag">Super_Admin</span></td>
+                    <td>صلاحية شاملة لإدارة حسابات المشرفين، ومتابعة سجلات الأمان، وضبط إعدادات الخادم.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>1.3 معايير النجاح الأكاديمي</h3>
+        <p>
+            تتمثل مؤشرات نجاح المشروع في: سرعة الاستجابة في تصفح المواد دون إعادة تحميل الصفحة، وضمان دقة ربط سجلات الحضور بجلساتها الفعلية، والالتزام بمبادئ هندسة البرمجيات النظيفة وقواعد البيانات العلائقية المعيارية.
+        </p>
+    </div>
+
+    <!-- الصفحة 3: المعمارية الهندسية والتقنيات -->
+    <div class="page">
+        <div class="page-header">
+            <div class="brand">منصة حاضراكس (HaderaX)</div>
+            <div>الفصل الثاني: المعمارية البرمجية ومكونات النظام</div>
+        </div>
+
+        <h2>2. المعمارية البرمجية ومكونات النظام (Architecture & Tech Stack)</h2>
+
+        <p>
+            يعتمد النظام على نمط الطبقات المفصولة (Decoupled 3-Tier Architecture) الذي يفصل بين طبقة العرض وطبقة منطق العمل وطبقة البيانات، مما يتيح استقرار الخادم وتحديث كل جزء بشكل مستقل.
+        </p>
+
+        <div class="process-row">
+            <div class="process-node">
+                <strong>طبقة العرض (Client SPA)</strong>
+                HTML5 + Tailwind CSS + JavaScript<br>
+                واجهة مستخدم بدون إعادة تحميل
+            </div>
+            <div class="process-separator">⇄</div>
+            <div class="process-node">
+                <strong>طبقة منطق العمل (Express API)</strong>
+                RESTful Routing + JWT Middleware<br>
+                التحقق الأمني وإدارة الجلسات
+            </div>
+            <div class="process-separator">⇄</div>
+            <div class="process-node">
+                <strong>طبقة البيانات (MySQL Storage)</strong>
+                Connection Pooling + Foreign Keys<br>
+                تخزين واسترجاع البيانات بسلامة علائقية
+            </div>
+        </div>
+
+        <h3>2.1 جدول التقنيات المعتمدة ومبررات الاختيار</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>المكون</th>
+                    <th>التقنية المستخدمة</th>
+                    <th>الإصدار</th>
+                    <th>سبب الاختيار الهندسي</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>الواجهة الأمامية</td>
+                    <td>HTML5 / Tailwind CSS / Vanilla JS</td>
+                    <td>Standard</td>
+                    <td>خفة في الحجم وسرعة في المعالجة دون الحاجة لحزم تشغيل ضخمة، وتحكم مباشر بعناصر الـ DOM.</td>
+                </tr>
+                <tr>
+                    <td>الخادم الخلفي</td>
+                    <td>Node.js / Express.js</td>
+                    <td>v22 / v5</td>
+                    <td>بنية غير متزامنة (Non-blocking I/O) تناسب معالجة طلبات البث اللحظي لحضور الطلاب.</td>
+                </tr>
+                <tr>
+                    <td>قاعدة البيانات</td>
+                    <td>MySQL Engine</td>
+                    <td>8.0</td>
+                    <td>محرك علائقي قياسي يدعم العلاقات المترابطة (Foreign Keys) وحفظ سلامة البيانات (ACID).</td>
+                </tr>
+                <tr>
+                    <td>إدارة المصادقة</td>
+                    <td>JWT + HttpOnly Cookies</td>
+                    <td>v9.0</td>
+                    <td>جلسات غير مقيدة بحالة الخادم (Stateless Tokens) مع حماية ضد هجمات قراءة النصوص البرمجية (XSS).</td>
+                </tr>
+                <tr>
+                    <td>تشفير البيانات</td>
+                    <td>Bcrypt.js</td>
+                    <td>v6.0</td>
+                    <td>تشفير أحادي الاتجاه لكلمات المرور مع إضافة قيمة عشوائية (Salt) لمنع كشف الرموز الأصلية.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>2.2 معايير التصميم البرمجي (UI Implementation Standards)</h3>
+        <p>
+            تم الالتزام بالمعايير الهندسية الصارمة للواجهات الوظيفية للابتعاد عن الأنماط العشوائية:
+        </p>
+        <div class="grid-2">
+            <div class="panel">
+                <strong style="display:block; margin-bottom:3px; color:#0f172a;">الألوان والتباين البصري:</strong>
+                <ul>
+                    <li>اللون الأساسي: أزرق تقني (<span class="code-inline">#0284C7</span> / <span class="code-inline">#0EA5E9</span>).</li>
+                    <li>الخلفيات: أبيض صريح (<span class="code-inline">#FFFFFF</span>) مع رمادي خفيف (<span class="code-inline">#F8FAFC</span>).</li>
+                    <li>النصوص: كحلي داكن ورمادي صلب لتحقيق معايير النفاذية WCAG AA بنسبة تباين تفوق 4.5:1.</li>
+                </ul>
+            </div>
+            <div class="panel">
+                <strong style="display:block; margin-bottom:3px; color:#0f172a;">هندسة الحواف والتفاعل:</strong>
+                <ul>
+                    <li>استخدام حواف منتظمة للأزرار والحقول بين 6px و 8px فقط.</li>
+                    <li>استبعاد التدرجات اللونية المعقدة والظلال الضبابية المفرطة.</li>
+                    <li>إدارة تبديل المحتوى عبر نموذج الآلة المحدودة (FSM) لضمان عرض الجزء المطلوب فقط.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- الصفحة 4: نظام الحضور التفاعلي بالـ QR -->
+    <div class="page">
+        <div class="page-header">
+            <div class="brand">منصة حاضراكس (HaderaX)</div>
+            <div>الفصل الثالث: نظام تسجيل الحضور التفاعلي</div>
+        </div>
+
+        <h2>3. نظام تسجيل الحضور التفاعلي بالـ QR</h2>
+
+        <p>
+            يعالج هذا النظام مشكلة الانتحال وضياع السجلات في الورش التقنية؛ حيث يقوم بربط الحضور مباشرة بالكورس أو الورشة المنعقدة، ويحدث شاشة العرض تلقائياً عند قيام أي طالب بمسح الرمز بهاتفه.
+        </p>
+
+        <div class="panel-focus">
+            <h3 style="margin-top:0;">مبدأ العمل: الرمز المؤقت المشفر (Session Token)</h3>
+            <p style="margin-bottom:0;">
+                عند إنشاء جلسة جديدة، يولد الخادم رمزاً عشوائياً مشفراً مؤقتاً عبر الدالة <span class="code-inline">crypto.randomBytes(16)</span> ويخزنه في جدول <span class="code-inline">Attendance_Sessions</span> مع ربطه بمعرف الكورس. هذا الرمز يكون صالحاً فقط خلال فترة تفعيل الجلسة، ويتوقف تلقائياً بمجرد إغلاقها من المشرف.
+            </p>
+        </div>
+
+        <h3>3.1 مراحل تدفق عملية تسجيل الحضور</h3>
+        <div class="process-row">
+            <div class="process-node">
+                <strong>1. فتح الجلسة</strong>
+                المشرف يحدد الكورس ويبدأ الجلسة.<br>
+                يظهر رمز QR مع عداد مباشر.
+            </div>
+            <div class="process-separator">←</div>
+            <div class="process-node">
+                <strong>2. مسح الرمز</strong>
+                الطالب يمسح الكود بكاميرا الهاتف.<br>
+                الخادم يتحقق من جلسة الطالب ونشاط الرمز.
+            </div>
+            <div class="process-separator">←</div>
+            <div class="process-node">
+                <strong>3. التثبيت والتحقق</strong>
+                تسجيل الحضور في قاعدة البيانات مع منع التكرار.<br>
+                إظهار رسالة تأكيد نظيفة للطالب.
+            </div>
+            <div class="process-separator">←</div>
+            <div class="process-node">
+                <strong>4. البث المباشر</strong>
+                ظهور اسم الطالب ورقمه الجامعي<br>
+                ووقت مسحه فوراً في شاشة القاعة.
+            </div>
+        </div>
+
+        <h3>3.2 واجهات برمجة مسارات الحضور (Attendance Endpoints)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width:14%;">النوع</th>
+                    <th style="width:36%;">المسار (Endpoint)</th>
+                    <th style="width:26%;">مستوى الصلاحية</th>
+                    <th>الغرض التقني</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="tag tag-primary">POST</span></td>
+                    <td><span class="code-inline">/api/attendance/start</span></td>
+                    <td>Super_Admin / Students_Admin</td>
+                    <td>إنشاء جلسة جديدة وتوليد رمز تشفيري وربطه بالكورس.</td>
+                </tr>
+                <tr>
+                    <td><span class="tag tag-primary">POST</span></td>
+                    <td><span class="code-inline">/api/attendance/stop/:sessionId</span></td>
+                    <td>Super_Admin / Students_Admin</td>
+                    <td>تعطيل الجلسة لمنع أي مسح إضافي بعد انتهاء القاعة.</td>
+                </tr>
+                <tr>
+                    <td><span class="tag tag-success">GET</span></td>
+                    <td><span class="code-inline">/api/attendance/live-count/:sessionId</span></td>
+                    <td>Super_Admin / Students_Admin</td>
+                    <td>استرجاع عدد الحضور وبث كشف الطلاب لحظة بلحظة.</td>
+                </tr>
+                <tr>
+                    <td><span class="tag tag-success">GET</span></td>
+                    <td><span class="code-inline">/api/attendance/course/:courseId</span></td>
+                    <td>Super_Admin / Students_Admin</td>
+                    <td>استرجاع سجل حضور الورش السابقة وإحصائيات الطلاب لكورس محدد.</td>
+                </tr>
+                <tr>
+                    <td><span class="tag">GET</span></td>
+                    <td><span class="code-inline">/api/attendance/scan?token=xxx</span></td>
+                    <td>مصادقة الطالب (Student Token)</td>
+                    <td>معالجة طلب الحضور المرسل من هاتف الطالب بعد مسح الكود.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>3.3 آليات المنع والحماية في كشوفات الحضور</h3>
+        <p>
+            تتضمن المعالجة الخلفية قواعد تحقق واضحة: منع المشرف من تسجيل حضوره في كشوفات الطلاب، والتحقق المسبق من عدم تكرار تسجيل الطالب في الجلسة الواحدة (Double-Scan Prevention)، وتوفير آلية تصدير لكشف الحضور بصيغة CSV تدعم الترميز العربي القياسي (UTF-8 with BOM).
+        </p>
+    </div>
+
+    <!-- الصفحة 5: هيكل وقاعدة البيانات -->
+    <div class="page">
+        <div class="page-header">
+            <div class="brand">منصة حاضراكس (HaderaX)</div>
+            <div>الفصل الرابع: بنية وقاعدة البيانات العلائقية</div>
+        </div>
+
+        <h2>4. بنية وقاعدة البيانات العلائقية (Relational Database Design)</h2>
+
+        <p>
+            تعتمد المنصة على قاعدة بيانات علائقية محكمة (<span class="code-inline">haderax_db</span>) تم تصميمها بالاعتماد على معايير التطبيع (Third Normal Form - 3NF) لضمان اتساق البيانات وعدم تكرارها.
+        </p>
+
+        <h3>4.1 جداول قاعدة البيانات ومفاتيح الربط</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width:20%;">اسم الجدول</th>
+                    <th style="width:30%;">المفاتيح (PK / FK)</th>
+                    <th>البيانات والوظيفة الأساسية</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Users</strong></td>
+                    <td><span class="code-inline">id (PK)</span>, <span class="code-inline">student_id (UQ)</span></td>
+                    <td>بيانات الحسابات (الاسم، رقم القيد، الدور الوظيفي، وتجزئة كلمة المرور).</td>
+                </tr>
+                <tr>
+                    <td><strong>Courses</strong></td>
+                    <td><span class="code-inline">course_id (PK)</span></td>
+                    <td>سجلات الكورسات والورش التدريبية وعناوينها وأوصافها.</td>
+                </tr>
+                <tr>
+                    <td><strong>Course_Sections</strong></td>
+                    <td><span class="code-inline">id (PK)</span>, <span class="code-inline">course_id (FK)</span></td>
+                    <td>الأقسام والمحاور التابعة لكل كورس مع ربط مباشر بالكورس الأب.</td>
+                </tr>
+                <tr>
+                    <td><strong>Materials</strong></td>
+                    <td><span class="code-inline">material_id (PK)</span>, <span class="code-inline">section_id (FK)</span></td>
+                    <td>الملفات البرمجية والمراجع التعليمية المرفقة داخل كل قسم.</td>
+                </tr>
+                <tr>
+                    <td><strong>Attendance_Sessions</strong></td>
+                    <td><span class="code-inline">session_id (PK)</span>, <span class="code-inline">course_id (FK)</span></td>
+                    <td>جلسات التحضير، والرمز التشفيري، وتاريخ الجلسة، ومعرف الكورس المرتبط بها.</td>
+                </tr>
+                <tr>
+                    <td><strong>Attendance</strong></td>
+                    <td><span class="code-inline">attendance_id (PK)</span>, <span class="code-inline">user_id, session_id (FK)</span></td>
+                    <td>سجلات الحضور الفعلية، وتاريخ الحضور، وتوقيت المسح الدقيق بالثانية.</td>
+                </tr>
+                <tr>
+                    <td><strong>Security_Logs</strong></td>
+                    <td><span class="code-inline">log_id (PK)</span>, <span class="code-inline">user_id (FK)</span></td>
+                    <td>سجل العمليات الإدارية وتتبع محاولات الوصول غير المصرح بها مع عناوين الـ IP.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>4.2 سياسات النزاهة المرجعية (Referential Integrity)</h3>
+        <div class="grid-2">
+            <div class="panel">
+                <strong style="display:block; margin-bottom:3px; color:#0f172a;">الحذف المتتالي (CASCADE):</strong>
+                <p style="font-size:8.5pt; margin:0;">
+                    عند حذف قسم أو مادة، يتم تنظيف كافة السجلات الفرعية المرتبطة بها تلقائياً لمنع وجود سجلات مفقودة الصلة في النظام.
+                </p>
+            </div>
+            <div class="panel">
+                <strong style="display:block; margin-bottom:3px; color:#0f172a;">الحفظ الأرشيفي (SET NULL):</strong>
+                <p style="font-size:8.5pt; margin:0;">
+                    في حال حذف كورس، يتم الاحتفاظ بجلسات الحضور التاريخية السابقة مع تعيين الحقل إلى قيمة فارغة لحماية سجلات حضور الطلاب.
+                </p>
+            </div>
+        </div>
+
+        <h3>4.3 الترقية التلقائية والوقاية من الحقن</h3>
+        <p>
+            تم تزويد كود التهيئة (<span class="code-inline">backend/config/db.js</span>) بسكربتات هجرة ذاتية (Auto-Migrations) تقوم بفحص الجداول عند الإقلاع وإضافة الأعمدة المستحدثة إن لم تكن متوفرة، دون تعطيل الخادم أو مسح البيانات القديمة. كما تعتمد الاستعلامات بالكامل على المعاملات المجهزة (Parameterized Queries) للحماية من هجمات حقن التعليمات (SQL Injection).
+        </p>
+    </div>
+
+    <!-- الصفحة 6: الأمان وحوكمة الوصول والخاتمة -->
+    <div class="page">
+        <div class="page-header">
+            <div class="brand">منصة حاضراكس (HaderaX)</div>
+            <div>الفصل الخامس: منظومة الأمان والتحكم بالوصول</div>
+        </div>
+
+        <h2>5. منظومة الأمان والتحكم بالوصول (Security & Access Control)</h2>
+
+        <p>
+            تم تطبيق مبدأ الامتيازات الأقل (Principle of Least Privilege) لضمان حصر كل وظيفة في صلاحيات المستخدم المصرح له فقط.
+        </p>
+
+        <h3>5.1 مصفوفة التحكم بالوصول المبنية على الأدوار (RBAC)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>الوظيفة / العملية</th>
+                    <th style="text-align:center;">الطالب (student)</th>
+                    <th style="text-align:center;">مشرف المناهج</th>
+                    <th style="text-align:center;">مشرف الطلاب</th>
+                    <th style="text-align:center;">المشرف العام</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>عرض الكورسات والمواد التعليمية</td>
+                    <td style="text-align:center;">متاح</td>
+                    <td style="text-align:center;">متاح</td>
+                    <td style="text-align:center;">متاح</td>
+                    <td style="text-align:center;">متاح</td>
+                </tr>
+                <tr>
+                    <td>تسجيل الحضور عبر مسح الرمز</td>
+                    <td style="text-align:center;">متاح</td>
+                    <td style="text-align:center; color:#94a3b8;">محظور</td>
+                    <td style="text-align:center; color:#94a3b8;">محظور</td>
+                    <td style="text-align:center; color:#94a3b8;">محظور</td>
+                </tr>
+                <tr>
+                    <td>إنشاء وتعديل وحذف الكورسات</td>
+                    <td style="text-align:center; color:#94a3b8;">محظور</td>
+                    <td style="text-align:center;">متاح</td>
+                    <td style="text-align:center; color:#94a3b8;">محظور</td>
+                    <td style="text-align:center;">متاح</td>
+                </tr>
+                <tr>
+                    <td>توليد جلسات الـ QR ومتابعة البث</td>
+                    <td style="text-align:center; color:#94a3b8;">محظور</td>
+                    <td style="text-align:center; color:#94a3b8;">محظور</td>
+                    <td style="text-align:center;">متاح</td>
+                    <td style="text-align:center;">متاح</td>
+                </tr>
+                <tr>
+                    <td>الاطلاع على كشوفات الحضور وتصديرها</td>
+                    <td style="text-align:center; color:#94a3b8;">محظور</td>
+                    <td style="text-align:center; color:#94a3b8;">محظور</td>
+                    <td style="text-align:center;">متاح</td>
+                    <td style="text-align:center;">متاح</td>
+                </tr>
+                <tr>
+                    <td>إدارة حسابات المشرفين وسجلات الأمان</td>
+                    <td style="text-align:center; color:#94a3b8;">محظور</td>
+                    <td style="text-align:center; color:#94a3b8;">محظور</td>
+                    <td style="text-align:center; color:#94a3b8;">محظور</td>
+                    <td style="text-align:center;">متاح</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>5.2 ركائز الأمان المطبقة</h3>
+        <div class="grid-2">
+            <div class="panel">
+                <strong style="display:block; margin-bottom:2px; color:#0f172a;">1. تجزئة كلمات المرور (Bcrypt):</strong>
+                <p style="font-size:8.5pt; margin:0;">
+                    يتم تخزين كلمات المرور بصيغة مجزأة أحادية الاتجاه لمنع كشف الرموز الأصلية للمستخدمين.
+                </p>
+            </div>
+            <div class="panel">
+                <strong style="display:block; margin-bottom:2px; color:#0f172a;">2. كوكيز الجلسات المحمية (HttpOnly):</strong>
+                <p style="font-size:8.5pt; margin:0;">
+                    يتم حفظ توكن المصادقة داخل كوكي مشفرة بخصائص تمنع قراءتها عبر نصوص المتصفح البرمجية.
+                </p>
+            </div>
+            <div class="panel">
+                <strong style="display:block; margin-bottom:2px; color:#0f172a;">3. تقييد معدل الطلبات (Rate Limiting):</strong>
+                <p style="font-size:8.5pt; margin:0;">
+                    حماية مسار تسجيل الدخول بحد أقصى للطلبات لمنع هجمات التخمين الآلي على كلمات المرور.
+                </p>
+            </div>
+            <div class="panel">
+                <strong style="display:block; margin-bottom:2px; color:#0f172a;">4. سجلات التدقيق الأمني (Audit Logs):</strong>
+                <p style="font-size:8.5pt; margin:0;">
+                    تسجيل تلقائي لمحاولات الوصول غير المصرح بها مع توثيق الـ IP والتوقيت داخل قاعدة البيانات.
+                </p>
+            </div>
+        </div>
+
+        <div class="panel-muted" style="margin-top:10px;">
+            <h3 style="margin-top:0; color:#0f172a;">خاتمة: الأثر والعائد العملي من المنصة</h3>
+            <p style="margin-bottom:4px;">
+                تحقق منصة حاضراكس لجامعة الحاضرة وطلابها قيمة تطبيقية مباشرة تتلخص في النقاط التالية:
+            </p>
+            <ul>
+                <li><strong>تأهيل تطبيقي لسوق العمل:</strong> تمكين الطلاب من اكتساب مهارات برمجية عملية عبر ورش تخصصية ومشاريع تحاكي بيئات العمل الفعلية.</li>
+                <li><strong>أتمتة وحوكمة الحضور:</strong> الاستغناء الكامل عن الكشوفات الورقية بنظام تحضير ذاتي بالـ QR يضمن الدقة والشفافية ويمنع التلاعب.</li>
+                <li><strong>بناء ملف تدريبي معتمد للطالب:</strong> توثيق رقمي للورش التي أتمها الطالب ليكون مرجعاً داعماً لسيرته الذاتية وفرص توظيفه.</li>
+                <li><strong>بيئة تدريب مستدامة للجامعة:</strong> مركزة المواد والمصادر البرمجية للنادي في منصة موحدة قابلة للتطوير المستمر.</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>

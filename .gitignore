@@ -42,5 +42,7 @@ brand_audit_report.txt
 Thumbs.db
 .vscode/
 .idea/
+.agents/
 
+frontend_backup_snapshot/
 .vercel

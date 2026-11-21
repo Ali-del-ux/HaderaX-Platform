@@ -20,41 +20,87 @@
 </head>
 <body class="text-on-surface antialiased min-h-screen flex flex-col bg-surface-alt">
 
-    <header class="bg-surface-container-lowest border-b border-border-subtle sticky top-0 z-50 shadow-sm">
-        <div class="flex items-center justify-between w-full px-4 md:px-16 py-4 max-w-[1280px] mx-auto">
-            <div class="flex items-center gap-3">
-                <img src="assets/branding/haderax-icon.svg" alt="HaderaX" class="w-9 h-9 object-contain">
-                <h1 class="text-xl md:text-2xl font-bold text-on-surface">تفاصيل الكورس — حاضراكس</h1>
+    <header class="bg-white border-b border-border-subtle sticky top-0 z-50 shadow-xs">
+        <div class="flex items-center justify-between w-full px-4 md:px-16 py-3.5 max-w-[1280px] mx-auto">
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="flex items-center gap-2.5">
+                    <img src="assets/branding/haderax-icon.svg" alt="HaderaX" class="w-8 h-8 object-contain">
+                    <span class="text-lg font-black text-slate-900 hidden sm:inline">حاضر<span class="text-brand-sky">إكس</span></span>
+                </a>
+                <span class="text-slate-300 hidden md:inline">|</span>
+                <nav class="hidden md:flex items-center gap-2 text-xs font-medium text-slate-500">
+                    <a href="index.html" class="hover:text-primary-container transition-colors">الرئيسية</a>
+                    <span>/</span>
+                    <a href="index.html#courses" class="hover:text-primary-container transition-colors">المسارات</a>
+                    <span>/</span>
+                    <span class="text-slate-900 font-bold" id="breadcrumb-course-name">تفاصيل الكورس</span>
+                </nav>
             </div>
             
-            <a href="index.html" class="flex items-center gap-2 text-primary-container hover:text-primary transition-colors font-bold bg-white border border-border-subtle px-5 py-2 rounded-full hover:border-primary-container shadow-sm">
-                <span class="hidden sm:inline">الرجوع للرئيسية</span>
-                <span class="material-symbols-outlined text-[20px] transform rotate-180">arrow_back</span>
+            <a href="index.html#courses" class="flex items-center gap-2 text-slate-700 hover:text-primary-container transition-colors font-bold text-xs sm:text-sm bg-white border border-slate-200 px-3.5 py-1.5 rounded-lg hover:border-slate-300 shadow-xs">
+                <span>العودة للمسارات</span>
+                <span class="material-symbols-outlined text-[18px]">arrow_back</span>
             </a>
         </div>
     </header>
 
-    <main class="max-w-[1280px] mx-auto px-4 md:px-16 py-8 md:py-12 w-full flex flex-col gap-10">
+    <main class="max-w-[1280px] mx-auto px-4 md:px-16 py-8 md:py-10 w-full flex flex-col gap-8">
         
-        <div class="flex items-center justify-between pb-2">
-            <h2 id="course-title-header" class="text-3xl font-bold text-on-surface">جاري جلب الكورس...</h2>
-        </div>
-
-        <section class="bg-surface-container-lowest rounded-2xl border border-border-subtle card-shadow overflow-hidden relative">
-            <div class="p-6 md:p-8 relative z-10">
-                <div class="flex items-center gap-3 mb-4">
-                    <span class="material-symbols-outlined text-primary-container text-3xl">info</span>
-                    <h3 class="text-2xl font-bold text-primary-container">وصف وتفاصيل الدورة</h3>
+        <!-- Course Header Summary Card (High-Density Academic Standard) -->
+        <section class="bg-white rounded-xl border border-slate-200 shadow-xs p-6 md:p-8">
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                <div class="flex items-center gap-2">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-sky-50 text-sky-800 border border-sky-200">
+                        <span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+                        مسار تدريبي معتمد
+                    </span>
+                    <span class="text-slate-300">•</span>
+                    <span class="text-xs font-medium text-slate-500">جامعة الحاضرة</span>
                 </div>
-                <p id="course-desc-paragraph" class="text-lg text-secondary mb-2 leading-relaxed max-w-4xl">
-                    جاري تحميل بيانات وتفاصيل الدورة التدريبية من الخادم...
-                </p>
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                    <span class="material-symbols-outlined text-[16px] text-emerald-600">qr_code_2</span>
+                    <span>توثيق الحضور بتقنية الـ QR</span>
+                </div>
+            </div>
+
+            <h1 id="course-title-header" class="text-2xl sm:text-3xl font-black text-slate-900 mb-3 leading-tight">جاري جلب بيانات الكورس...</h1>
+            <p id="course-desc-paragraph" class="text-sm sm:text-base text-slate-600 leading-relaxed max-w-4xl mb-6">
+                جاري تحميل تفاصيل ومخرجات الدورة التدريبية من الخادم...
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-5 border-t border-slate-100 text-xs text-slate-600">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary-container text-[18px]">verified</span>
+                    <span><strong>الجهة المشرفة:</strong> جامعة الحاضرة — التطوير التقني</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-emerald-600 text-[18px]">timer</span>
+                    <span><strong>احتساب الحضور:</strong> مسح الـ QR بالقاعات التدريبية</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-amber-600 text-[18px]">description</span>
+                    <span><strong>المواد التعليمية:</strong> شيتات PDF ومحاضرات مسجلة</span>
+                </div>
             </div>
         </section>
 
-        <div id="course-sections-grid" class="flex flex-col gap-12">
-            <!-- الفصول التعليمية والمواد والمحاضرات يتم حقنها ديناميكياً هنا عبر course_details.js -->
-        </div>
+        <!-- Syllabus / Chapters Grid -->
+        <section class="flex flex-col gap-6">
+            <div class="flex items-center justify-between pb-2 border-b border-border-subtle">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary-container">format_list_bulleted</span>
+                        <span>فصول ومنهج المسار التدريبي</span>
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-0.5">المحاضرات والشيتات والروابط التفاعلية المرفوعة من قبل المشرفين</p>
+                </div>
+            </div>
+
+            <div id="course-sections-grid" class="flex flex-col gap-8">
+                <!-- الفصول التعليمية والمواد والمحاضرات يتم حقنها ديناميكياً هنا عبر course_details.js -->
+            </div>
+        </section>
+
     </main>
 
     <script src="assets/js/course_details.js" defer></script>

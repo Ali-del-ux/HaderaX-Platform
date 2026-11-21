@@ -38,14 +38,14 @@
 
                 <!-- زر تسجيل الدخول للزوار العاديين (مخفي افتراضياً ويظهر عند عدم وجود جلسة نشطة) -->
                 <a id="login-btn" href="login.html"
-                    class="hidden flex items-center gap-2 px-4 py-2 bg-primary-container text-white rounded-full font-bold text-xs sm:text-sm hover:bg-primary transition-all duration-300 shadow-sm border border-primary-container/20 group animate-scale-in">
+                    class="hidden flex items-center gap-2 px-4 py-2 bg-primary-container text-white rounded-lg font-bold text-xs sm:text-sm hover:bg-primary transition-all duration-200 shadow-sm border border-primary-container/20 group animate-scale-in">
                     <span class="material-symbols-outlined text-[18px]">login</span>
                     <span data-i18n="login_btn_text">تسجيل الدخول</span>
                 </a>
 
                 <!-- زر لوحة التحكم للمشرفين (مخفي افتراضياً ويتم إظهاره برمجياً للمصرح لهم فقط) -->
                 <a id="admin-portal-btn" href="admin_portal.html"
-                    class="hidden flex items-center gap-2 px-4 py-2 bg-primary-container text-white rounded-full font-bold text-xs sm:text-sm hover:bg-primary transition-all duration-300 shadow-sm border border-primary-container/20 group animate-scale-in">
+                    class="hidden flex items-center gap-2 px-4 py-2 bg-primary-container text-white rounded-lg font-bold text-xs sm:text-sm hover:bg-primary transition-all duration-200 shadow-sm border border-primary-container/20 group animate-scale-in">
                     <span class="material-symbols-outlined text-[18px] group-hover:rotate-45 transition-transform">dashboard</span>
                     <span data-i18n="admin_portal_btn_text">لوحة الإشراف</span>
                 </a>
@@ -64,8 +64,8 @@
             </nav>
 
             <div class="flex items-center gap-3">
-                <span class="text-[22px] font-extrabold text-on-surface hidden sm:block tracking-tight" data-i18n="brand">حاضر<span class="text-secondary">إكس</span></span>
-                <img alt="شعار حاضراكس" class="w-11 h-11 object-contain transition-transform hover:scale-105"
+                <span class="text-[22px] font-extrabold text-on-surface hidden sm:block tracking-tight" data-i18n="brand">حاضر<span class="text-brand-sky font-black">إكس</span></span>
+                <img alt="شعار حاضراكس" class="w-11 h-11 object-contain transition-opacity hover:opacity-90"
                     src="assets/branding/haderax-icon.svg">
             </div>
 
@@ -74,103 +74,106 @@
 
     <main class="flex-grow">
 
-        <section class="py-20 md:py-28 px-4 md:px-margin-desktop max-w-max-width mx-auto text-center">
-            <div
-                class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-crimson-muted text-primary-container font-bold text-sm mb-6 border border-primary-container/20">
-                <span class="material-symbols-outlined text-[18px]">code</span>
-                <span data-i18n="hero_tag">جامعة الحاضرة</span>
+        <!-- Luminous Academic Tech Hero Section -->
+        <section class="relative border-b border-sky-100 hero-tech-atmosphere overflow-hidden py-20 md:py-28">
+            <div class="relative max-w-max-width mx-auto px-4 md:px-margin-desktop text-center flex flex-col items-center">
+
+                <!-- Main Headline (Rich visual gradient highlight, spacious line-height) -->
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-[44px] font-extrabold text-slate-900 mb-8 leading-[1.35] max-w-4xl tracking-tight" data-i18n="hero_welcome">
+                    منصة الحاضرة للتعليم المستمر <br class="hidden sm:inline"><span class="text-transparent bg-clip-text bg-gradient-to-l from-primary-container via-brand-sky-deep to-primary-hover">والتطوير التقني</span>
+                </h1>
+
+                <!-- Functional Academic Search Bar (Enhanced with Soft Glow & Modern Depth) -->
+                <form id="hero-search-form" class="w-full max-w-2xl mx-auto" onsubmit="event.preventDefault(); handleHeroSearch();">
+                    <div class="relative flex items-center bg-white/95 rounded-2xl border-2 border-sky-100 shadow-[0_10px_35px_-5px_rgba(2,132,199,0.15)] p-2 focus-within:border-primary-container focus-within:ring-4 focus-within:ring-primary-container/10 transition-all">
+                        <span class="material-symbols-outlined text-slate-400 ms-3 me-2 text-[24px]">search</span>
+                        <input id="hero-search-input" type="text"
+                            placeholder="ابحث عن مسار تدريبي، ورشة عمل، أو تقنية..."
+                            class="w-full bg-transparent border-0 focus:ring-0 text-slate-900 placeholder:text-slate-400 text-sm md:text-base py-2.5 px-1 text-right focus:outline-none">
+                        <button type="submit"
+                            class="px-6 py-3 bg-gradient-to-l from-primary-container to-brand-sky hover:from-primary-hover hover:to-primary-container text-white rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 flex items-center gap-1.5 flex-shrink-0 shadow-md">
+                            <span>بحث</span>
+                            <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+                        </button>
+                    </div>
+                    <div class="flex items-center justify-center gap-2 mt-4 text-xs text-slate-600">
+                        <span class="font-bold text-slate-400">مسارات سريعة:</span>
+                        <a href="courses.html?q=ذكاء" class="hover:text-primary-container hover:border-primary-container/40 transition-colors bg-white/80 px-3 py-1 rounded-lg border border-sky-100 shadow-2xs font-medium">الذكاء الاصطناعي</a>
+                        <a href="courses.html?q=ويب" class="hover:text-primary-container hover:border-primary-container/40 transition-colors bg-white/80 px-3 py-1 rounded-lg border border-sky-100 shadow-2xs font-medium">تطوير الويب</a>
+                        <a href="courses.html?q=بايثون" class="hover:text-primary-container hover:border-primary-container/40 transition-colors bg-white/80 px-3 py-1 rounded-lg border border-sky-100 shadow-2xs font-medium">بايثون</a>
+                    </div>
+                </form>
+
             </div>
-            <h1 class="text-4xl md:text-5xl font-bold text-on-surface mb-6 leading-tight" data-i18n="hero_welcome">منصة الحاضرة للتعليم المستمر والتطوير التقني</h1>
-            <p class="text-lg text-secondary max-w-2xl mx-auto leading-relaxed" data-i18n="hero_desc">بيئة تدريب رقمية هجينة تابعة لجامعة الحاضرة تهدف إلى ردم الفجوة بين المناهج الأكاديمية النظرية ومتطلبات سوق العمل البرمجي والأمن السيبراني، مع توثيق الالتزام الفعلي بالقاعات بتقنية الـ QR Code.</p>
         </section>
 
-        <section class="py-16 bg-surface-alt border-y border-border-subtle">
+        <section class="py-16 bg-white border-b border-border-subtle">
             <div class="max-w-max-width mx-auto px-4 md:px-margin-desktop">
 
                 <div class="flex justify-between items-center mb-8">
-                    <h2 class="text-2xl font-bold text-on-surface flex items-center gap-2"><span
-                            class="material-symbols-outlined text-primary-container">campaign</span> <span data-i18n="latest_news">أخر الأخبار</span></h2>
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary-container">campaign</span>
+                            <span data-i18n="latest_news">أحدث الأخبار والإعلانات</span>
+                        </h2>
+                        <p class="text-xs text-slate-500 mt-1">المستجدات والأنشطة الأكاديمية والورش القادمة في جامعة الحاضرة</p>
+                    </div>
                     <div class="flex gap-2">
-                        <button
-                            class="w-10 h-10 rounded-full bg-white border border-border-subtle flex items-center justify-center text-secondary hover:border-primary-container hover:text-primary-container transition-colors shadow-sm">
-                            <span class="material-symbols-outlined">chevron_right</span>
+                        <button id="news-scroll-right"
+                            class="w-9 h-9 rounded-lg bg-white border border-border-subtle flex items-center justify-center text-secondary hover:border-primary-container hover:text-primary-container transition-colors shadow-xs"
+                            title="التالي">
+                            <span class="material-symbols-outlined text-[20px]">chevron_right</span>
                         </button>
-                        <button
-                            class="w-10 h-10 rounded-full bg-white border border-border-subtle flex items-center justify-center text-secondary hover:border-primary-container hover:text-primary-container transition-colors shadow-sm">
-                            <span class="material-symbols-outlined">chevron_left</span>
+                        <button id="news-scroll-left"
+                            class="w-9 h-9 rounded-lg bg-white border border-border-subtle flex items-center justify-center text-secondary hover:border-primary-container hover:text-primary-container transition-colors shadow-xs"
+                            title="السابق">
+                            <span class="material-symbols-outlined text-[20px]">chevron_left</span>
                         </button>
                     </div>
                 </div>
 
-                <div id="news-carousel-container" class="flex gap-6 overflow-x-auto pb-6 pt-2 carousel-container">
+                <div id="news-carousel-container" class="flex gap-6 overflow-x-auto pb-4 pt-1 carousel-container">
                     <!-- الأخبار الحية المحدثة يتم حقنها تلقائياً بالكامل هنا عبر home.js -->
                 </div>
             </div>
         </section>
 
-        <section class="py-24 relative overflow-hidden" id="about">
+        <!-- Single Dignified Academic Vision Box (Airy, Comfortable Spacing) -->
+        <section class="py-20 bg-surface-alt/50 border-b border-border-subtle" id="about">
             <div class="max-w-max-width mx-auto px-4 md:px-margin-desktop">
-                <h2 class="text-3xl font-bold text-on-surface text-center mb-16" data-i18n="about_title">رؤية حاضراكس ورسالتها</h2>
-
-                <div
-                    class="bg-white rounded-[40px] soft-shadow border border-border-subtle p-8 md:p-12 relative max-w-4xl mx-auto flex flex-col md:flex-row gap-8 items-start">
-
-                    <div class="flex-1 text-center md:text-right md:border-l border-border-subtle md:pl-8 flex flex-col gap-6 w-full">
+                <div class="max-w-3xl mx-auto bg-white rounded-xl p-8 md:p-12 border border-slate-200 shadow-xs">
+                    <div class="flex items-center gap-3.5 mb-5">
+                        <div class="w-10 h-10 rounded-lg bg-sky-50 border border-sky-100 flex items-center justify-center text-primary-container flex-shrink-0">
+                            <span class="material-symbols-outlined text-[22px]">school</span>
+                        </div>
                         <div>
-                            <h3 class="text-xl font-bold text-primary-container mb-3 flex items-center gap-2 justify-center md:justify-start">
-                                <span class="material-symbols-outlined text-[22px]">visibility</span>
-                                <span data-i18n="vision_title">الرؤية</span>
-                            </h3>
-                            <p class="text-secondary leading-relaxed text-[15px]" data-i18n="vision_desc">
-                                أن تكون منصة وفريق <strong class="text-on-surface font-extrabold font-inter">HaderaX Devs</strong> الصرح الطلابي الرائد في مجال البرمجة التنافسية وتطوير البرمجيات على مستوى ليبيا والمنطقة، وأن نضع جامعة الحاضرة في صدارة التميز التقني.
-                            </p>
-                        </div>
-                        <div class="border-t border-slate-100 pt-5">
-                            <h3 class="text-xl font-bold text-primary-container mb-3 flex items-center gap-2 justify-center md:justify-start">
-                                <span class="material-symbols-outlined text-[22px]">track_changes</span>
-                                <span data-i18n="mission_title">الرسالة والهدف الأساسي</span>
-                            </h3>
-                            <p class="text-secondary leading-relaxed text-[15px]" data-i18n="mission_desc">
-                                بناء وتدريب فرق برمجية وتقنية على أعلى مستوى لتمثيل جامعة الحاضرة تحت راية <strong class="text-on-surface font-extrabold font-inter">HaderaX</strong>، وتحقيق الفوز في المسابقة الليبية للبرمجة (LCPC) والمنافسات الإقليمية والدولية وتطوير حلول حقيقية تخدم الوطن.
-                            </p>
+                            <span class="text-xs font-bold text-primary-container block mb-0.5">جامعة الحاضرة</span>
+                            <h2 class="text-lg sm:text-xl font-bold text-slate-800" data-i18n="about_title">رسالة المنصة والرؤية الأكاديمية</h2>
                         </div>
                     </div>
-
-                    <div class="flex-1 text-center md:text-right w-full">
-                        <h3 class="text-xl font-bold text-primary-container mb-4 flex items-center gap-2 justify-center md:justify-start">
-                            <span class="material-symbols-outlined text-[22px]">military_tech</span>
-                            <span data-i18n="goals_title">الأهداف الاستراتيجية</span>
-                        </h3>
-                        <ul class="space-y-3.5 text-secondary text-[15px] leading-relaxed text-right">
-                            <li class="flex items-start gap-2.5 justify-start">
-                                <span class="material-symbols-outlined text-primary-container text-[18px] mt-1 flex-shrink-0">task_alt</span>
-                                <span data-i18n="goal_1">خلق مجتمع برمجي حيوي وتعاوني لصقل مهارات الطلاب.</span>
-                            </li>
-                            <li class="flex items-start gap-2.5 justify-start">
-                                <span class="material-symbols-outlined text-primary-container text-[18px] mt-1 flex-shrink-0">task_alt</span>
-                                <span data-i18n="goal_2">تطوير مهارات حل المشكلات والتفكير الخوارزمي لجميع الأعضاء.</span>
-                            </li>
-                            <li class="flex items-start gap-2.5 justify-start">
-                                <span class="material-symbols-outlined text-primary-container text-[18px] mt-1 flex-shrink-0">task_alt</span>
-                                <span data-i18n="goal_3">تنفيذ مشاريع برمجية جماعية تخدم الجامعة والمجتمع.</span>
-                            </li>
-                            <li class="flex items-start gap-2.5 justify-start">
-                                <span class="material-symbols-outlined text-primary-container text-[18px] mt-1 flex-shrink-0">task_alt</span>
-                                <span data-i18n="goal_4">توفير مسارات تعليمية تطبيقية في مجالات الويب وتطبيقات الهاتف والتقنيات الناشئة.</span>
-                            </li>
-                        </ul>
-                    </div>
-
+                    <p class="text-slate-600 leading-loose text-sm sm:text-[15px] text-right mt-4 font-normal" data-i18n="vision_desc">
+                        تُمثّل منصة <strong class="text-slate-800 font-bold font-inter">HaderaX</strong> بيئة التدريب التقني المستمر التابعة لجامعة الحاضرة؛ وتهدف إلى ردم الفجوة بين المقررات الأكاديمية النظرية ومتطلبات سوق العمل التقني، عبر صقل مهارات الطلاب البرمجية، وإعداد وتأهيل فرق الجامعة للمنافسة في المسابقة الليبية للبرمجة (LCPC) والمحافل الإقليمية، وتمكين الطلاب من بناء مشاريع عملية وحلول إنتاجية حقيقية تخدم المجتمع.
+                    </p>
                 </div>
             </div>
         </section>
 
-        <section class="py-20 bg-surface-alt" id="courses">
+        <!-- Featured Courses Section with Link to Full Catalog -->
+        <section class="py-20 bg-white" id="courses">
             <div class="max-w-max-width mx-auto px-4 md:px-margin-desktop">
-                <h2 class="text-3xl font-bold text-on-surface text-center mb-12 flex items-center justify-center gap-2">
-                    <span class="material-symbols-outlined text-primary-container text-3xl">menu_book</span>
-                    <span data-i18n="courses_title">الدورات والمسارات التدريبية المتاحة في حاضراكس</span>
-                </h2>
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-10 pb-4 border-b border-border-subtle">
+                    <div>
+                        <span class="text-xs font-bold text-primary-container block mb-1">المسارات النشطة</span>
+                        <h2 class="text-xl sm:text-2xl font-bold text-slate-800" data-i18n="courses_title">
+                            أبرز الدورات والمسارات التدريبية
+                        </h2>
+                        <p class="text-xs sm:text-sm text-slate-500 mt-1">اختر مسارك التعليمي لبدء المحاضرات وحضور الجلسات التفاعلية وتوثيق الالتزام</p>
+                    </div>
+                    <a href="courses.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-sky-50 hover:bg-sky-100 text-primary-container border border-sky-200 text-xs sm:text-sm font-bold transition-all shadow-2xs group flex-shrink-0">
+                        <span>عرض كافة المسارات</span>
+                        <span class="material-symbols-outlined text-[18px] group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                    </a>
+                </div>
 
                 <div id="courses-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     <!-- يتم استيراد الكورسات من قاعدة البيانات وتصييرها حياً هنا عبر home.js -->
@@ -188,7 +191,7 @@
                     <div class="flex items-center gap-3 mb-4">
                         <img alt="حاضراكس" class="w-12 h-12 object-contain rounded-xl p-1 bg-white/5 border border-white/10"
                             src="assets/branding/haderax-logo-transparent.svg">
-                        <span class="text-2xl font-bold text-white tracking-tight" data-i18n="brand">حاضر<span class="text-secondary">إكس</span></span>
+                        <span class="text-2xl font-bold text-white tracking-tight" data-i18n="brand">حاضر<span class="text-brand-sky font-black">إكس</span></span>
                     </div>
                     <p class="text-gray-400 text-sm leading-relaxed max-w-xs" data-i18n="brand_footer">
                         المنصة التقنية الرائدة لطلاب جامعة الحاضرة لتطوير المهارات البرمجية وبناء حلول رقمية متقدمة ومشاريع ريادية تخدم المجتمع.
@@ -298,7 +301,7 @@
                     <!-- زر تسجيل الخروج القرمزي الفخم (Logout Button Integration) -->
                     <li>
                         <button id="drawer-logout-btn"
-                            class="w-full flex items-center gap-3 p-4 rounded-xl border border-red-200 bg-red-50 hover:bg-red-105 text-right text-red-600 hover:text-red-750 transition-all group">
+                            class="w-full flex items-center gap-3 p-4 rounded-xl border border-red-200 bg-red-50 hover:bg-red-100 text-right text-red-600 hover:text-red-700 transition-all group">
                             <span
                                 class="material-symbols-outlined text-red-500 group-hover:text-red-600 transition-colors">logout</span>
                             <span class="font-bold flex-grow" data-i18n="logout">تسجيل الخروج من الحساب</span>

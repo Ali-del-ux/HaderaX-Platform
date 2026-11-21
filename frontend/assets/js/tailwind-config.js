@@ -1,12 +1,12 @@
 /**
  * Unified Tailwind CSS Configuration — HaderaX Brand Identity
  * 
- * Option 3: Monochrome Obsidian & Pure Minimalist Contrast (Approved)
- * - Primary: Deep High-Contrast Obsidian (#09090B, #18181B)
- * - Secondary: Refined Muted Zinc/Slate (#52525B, #71717A) — Replaces clashing cyan
- * - Brand Accent: Warm Hadera Gold (#F59E0B, #FCD34D, #B45309) — Preserved for Citadel & Badges
- * - Surfaces: Crisp Whites (#FFFFFF, #F8FAFC, #F1F5F9) & High-Contrast Obsidian (#09090B, #121215)
- * - WCAG AAA Contrast Compliant
+ * Official Emblem & Logo Palette:
+ * - Brand Sky Cyan: #0EA5E9 (Signature "إكس" & Celestial Dome)
+ * - Primary Action Sky: #0284C7 / Hover: #0369A1 (WCAG AA & AAA Compliant)
+ * - Citadel Gold: #F59E0B / #FBBF24 / #FEF08A (Academic Heritage & Distinction)
+ * - Deep Cosmic Slate: #0F172A / #080D1A (High-Contrast Text & Shells)
+ * - Canvas & Surfaces: #FFFFFF & #F8FAFC (Clean Human-Grade Surfaces)
  * 
  * IMPORTANT: This file MUST be loaded synchronously (no `defer`) immediately
  * after the Tailwind CDN script so that the `tailwind` global is available.
@@ -16,35 +16,42 @@ tailwind.config = {
     theme: {
         extend: {
             colors: {
-                /* --- Primary High-Contrast Tokens (Option 3 Minimal) --- */
-                "primary": "#09090B",                  // أسود أوبسيديان فاحم وعالي التباين
-                "primary-container": "#18181B",        // خلفية الأزرار الرئيسية مع نص أبيض ناصع
-                "primary-hover": "#27272A",
-                "surface-tint": "#27272A",
+                /* --- Brand Signature Tokens (Derived directly from SVG Logo) --- */
+                "brand-sky": "#0EA5E9",                // لون حرف "إكس" والقبة السماوية في الشعار
+                "brand-sky-light": "#38BDF8",
+                "brand-sky-deep": "#0284C7",
+                "brand-sky-dark": "#0369A1",
+                "brand-sky-muted": "#E0F2FE",          // خلفية هادئة للشارات التقنية
+
+                /* --- Primary Interactive Tokens (Tech Sky Blue) --- */
+                "primary": "#0284C7",                  // أزرق الشعار التقني الأساسي
+                "primary-container": "#0284C7",        // خلفية الأزرار الرئيسية مع تباين عالي مع النص الأبيض
+                "primary-hover": "#0369A1",            // تباين داكن عند التحويم
+                "surface-tint": "#0369A1",
                 "on-primary": "#ffffff",
-                "primary-fixed": "#F4F4F5",
-                "primary-fixed-dim": "#E4E4E7",
+                "primary-fixed": "#E0F2FE",
+                "primary-fixed-dim": "#BAE6FD",
                 "on-primary-container": "#ffffff",
-                "on-primary-fixed": "#18181B",
-                "on-primary-fixed-variant": "#27272A",
+                "on-primary-fixed": "#0369A1",
+                "on-primary-fixed-variant": "#075985",
 
-                /* --- Secondary Refined Tokens (Replaces clashing cyan) --- */
-                "secondary": "#52525B",                // رمادي زنك راقٍ ومريح للعين (تباين 7:1)
-                "secondary-container": "#27272A",
-                "secondary-hover": "#18181B",
-                "secondary-fixed": "#F4F4F5",
-                "secondary-fixed-dim": "#71717A",
+                /* --- Secondary Refined Tokens (Cosmic Slate & Architectural Grey) --- */
+                "secondary": "#64748B",                // رمادي سلِيت راقٍ مريح للعين (تباين 4.7:1)
+                "secondary-container": "#1E293B",
+                "secondary-hover": "#0F172A",
+                "secondary-fixed": "#F1F5F9",
+                "secondary-fixed-dim": "#94A3B8",
                 "on-secondary": "#ffffff",
-                "on-secondary-container": "#FAFAFA",
-                "on-secondary-fixed": "#18181B",
-                "on-secondary-fixed-variant": "#27272A",
-                "sky-light": "#71717A",
-                "sky-deep": "#27272A",
-                "cyan-accent": "#2563EB",
+                "on-secondary-container": "#F8FAFC",
+                "on-secondary-fixed": "#0F172A",
+                "on-secondary-fixed-variant": "#1E293B",
+                "sky-light": "#38BDF8",
+                "sky-deep": "#0284C7",
+                "cyan-accent": "#0EA5E9",
 
-                /* --- Hadera Gold Brand Accent (Citadel & Distinction) --- */
-                "gold-accent": "#F59E0B",              // ذهب الحاضرة الأصلي للشعار والأوسمة
-                "gold-light": "#FCD34D",
+                /* --- Hadera Citadel Gold (Heritage & Academic Honors) --- */
+                "gold-accent": "#F59E0B",              // ذهب قلعة الحاضرة الأصلي للشعار والأوسمة
+                "gold-light": "#FBBF24",
                 "gold-deep": "#B45309",
                 "hadera-gold": "#F59E0B",
                 "crimson-muted": "#FEF3C7",            // وسام ذهبي أكاديمي هادئ
@@ -54,23 +61,23 @@ tailwind.config = {
                 "surface-container-lowest": "#ffffff",
                 "surface-alt": "#F8FAFC",
                 "surface": "#F1F5F9",
-                "border-subtle": "#E4E4E7",
-                "sky-muted": "#F4F4F5",
+                "border-subtle": "#E2E8F0",
+                "sky-muted": "#E0F2FE",
 
-                "on-surface": "#09090B",
-                "on-surface-variant": "#52525B",
-                "on-background": "#09090B",
+                "on-surface": "#0F172A",               // كحلي فاحم عالي التباين للنصوص
+                "on-surface-variant": "#475569",
+                "on-background": "#0F172A",
                 "background": "#F8FAFC",
 
-                /* --- Dark / Obsidian Surfaces --- */
-                "obsidian-dark": "#09090B",
-                "obsidian-card": "#121215",
-                "obsidian-surface": "#18181B",
-                "obsidian-border": "#27272A",
+                /* --- Dark / Cosmic Obsidian Surfaces --- */
+                "obsidian-dark": "#080D1A",            // أرضية الشعار الكحلية العميقة
+                "obsidian-card": "#0F172A",
+                "obsidian-surface": "#1E293B",
+                "obsidian-border": "#334155",
 
                 /* --- Extended Material 3 Palette --- */
-                "inverse-primary": "#FAFAFA",
-                "inverse-surface": "#09090B",
+                "inverse-primary": "#38BDF8",
+                "inverse-surface": "#0F172A",
                 "inverse-on-surface": "#F8FAFC",
 
                 /* --- Tertiary Tokens (Success / Badges) --- */
@@ -85,12 +92,12 @@ tailwind.config = {
 
                 /* --- Surface Variants --- */
                 "surface-bright": "#ffffff",
-                "surface-dim": "#E4E4E7",
+                "surface-dim": "#E2E8F0",
                 "surface-variant": "#F1F5F9",
                 "surface-container": "#F8FAFC",
                 "surface-container-low": "#FFFFFF",
-                "surface-container-high": "#E4E4E7",
-                "surface-container-highest": "#D4D4D8",
+                "surface-container-high": "#E2E8F0",
+                "surface-container-highest": "#CBD5E1",
 
                 /* --- Error Tokens --- */
                 "error": "#DC2626",
@@ -99,8 +106,8 @@ tailwind.config = {
                 "on-error-container": "#991B1B",
 
                 /* --- Outline Tokens --- */
-                "outline": "#E4E4E7",
-                "outline-variant": "#D4D4D8",
+                "outline": "#E2E8F0",
+                "outline-variant": "#CBD5E1",
             },
 
             fontFamily: {

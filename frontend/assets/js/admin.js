@@ -11,6 +11,13 @@
  */
 
 // ==============================================================================
+// Dynamic API Base Resolver (Supports Localhost, Wi-Fi Dev & Cloud Vercel)
+// ==============================================================================
+const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && window.location.port !== '3000'
+    ? `${API_BASE}`
+    : '';
+
+// ==============================================================================
 // ثوابت تنسيق التبويبات والمظهر العام (Tab Classes & Style Constants)
 // ==============================================================================
 const ACTIVE_TAB_CLASSES = "px-8 py-2.5 rounded-md bg-primary-container text-white font-bold transition-all shadow-sm";
@@ -320,7 +327,7 @@ async function verifySession() {
         // في أنظمة الإنتاج (Production Environment)، يتم استبدال هذا النهج واعتماد 
         // خادم Nginx كوكيل عكسي (Reverse Proxy) لتوحيد النطاقات وإخفاء المنافذ لتعزيز الحماية.
         // ==============================================================================
-        const backendUrl = `http://${window.location.hostname}:3000/api/auth/me`;
+        const backendUrl = `${API_BASE}/api/auth/me`;
         const response = await fetch(backendUrl, {
             method: 'GET',
             credentials: 'include' // إرسال الكوكي الآمنة مع الطلب
@@ -481,7 +488,7 @@ async function loadCourses() {
         const qrCourseSelect = document.getElementById('qr-course-select');
 
         // جلب البيانات من الخادم عبر الرابط الديناميكي
-        const backendUrl = `http://${window.location.hostname}:3000/api/courses`;
+        const backendUrl = `${API_BASE}/api/courses`;
         const response = await fetch(backendUrl);
 
         if (!response.ok) throw new Error('فشل جلب قائمة الكورسات');
@@ -505,7 +512,10 @@ async function loadCourses() {
         }
 
         if (qrCourseSelect) {
-            qrCourseSelect.innerHTML = '<option value="" disabled selected>اختر الكورس لفتح الجلسة...</option>';
+            qrCourseSelect.innerHTML = `
+                <option value="" disabled selected>اختر الكورس لفتح الجلسة...</option>
+                <option value="general">جلسة عامة (غير مرتبطة بكورس محدد)</option>
+            `;
         }
 
         // 3. ربط البيانات (Data Binding)
@@ -557,7 +567,7 @@ async function loadCourseSections(courseId) {
         courseSectionsList.innerHTML = '';
 
         // جلب الأقسام من السيرفر بشكل ديناميكي
-        const backendUrl = `http://${window.location.hostname}:3000/api/courses/${courseId}/sections`;
+        const backendUrl = `${API_BASE}/api/courses/${courseId}/sections`;
         const response = await fetch(backendUrl);
 
         if (!response.ok) throw new Error('فشل جلب أقسام الكورس من الخادم');
@@ -579,7 +589,7 @@ async function loadCourseSections(courseId) {
         // جلب المواد الخاصة بكل قسم وتجميعها في بطاقات ديناميكية (Dynamic Materials Hydration)
         for (const section of sections) {
             // جلب المواد التعليمية الخاصة بالقسم
-            const materialsUrl = `http://${window.location.hostname}:3000/api/materials/section/${section.id}`;
+            const materialsUrl = `${API_BASE}/api/materials/section/${section.id}`;
             const materialsRes = await fetch(materialsUrl);
             const materials = materialsRes.ok ? await materialsRes.json() : [];
 
@@ -608,10 +618,10 @@ async function loadCourseSections(courseId) {
                         }
                     } else {
                         // ملف مرفوع محلياً
-                        downloadUrl = `http://${window.location.hostname}:3000${material.url}`;
+                        downloadUrl = `${API_BASE}${material.url}`;
                         if (material.url.toLowerCase().endsWith('.pdf')) {
                             icon = 'picture_as_pdf';
-                            iconColor = 'text-red-650';
+                            iconColor = 'text-red-600';
                         } else if (material.url.toLowerCase().endsWith('.mp4')) {
                             icon = 'play_circle';
                             iconColor = 'text-blue-500';
@@ -627,7 +637,7 @@ async function loadCourseSections(courseId) {
                                     ${material.type === 'link' ? '<span class="text-[9px] text-red-500 font-bold">رابط خارجي</span>' : '<span class="text-[9px] text-green-600 font-bold">ملف مرفوع</span>'}
                                 </div>
                             </a>
-                            <button onclick="deleteMaterial(${material.material_id})" class="text-secondary hover:text-red-650 opacity-0 group-hover:opacity-100 transition-opacity p-1 ml-1" title="مسح المادة">
+                            <button onclick="deleteMaterial(${material.material_id})" class="text-secondary hover:text-red-700 opacity-0 group-hover:opacity-100 transition-opacity p-1 ml-1" title="مسح المادة">
                                 <span class="material-symbols-outlined text-[18px]">close</span>
                             </button>
                         </div>
@@ -748,7 +758,7 @@ async function deleteSection(sectionId) {
         async () => {
             try {
                 // إرسال طلب DELETE الآمن إلى الخادم
-                const backendUrl = `http://${window.location.hostname}:3000/api/courses/sections/${sectionId}`;
+                const backendUrl = `${API_BASE}/api/courses/sections/${sectionId}`;
                 const response = await fetch(backendUrl, {
                     method: 'DELETE',
                     credentials: 'include' // إرسال توكن الـ JWT في الكوكيز للعبور الآمن من جدار الحماية
@@ -817,7 +827,7 @@ async function editSection(sectionId, currentTitle) {
 
             try {
                 // إرسال طلب PUT الآمن للتحديث في قاعدة البيانات الخلفية
-                const backendUrl = `http://${window.location.hostname}:3000/api/courses/sections/${sectionId}`;
+                const backendUrl = `${API_BASE}/api/courses/sections/${sectionId}`;
                 const response = await fetch(backendUrl, {
                     method: 'PUT',
                     headers: {
@@ -968,7 +978,7 @@ async function submitAddContent(sectionId) {
         const courseSelect = document.getElementById('course-select');
         const courseId = courseSelect ? courseSelect.value : null;
 
-        const backendUrl = `http://${window.location.hostname}:3000/api/materials/upload/${sectionId}`;
+        const backendUrl = `${API_BASE}/api/materials/upload/${sectionId}`;
         const response = await fetch(backendUrl, {
             method: 'POST',
             credentials: 'include', // مصادقة JWT
@@ -1013,7 +1023,7 @@ async function deleteMaterial(materialId) {
                 const courseSelect = document.getElementById('course-select');
                 const courseId = courseSelect ? courseSelect.value : null;
 
-                const backendUrl = `http://${window.location.hostname}:3000/api/materials/${materialId}`;
+                const backendUrl = `${API_BASE}/api/materials/${materialId}`;
                 const response = await fetch(backendUrl, {
                     method: 'DELETE',
                     credentials: 'include' // إرسال مصادقة JWT
@@ -1070,7 +1080,7 @@ async function loadStudentsList(searchQuery = '') {
             </tr>
         `;
 
-        const backendUrl = `http://${window.location.hostname}:3000/api/students?search=${encodeURIComponent(searchQuery)}`;
+        const backendUrl = `${API_BASE}/api/students?search=${encodeURIComponent(searchQuery)}`;
         const response = await fetch(backendUrl, { credentials: 'include' });
 
         if (response.status === 401 || response.status === 403) {
@@ -1093,7 +1103,7 @@ async function loadStudentsList(searchQuery = '') {
         if (tableBody) {
             tableBody.innerHTML = `
                 <tr>
-                    <td colspan="5" class="py-8 text-center text-red-650 font-bold text-sm">
+                    <td colspan="5" class="py-8 text-center text-red-600 font-bold text-sm">
                         ❌ فشل تحميل البيانات: ${error.message}
                     </td>
                 </tr>
@@ -1146,67 +1156,69 @@ function renderStudentTable() {
         const tr = document.createElement('tr');
         tr.className = "border-b border-border-subtle hover:bg-gray-50 transition-colors";
 
-        let rateBadgeClass = "bg-primary-container text-white";
+        let rateBadgeClass = "bg-sky-50 text-sky-800 border border-sky-200";
         let rateLabel = "ممتاز";
         const rate = student.attendance_rate;
 
         if (rate >= 85) {
-            rateBadgeClass = "bg-green-600 text-white";
+            rateBadgeClass = "bg-emerald-50 text-emerald-800 border border-emerald-200";
             rateLabel = "ممتاز";
         } else if (rate >= 75) {
-            rateBadgeClass = "bg-blue-500 text-white";
+            rateBadgeClass = "bg-sky-50 text-sky-800 border border-sky-200";
             rateLabel = "جيد جداً";
         } else if (rate >= 50) {
-            rateBadgeClass = "bg-yellow-600 text-white";
+            rateBadgeClass = "bg-amber-50 text-amber-800 border border-amber-200";
             rateLabel = "مقبول";
         } else {
-            rateBadgeClass = "bg-red-600 text-white"; // ترقية اللون للنسق القياسي المتناسق
+            rateBadgeClass = "bg-red-50 text-red-800 border border-red-200";
             rateLabel = "ضعيف";
         }
 
         const role = student.role || 'student';
-        let roleText = 'طالب عادي';
-        let roleBullet = 'bg-slate-450';
+        let roleText = 'طالب مسجل';
+        let roleBullet = 'bg-slate-400';
 
         if (role === 'Super_Admin') {
             roleText = 'مشرف عام أساسي';
-            roleBullet = 'bg-purple-600';
+            roleBullet = 'bg-primary-container';
         } else if (role === 'Students_Admin') {
             roleText = 'مشرف شؤون الطلاب';
-            roleBullet = 'bg-blue-500';
+            roleBullet = 'bg-sky-500';
         } else if (role === 'Curriculum_Admin') {
             roleText = 'مشرف شؤون المناهج';
             roleBullet = 'bg-amber-500';
         } else {
-            roleText = 'طالب عادي';
+            roleText = 'طالب مسجل';
             roleBullet = 'bg-slate-400';
         }
 
         tr.innerHTML = `
-            <td class="py-4 px-6 text-right">
-                <div class="font-bold text-on-surface">${student.Name}</div>
-                <div class="text-[11px] font-normal text-secondary mt-1 flex items-center gap-1.5">
+            <td class="py-3.5 px-6 text-right">
+                <div class="font-bold text-slate-900">${student.Name}</div>
+                <div class="text-[11px] font-normal text-slate-500 mt-0.5 flex items-center gap-1.5">
                     <span class="inline-block w-1.5 h-1.5 rounded-full ${roleBullet}"></span>
                     <span>${roleText}</span>
                 </div>
             </td>
-            <td class="py-4 px-6 font-code-snippet text-secondary text-right">${student.student_id}</td>
-            <td class="py-4 px-6 text-secondary text-right">${student.birth_year || '---'}</td>
-            <td class="py-4 px-6 text-right">
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${rateBadgeClass}">
+            <td class="py-3.5 px-6 text-right">
+                <span class="font-mono text-xs text-slate-700 bg-slate-100 px-2 py-0.5 rounded border border-slate-200 tabular-nums">${student.student_id}</span>
+            </td>
+            <td class="py-3.5 px-6 text-slate-600 text-right font-mono text-xs tabular-nums">${student.birth_year || '---'}</td>
+            <td class="py-3.5 px-6 text-right">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-bold ${rateBadgeClass} tabular-nums">
                     ${rateLabel} (${rate}%)
                 </span>
             </td>
-            <td class="py-4 px-6 text-center">
-                <div class="flex items-center justify-center gap-2">
-                    <button onclick="resetStudentPassword(${student.id}, '${student.Name}')" class="w-8 h-8 rounded border border-border-subtle text-secondary hover:bg-gray-100 hover:text-primary-container transition-colors animate-scale-in" title="مفتاح السري (تغيير كلمة المرور)">
-                        <span class="material-symbols-outlined text-[18px]">key</span>
+            <td class="py-3.5 px-6 text-center">
+                <div class="flex items-center justify-center gap-1.5">
+                    <button onclick="resetStudentPassword(${student.id}, '${student.Name}')" class="w-8 h-8 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-primary-container transition-colors shadow-2xs" title="تغيير كلمة المرور">
+                        <span class="material-symbols-outlined text-[17px]">key</span>
                     </button>
-                    <button onclick="editStudentDetails(${student.id})" class="w-8 h-8 rounded border border-border-subtle text-secondary hover:bg-gray-100 hover:text-primary-container transition-colors animate-scale-in" title="تعديل البيانات">
-                        <span class="material-symbols-outlined text-[18px]">edit</span>
+                    <button onclick="editStudentDetails(${student.id})" class="w-8 h-8 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-primary-container transition-colors shadow-2xs" title="تعديل البيانات">
+                        <span class="material-symbols-outlined text-[17px]">edit</span>
                     </button>
-                    <button onclick="deleteStudent(${student.id}, '${student.Name}')" class="w-8 h-8 rounded bg-red-600 text-white hover:bg-red-700 transition-colors animate-scale-in" title="حذف ملف الطالب">
-                        <span class="material-symbols-outlined text-[18px]">delete</span>
+                    <button onclick="deleteStudent(${student.id}, '${student.Name}')" class="w-8 h-8 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors shadow-2xs" title="حذف الطالب">
+                        <span class="material-symbols-outlined text-[17px]">delete</span>
                     </button>
                 </div>
             </td>
@@ -1240,7 +1252,7 @@ async function deleteStudent(studentId, studentName) {
         `هل أنت متأكد تماماً من رغبتك في حذف الطالب "${studentName}" نهائياً من قاعدة البيانات؟ سيؤدي ذلك لمسح كافة بياناته وحضوره وسجلاته المتتالية من النظام بشكل كامل.`,
         async () => {
             try {
-                const response = await fetch(`http://${window.location.hostname}:3000/api/students/${studentId}`, {
+                const response = await fetch(`${API_BASE}/api/students/${studentId}`, {
                     method: 'DELETE',
                     credentials: 'include'
                 });
@@ -1290,7 +1302,7 @@ async function resetStudentPassword(studentId, studentName) {
             }
 
             try {
-                const response = await fetch(`http://${window.location.hostname}:3000/api/students/${studentId}`, {
+                const response = await fetch(`${API_BASE}/api/students/${studentId}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',
@@ -1344,7 +1356,7 @@ async function editStudentDetails(studentId) {
                         };
                         if (targetRole) bodyData.role = targetRole;
 
-                        const response = await fetch(`http://${window.location.hostname}:3000/api/students/${studentId}`, {
+                        const response = await fetch(`${API_BASE}/api/students/${studentId}`, {
                             method: 'PUT',
                             headers: { 'Content-Type': 'application/json' },
                             credentials: 'include',
@@ -1411,7 +1423,7 @@ async function loadNewsList() {
             </tr>
         `;
 
-        const response = await fetch(`http://${window.location.hostname}:3000/api/news`);
+        const response = await fetch(`${API_BASE}/api/news`);
         if (!response.ok) throw new Error('فشل جلب قائمة الأخبار');
 
         const news = await response.json();
@@ -1433,7 +1445,7 @@ async function loadNewsList() {
             const tr = document.createElement('tr');
             tr.className = "border-b border-border-subtle hover:bg-gray-50 transition-colors";
 
-            const fullImgUrl = `http://${window.location.hostname}:3000${item.image_path}`;
+            const fullImgUrl = `${API_BASE}${item.image_path}`;
 
             tr.innerHTML = `
                 <td class="py-3 px-4 text-right">
@@ -1443,7 +1455,7 @@ async function loadNewsList() {
                 </td>
                 <td class="py-3 px-4 font-bold text-on-surface text-[14px] text-right max-w-[220px] truncate" title="${item.title}">${item.title}</td>
                 <td class="py-3 px-4 text-center">
-                    <button onclick="deleteNews(${item.news_id}, '${item.title.replace(/'/g, "\\'")}')" class="w-8 h-8 rounded bg-red-600 text-white hover:bg-red-750 transition-colors inline-flex items-center justify-center shadow-sm" title="حذف الخبر">
+                    <button onclick="deleteNews(${item.news_id}, '${item.title.replace(/'/g, "\\'")}')" class="w-8 h-8 rounded bg-red-600 text-white hover:bg-red-700 transition-colors inline-flex items-center justify-center shadow-sm" title="حذف الخبر">
                         <span class="material-symbols-outlined text-[18px]">delete</span>
                     </button>
                 </td>
@@ -1457,7 +1469,7 @@ async function loadNewsList() {
         if (tableBody) {
             tableBody.innerHTML = `
                 <tr>
-                    <td colspan="3" class="py-6 text-center text-red-650 font-bold text-xs">
+                    <td colspan="3" class="py-6 text-center text-red-600 font-bold text-xs">
                         ❌ فشل تحميل الأخبار: ${error.message}
                     </td>
                 </tr>
@@ -1472,7 +1484,7 @@ async function deleteNews(newsId, newsTitle) {
         `هل أنت متأكد تماماً من رغبتك في حذف خبر "${newsTitle}" نهائياً من قاعدة البيانات والسيرفر؟ لا يمكن التراجع عن هذا الإجراء.`,
         async () => {
             try {
-                const response = await fetch(`http://${window.location.hostname}:3000/api/news/${newsId}`, {
+                const response = await fetch(`${API_BASE}/api/news/${newsId}`, {
                     method: 'DELETE',
                     credentials: 'include'
                 });
@@ -1601,7 +1613,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 showToast('⏳ جاري رفع غلاف الخبر ونشره في المنصة...', 'info');
 
-                const response = await fetch(`http://${window.location.hostname}:3000/api/news`, {
+                const response = await fetch(`${API_BASE}/api/news`, {
                     method: 'POST',
                     credentials: 'include', // مصادقة JWT
                     body: formData
@@ -1695,7 +1707,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const role = roleSelect ? roleSelect.value : 'student';
 
             try {
-                const response = await fetch(`http://${window.location.hostname}:3000/api/students`, {
+                const response = await fetch(`${API_BASE}/api/students`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',
@@ -1784,9 +1796,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const qrImagePlaceholder = document.getElementById('qr-image-placeholder');
     const qrLoadingSpinner = document.getElementById('qr-loading-spinner');
     const liveAttendanceCount = document.getElementById('live-attendance-count');
+    const qrCourseSelect = document.getElementById('qr-course-select');
+    const qrAttendeesFeed = document.getElementById('qr-attendees-feed');
+    const qrFeedCounter = document.getElementById('qr-feed-counter');
 
     let pollingInterval;
     let activeSessionId = null; // المعرف النشط للجلسة الحالية
+
+    // الربط التفاعلي: عند اختيار كورس في مودال الـ QR يتم ملء العنوان تلقائياً
+    if (qrCourseSelect) {
+        qrCourseSelect.addEventListener('change', (e) => {
+            const val = e.target.value;
+            const titleInput = document.getElementById('qr-session-title');
+            if (!titleInput) return;
+            if (val && val !== 'general') {
+                const course = (window.cachedCourses || []).find(c => c.course_id == val);
+                if (course) {
+                    titleInput.value = `${course.course_title} - ورشة تفاعلية`;
+                }
+            } else if (val === 'general') {
+                titleInput.value = 'جلسة عامة - ورشة برمجية';
+            }
+        });
+    }
 
     async function toggleQrModal() {
         qrModal.classList.toggle('hidden');
@@ -1798,17 +1830,22 @@ document.addEventListener('DOMContentLoaded', () => {
             qrLoadingSpinner.classList.remove('hidden');
             clearInterval(pollingInterval);
             liveAttendanceCount.innerText = "0";
+            if (qrFeedCounter) qrFeedCounter.innerText = "0 طالب";
+            if (qrAttendeesFeed) {
+                qrAttendeesFeed.innerHTML = '<div id="qr-empty-attendees" class="text-center py-3 text-xs text-slate-400 bg-slate-50 rounded-lg border border-dashed border-slate-200">في انتظار أول طالب يمسح الكود...</div>';
+            }
             generateQrActionButton.classList.remove('hidden');
 
             const titleInput = document.getElementById('qr-session-title');
             const detailsInput = document.getElementById('qr-session-details');
             if (titleInput) titleInput.value = '';
             if (detailsInput) detailsInput.value = '';
+            if (qrCourseSelect) qrCourseSelect.value = '';
 
             // خطوة أمان هامة: إرسال إشعار للخادم لإيقاف وتعطيل الجلسة النشطة لمنع استغلال الـ QR
             if (activeSessionId) {
                 try {
-                    const stopUrl = `http://${window.location.hostname}:3000/api/attendance/stop/${activeSessionId}`;
+                    const stopUrl = `${API_BASE}/api/attendance/stop/${activeSessionId}`;
                     await fetch(stopUrl, { method: 'POST', credentials: 'include' });
                 } catch (e) {
                     console.error('Error stopping active session:', e);
@@ -1836,9 +1873,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const title = titleInput.value.trim();
             const description = detailsInput.value.trim();
+            const course_id = qrCourseSelect && qrCourseSelect.value ? qrCourseSelect.value : null;
 
-            if (!title) {
-                showToast('⚠️ يرجى كتابة اسم الكورس / الجلسة أولاً!', 'warning');
+            if (!title && !course_id) {
+                showToast('⚠️ يرجى اختيار كورس أو كتابة اسم الجلسة أولاً!', 'warning');
                 return;
             }
 
@@ -1847,13 +1885,13 @@ document.addEventListener('DOMContentLoaded', () => {
             generateQrActionButton.classList.add('hidden');
 
             try {
-                // 1. إرسال طلب بدء الجلسة للخادم الخلفي
-                const startUrl = `http://${window.location.hostname}:3000/api/attendance/start`;
+                // 1. إرسال طلب بدء الجلسة للخادم الخلفي مع ربطه بالكورس
+                const startUrl = `${API_BASE}/api/attendance/start`;
                 const response = await fetch(startUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',
-                    body: JSON.stringify({ title, description })
+                    body: JSON.stringify({ title, description, course_id })
                 });
 
                 if (response.status === 401 || response.status === 403) {
@@ -1871,7 +1909,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 activeSessionId = data.sessionId;
 
                 // 2. توليد رابط مسح الحضور الفعلي وتمريره لمولد الـ QR Code
-                const scanUrl = `http://${window.location.hostname}:3000/api/attendance/scan?token=${data.sessionToken}`;
+                const scanUrl = `${API_BASE}/api/attendance/scan?token=${data.sessionToken}`;
 
                 qrImagePlaceholder.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(scanUrl)}`;
 
@@ -1882,7 +1920,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 showToast('🎉 تم فتح الجلسة وبث كود الـ QR بنجاح!', 'success');
 
-                // 3. تفعيل العداد اللحظي التفاعلي للطلاب
+                // 3. تفعيل العداد اللحظي التفاعلي وبث أسماء الطلاب
                 startLivePolling(data.sessionId);
 
             } catch (err) {
@@ -1901,21 +1939,36 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!sessionId) return;
 
             try {
-                const countUrl = `http://${window.location.hostname}:3000/api/attendance/live-count/${sessionId}`;
+                const countUrl = `${API_BASE}/api/attendance/live-count/${sessionId}`;
                 const response = await fetch(countUrl, { credentials: 'include' });
 
                 if (!response.ok) return;
 
                 const data = await response.json();
-                const currentCount = data.count;
+                const currentCount = data.count || 0;
 
                 liveAttendanceCount.innerText = currentCount;
+                if (qrFeedCounter) qrFeedCounter.innerText = `${currentCount} طالب`;
 
-                // إطلاق تأثير نبض وتكبير بصري فخم ومبهر عند دخول طالب جديد (Live Pulse Animation)
+                // تحديث كشف أسماء الطلاب الحاضرين لحظياً فور قيام أي طالب بمسح الكود
+                if (data.attendees && data.attendees.length > 0 && qrAttendeesFeed) {
+                    qrAttendeesFeed.innerHTML = data.attendees.map(att => `
+                        <div class="flex items-center justify-between p-2 rounded-lg bg-emerald-50/80 border border-emerald-200/80 text-xs transition-all animate-scale-in">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-emerald-600 text-[15px]">verified</span>
+                                <span class="font-bold text-slate-800">${att.Name}</span>
+                                <span class="text-slate-400 font-mono text-[10px]">(${att.student_id || 'ID'})</span>
+                            </div>
+                            <span class="text-slate-500 font-mono text-[10px]">${att.scan_time || ''}</span>
+                        </div>
+                    `).join('');
+                }
+
+                // إطلاق تأثير نبض وتكبير بصري عند مسح طالب جديد
                 if (currentCount > lastCount) {
-                    liveAttendanceCount.classList.add('scale-125', 'text-tertiary-container');
+                    liveAttendanceCount.classList.add('scale-125', 'text-sky-600');
                     setTimeout(() => {
-                        liveAttendanceCount.classList.remove('scale-125', 'text-tertiary-container');
+                        liveAttendanceCount.classList.remove('scale-125', 'text-sky-600');
                     }, 300);
                     lastCount = currentCount;
                 }
@@ -2048,7 +2101,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!courseId || !course_title || !description) return;
 
             try {
-                const backendUrl = `http://${window.location.hostname}:3000/api/courses/${courseId}`;
+                const backendUrl = `${API_BASE}/api/courses/${courseId}`;
                 const response = await fetch(backendUrl, {
                     method: 'PUT',
                     headers: {
@@ -2102,7 +2155,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 `هل أنت متأكد تماماً من رغبتك في حذف الكورس "${courseName}" بجميع محتوياته؟ سيقوم هذا الإجراء بحذف الكورس وكافة الأقسام والمواد التابعة له نهائياً من قاعدة البيانات (Cascading Delete).`,
                 async () => {
                     try {
-                        const backendUrl = `http://${window.location.hostname}:3000/api/courses/${courseId}`;
+                        const backendUrl = `${API_BASE}/api/courses/${courseId}`;
                         const response = await fetch(backendUrl, {
                             method: 'DELETE',
                             credentials: 'include'
@@ -2132,6 +2185,193 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
             );
+        });
+    }
+
+    /* ========================================================
+       إجراءات كشف حضور الكورس وبدء جلسته السريعة (Course Attendance & Fast QR)
+       ======================================================== */
+    const startCourseQrBtn = document.getElementById('start-course-qr-btn');
+    if (startCourseQrBtn) {
+        startCourseQrBtn.addEventListener('click', () => {
+            const courseId = courseSelect.value;
+            if (!courseId || courseId === 'new') {
+                showToast('⚠️ يرجى اختيار كورس أولاً لبدء جلسته!', 'warning');
+                return;
+            }
+            if (qrCourseSelect) {
+                qrCourseSelect.value = courseId;
+                qrCourseSelect.dispatchEvent(new Event('change'));
+            }
+            toggleQrModal();
+        });
+    }
+
+    const courseAttendanceModal = document.getElementById('course-attendance-modal');
+    const viewCourseAttendanceBtn = document.getElementById('view-course-attendance-btn');
+    const closeCourseAttendanceIcon = document.getElementById('close-course-attendance-icon');
+    const closeCourseAttendanceBtn = document.getElementById('close-course-attendance-btn');
+    const modalBackdropCourseAttendance = document.getElementById('modal-backdrop-course-attendance');
+    const attendanceSearchInput = document.getElementById('attendance-search-input');
+    const attendanceSessionFilter = document.getElementById('attendance-session-filter');
+    const exportAttendanceCsvBtn = document.getElementById('export-attendance-csv-btn');
+    const courseAttendanceTableBody = document.getElementById('course-attendance-table-body');
+
+    let currentCourseAttendanceData = null;
+
+    function toggleCourseAttendanceModal() {
+        if (!courseAttendanceModal) return;
+        courseAttendanceModal.classList.toggle('hidden');
+        document.body.style.overflow = courseAttendanceModal.classList.contains('hidden') ? '' : 'hidden';
+    }
+
+    if (closeCourseAttendanceIcon) closeCourseAttendanceIcon.addEventListener('click', toggleCourseAttendanceModal);
+    if (closeCourseAttendanceBtn) closeCourseAttendanceBtn.addEventListener('click', toggleCourseAttendanceModal);
+    if (modalBackdropCourseAttendance) modalBackdropCourseAttendance.addEventListener('click', toggleCourseAttendanceModal);
+
+    async function loadCourseAttendance(courseId) {
+        if (!courseId) return;
+        try {
+            showToast('⏳ جاري جلب سجل حضور الكورس...', 'info');
+            const backendUrl = `${API_BASE}/api/attendance/course/${courseId}`;
+            const response = await fetch(backendUrl, { credentials: 'include' });
+
+            if (response.status === 401 || response.status === 403) {
+                showToast('⚠️ انتهت جلستك الأمنية، يرجى تسجيل الدخول مجدداً.', 'warning');
+                setTimeout(() => window.location.replace('login.html'), 1500);
+                return;
+            }
+
+            if (!response.ok) {
+                const errData = await response.json();
+                throw new Error(errData.error || 'فشل جلب سجل الحضور');
+            }
+
+            const data = await response.json();
+            currentCourseAttendanceData = data;
+
+            // تحديث العناوين والبطاقات الإحصائية
+            const titleEl = document.getElementById('attendance-modal-course-title');
+            if (titleEl) titleEl.innerText = `سجل حضور: ${data.course.course_title}`;
+
+            const statSessions = document.getElementById('stat-course-sessions-count');
+            const statUnique = document.getElementById('stat-course-unique-students');
+            const statTotal = document.getElementById('stat-course-total-scans');
+            if (statSessions) statSessions.innerText = data.totalSessions || 0;
+            if (statUnique) statUnique.innerText = data.uniqueStudents || 0;
+            if (statTotal) statTotal.innerText = data.totalScans || 0;
+
+            // تعبئة قائمة فلترة الجلسات
+            if (attendanceSessionFilter) {
+                attendanceSessionFilter.innerHTML = '<option value="all">كل الجلسات</option>';
+                (data.sessions || []).forEach(sess => {
+                    const opt = document.createElement('option');
+                    opt.value = sess.session_id;
+                    opt.textContent = `${sess.session_title} (${sess.created_at || ''})`;
+                    attendanceSessionFilter.appendChild(opt);
+                });
+            }
+
+            // إعادة ضبط حقل البحث
+            if (attendanceSearchInput) attendanceSearchInput.value = '';
+
+            // رسم جدول الحضور
+            renderCourseAttendanceTable();
+            toggleCourseAttendanceModal();
+
+        } catch (error) {
+            console.error('Error loading course attendance:', error);
+            showToast(`❌ تعذر تحميل كشف الحضور: ${error.message}`, 'error');
+        }
+    }
+
+    function renderCourseAttendanceTable() {
+        if (!courseAttendanceTableBody || !currentCourseAttendanceData) return;
+
+        const allAttendees = currentCourseAttendanceData.attendees || [];
+        const query = attendanceSearchInput ? attendanceSearchInput.value.trim().toLowerCase() : '';
+        const selectedSession = attendanceSessionFilter ? attendanceSessionFilter.value : 'all';
+
+        const filtered = allAttendees.filter(att => {
+            const matchQuery = !query || 
+                (att.Name && att.Name.toLowerCase().includes(query)) ||
+                (att.student_id && String(att.student_id).toLowerCase().includes(query));
+            const matchSession = selectedSession === 'all' || String(att.session_id) === String(selectedSession);
+            return matchQuery && matchSession;
+        });
+
+        if (filtered.length === 0) {
+            courseAttendanceTableBody.innerHTML = `
+                <tr>
+                    <td colspan="5" class="p-8 text-center text-slate-400">
+                        <span class="material-symbols-outlined text-3xl mb-1 text-slate-300 block">person_off</span>
+                        لا توجد سجلات حضور مسجلة لهذا الاختيار
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        courseAttendanceTableBody.innerHTML = filtered.map(att => `
+            <tr class="hover:bg-slate-50 transition-colors">
+                <td class="p-2.5 font-bold text-slate-800">${att.Name || '—'}</td>
+                <td class="p-2.5 font-mono text-slate-500">${att.student_id || '—'}</td>
+                <td class="p-2.5 text-slate-700">${att.session_title || '—'}</td>
+                <td class="p-2.5 font-mono text-slate-500 text-[11px]">${att.attendance_date || ''} ${att.scan_time || ''}</td>
+                <td class="p-2.5 text-center">
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                        حاضر
+                    </span>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    if (attendanceSearchInput) {
+        attendanceSearchInput.addEventListener('input', renderCourseAttendanceTable);
+    }
+    if (attendanceSessionFilter) {
+        attendanceSessionFilter.addEventListener('change', renderCourseAttendanceTable);
+    }
+
+    if (viewCourseAttendanceBtn) {
+        viewCourseAttendanceBtn.addEventListener('click', () => {
+            const courseId = courseSelect.value;
+            if (!courseId || courseId === 'new') {
+                showToast('⚠️ يرجى اختيار كورس أولاً لعرض سجل حضوره!', 'warning');
+                return;
+            }
+            loadCourseAttendance(courseId);
+        });
+    }
+
+    // تصدير كشف الحضور إلى ملف CSV يدعم اللغة العربية UTF-8 BOM
+    if (exportAttendanceCsvBtn) {
+        exportAttendanceCsvBtn.addEventListener('click', () => {
+            if (!currentCourseAttendanceData || !currentCourseAttendanceData.attendees || currentCourseAttendanceData.attendees.length === 0) {
+                showToast('⚠️ لا توجد سجلات لتصديرها حالياً', 'warning');
+                return;
+            }
+
+            const courseTitle = currentCourseAttendanceData.course ? currentCourseAttendanceData.course.course_title : 'كورس';
+            let csvContent = '\uFEFF'; // UTF-8 BOM for Arabic support in Excel
+            csvContent += 'اسم الطالب,الرقم الجامعي,الجلسة / الورشة,تاريخ الحضور,وقت المسح,الحالة\n';
+
+            currentCourseAttendanceData.attendees.forEach(att => {
+                csvContent += `"${att.Name || ''}","${att.student_id || ''}","${att.session_title || ''}","${att.attendance_date || ''}","${att.scan_time || ''}","حاضر"\n`;
+            });
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', `كشف_حضور_${courseTitle.replace(/\s+/g, '_')}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            showToast('📥 تم تصدير كشف الحضور بنجاح!', 'success');
         });
     }
 
@@ -2179,7 +2419,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 // إرسال الطلب الآمن للخادم عبر المنفذ والمسار المحدد ديناميكياً
-                const backendUrl = `http://${window.location.hostname}:3000/api/courses`;
+                const backendUrl = `${API_BASE}/api/courses`;
                 const response = await fetch(backendUrl, {
                     method: 'POST',
                     headers: {
@@ -2284,7 +2524,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 // إرسال طلب POST آمن إلى الخادم الفرعي التابع للكورس الأب
-                const backendUrl = `http://${window.location.hostname}:3000/api/courses/${courseId}/sections`;
+                const backendUrl = `${API_BASE}/api/courses/${courseId}/sections`;
                 const response = await fetch(backendUrl, {
                     method: 'POST',
                     headers: {
@@ -2382,7 +2622,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 try {
-                    const backendUrl = `http://${window.location.hostname}:3000/api/auth/change-password`;
+                    const backendUrl = `${API_BASE}/api/auth/change-password`;
                     const response = await fetch(backendUrl, {
                         method: 'PUT',
                         headers: {
