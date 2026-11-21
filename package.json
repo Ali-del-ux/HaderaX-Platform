@@ -5,8 +5,7 @@
   "main": "api/index.js",
   "scripts": {
     "start": "node backend/server.js",
-    "dev": "node backend/server.js",
-    "build": "echo 'Build step complete'"
+    "dev": "node backend/server.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
