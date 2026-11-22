@@ -13,37 +13,42 @@ const path = require('path');
 //    مما يتيح لنا تتبع الأخطاء أو محاولات الاختراق بدقة حتى بعد حدوثها بأيام.
 // ==============================================================================
 
+// وسائل التصدير (Transports): أين يجب حفظ هذه السجلات؟
+const isServerless = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
+const transports = [];
+
+if (!isServerless) {
+    try {
+        transports.push(
+            new winston.transports.File({ 
+                filename: path.join(__dirname, '../logs/error.log'), 
+                level: 'error' 
+            }),
+            new winston.transports.File({ 
+                filename: path.join(__dirname, '../logs/combined.log') 
+            })
+        );
+    } catch (e) {
+        // Fallback to console if file system is read-only
+    }
+}
+
+// إضافة Console دائماً للبيئات السحابية والتطوير
+transports.push(new winston.transports.Console({
+    format: winston.format.combine(
+        winston.format.colorize(),
+        winston.format.simple()
+    )
+}));
+
 // إنشاء هيكل المراقبة
 const logger = winston.createLogger({
-    level: 'info', // تسجيل كل ما هو من مستوى info فما فوق (مثل: info, warn, error)
-    // تنسيق السجل: نضيف طابعاً زمنياً (Timestamp) لمعرفة وقت الحدث بدقة
+    level: 'info',
     format: winston.format.combine(
         winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
         winston.format.printf(info => `[${info.timestamp}] ${info.level.toUpperCase()}: ${info.message}`)
     ),
-    // وسائل التصدير (Transports): أين يجب حفظ هذه السجلات؟
-    transports: [
-        // 1. ملف للأخطاء الحرجة فقط (مهم جداً للمراجعة الأمنية وصيانة الخادم)
-        new winston.transports.File({ 
-            filename: path.join(__dirname, '../logs/error.log'), 
-            level: 'error' 
-        }),
-        // 2. ملف يجمع كل السجلات (الأنشطة العامة، طلبات API، والأخطاء)
-        new winston.transports.File({ 
-            filename: path.join(__dirname, '../logs/combined.log') 
-        })
-    ]
+    transports
 });
-
-// 3. عرض السجلات في الشاشة أيضاً (أثناء فترة التطوير)
-// بالرغم من الحفظ في الملفات الدائمة، نقوم بطباعة السجلات في الشاشة لتسهيل المتابعة أثناء كتابة الكود.
-if (process.env.NODE_ENV !== 'production') {
-    logger.add(new winston.transports.Console({
-        format: winston.format.combine(
-            winston.format.colorize(), // تلوين النصوص لتسهيل القراءة (أحمر للأخطاء، أخضر للنجاح)
-            winston.format.simple()
-        )
-    }));
-}
 
 module.exports = logger;

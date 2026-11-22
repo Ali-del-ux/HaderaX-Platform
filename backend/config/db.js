@@ -6,6 +6,9 @@ require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 // 1. Create the connection pool targeting our specific database
 // The pool is created synchronously so it can be exported immediately.
+const isTidb = Boolean(process.env.DB_HOST && process.env.DB_HOST.includes('tidbcloud.com'));
+const useSsl = process.env.DB_SSL === 'true' || isTidb;
+
 const pool = mysql.createPool({
     host: process.env.DB_HOST || 'localhost',
     port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 3306,
@@ -15,7 +18,7 @@ const pool = mysql.createPool({
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
-    ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : undefined
+    ssl: useSsl ? { rejectUnauthorized: false } : undefined
 });
 
 /**

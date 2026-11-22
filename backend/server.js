@@ -130,6 +130,19 @@ app.use('/api/attendance', attendanceRoutes);
 // تركيب مسارات الأخبار والإعلانات (News Routes)
 app.use('/api/news', newsRoutes);
 
+// فحص حالة الخادم والبيئة السحابية (Cloud Health Check)
+app.get('/api/health', (req, res) => {
+    res.json({
+        status: 'ok',
+        platform: 'HaderaX University Platform',
+        uptime: process.uptime(),
+        environment: process.env.NODE_ENV || 'development',
+        db_host: process.env.DB_HOST ? 'configured' : 'missing',
+        db_name: process.env.DB_NAME || 'haderax_db',
+        timestamp: new Date().toISOString()
+    });
+});
+
 // مسار افتراضي بسيط للتأكد من أن الخادم يعمل عند فحصه بالمتصفح
 app.get('/', (req, res) => {
     res.send('✅ الخادم يعمل بشكل آمن والأنظمة جاهزة.');
