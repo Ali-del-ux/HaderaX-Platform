@@ -24,20 +24,23 @@ const pool = mysql.createPool({
  */
 async function initializeDatabase() {
     try {
-        // 2. Initial connection WITHOUT a specific database to ensure the database gets created
-        // This is necessary because the pool above will fail if the database doesn't exist yet.
-        const connection = await mysql.createConnection({
-            host: process.env.DB_HOST || 'localhost',
-            port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 3306,
-            user: process.env.DB_USER || 'root',
-            password: process.env.DB_PASSWORD || '',
-            ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : undefined
-        });
-
-        // 3. Create the database if it doesn't exist
-        const targetDb = process.env.DB_NAME || 'haderax_db';
-        await connection.query(`CREATE DATABASE IF NOT EXISTS \`${targetDb}\`;`);
-        await connection.end(); // Close this temporary connection
+        // 2. Initial connection check / DB creation for local environments
+        const isLocal = !process.env.DB_HOST || process.env.DB_HOST === 'localhost' || process.env.DB_HOST === '127.0.0.1';
+        if (isLocal) {
+            try {
+                const connection = await mysql.createConnection({
+                    host: process.env.DB_HOST || 'localhost',
+                    port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 3306,
+                    user: process.env.DB_USER || 'root',
+                    password: process.env.DB_PASSWORD || ''
+                });
+                const targetDb = process.env.DB_NAME || 'haderax_db';
+                await connection.query(`CREATE DATABASE IF NOT EXISTS \`${targetDb}\`;`);
+                await connection.end();
+            } catch (localDbErr) {
+                // If DB exists or user has restricted permissions, proceed to pool
+            }
+        }
 
         // 4. Create the Users table with the exact specified schema using the pool
         await pool.query(`
